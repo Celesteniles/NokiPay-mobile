@@ -50,3 +50,5 @@ export '/pages/subpage/contact/contact_widget.dart' show ContactWidget;
 export '/pages/withdraw/withdraw_widget.dart' show WithdrawWidget;
 export '/qr_example/qr_example_widget.dart' show QrExampleWidget;
 export '/send_page/send_page_widget.dart' show SendPageWidget;
+export '/pages/subpage/receiver_page/receiver_page_widget.dart'
+    show ReceiverPageWidget;

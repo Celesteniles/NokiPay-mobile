@@ -9,8 +9,17 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:async';
 
 class FetchContactsWidget extends StatefulWidget {
   const FetchContactsWidget({
@@ -35,7 +44,7 @@ class _FetchContactsWidgetState extends State<FetchContactsWidget> {
     _getContacts();
   }
 
-  FutureOr<List<Contact>> _getContacts({String? query}) async {
+  Future<List<Contact>> _getContacts({String? query}) async {
     List<Contact> contacts = [];
 
     if (await Permission.contacts.request().isGranted) {
@@ -53,9 +62,9 @@ class _FetchContactsWidgetState extends State<FetchContactsWidget> {
                   .contains(query.replaceAll(RegExp(r'\s+'), ''));
         }).toList();
       }
-
-      return contacts;
     }
+
+    return contacts;
   }
 
   void _searchContacts(String query) async {
@@ -71,11 +80,67 @@ class _FetchContactsWidgetState extends State<FetchContactsWidget> {
       itemCount: _contacts.length,
       itemBuilder: (context, index) {
         Contact contact = _contacts[index];
-        return ListTile(
-          title: Text(contact.displayName ?? 'No name'),
-          subtitle: Text(contact.phones != null
-              ? contact.phones?.first.value ?? 'No phone number'
-              : 'No phone number'),
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).primary,
+                shape: BoxShape.circle,
+              ),
+              child: Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: Text(
+                  functions.getInitial(contact.displayName ?? 'No name'),
+                  maxLines: 1,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                        color: Colors.black,
+                        fontSize: 16,
+                        letterSpacing: 0,
+                        fontWeight: FontWeight.w800,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                      ),
+                ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  contact.displayName ?? 'No name',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                        fontSize: 14,
+                        letterSpacing: 0,
+                        fontWeight: FontWeight.w600,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                      ),
+                ),
+                Text(
+                  contact.phones != null
+                      ? contact.phones?.first.value ?? 'No phone number'
+                      : 'No phone number',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        fontSize: 10,
+                        letterSpacing: 0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                      ),
+                ),
+              ],
+            ),
+          ].divide(SizedBox(width: 15)),
         );
       },
     );

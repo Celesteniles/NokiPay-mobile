@@ -1053,8 +1053,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         blurRadius: 0.0,
                                         color: Color(0x1A000000),
                                         offset: Offset(
-                                          -3.0,
-                                          3.0,
+                                          -2.0,
+                                          2.0,
                                         ),
                                       )
                                     ],
