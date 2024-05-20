@@ -1,0 +1,3 @@
+NSCameraUsageDescription = "該應用程式需要攝影機存取權限，以便透過掃描商家和其他用戶的二維碼進行付款。";
+NSFaceIDUsageDescription = "該應用程式需要存取生物識別資訊以保護您的錢包。";
+NSContactsUsageDescription = "該應用程式需要訪問您的聯絡人來推薦您認識的人，以便於導航和轉帳。";

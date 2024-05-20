@@ -1,0 +1,3 @@
+NSCameraUsageDescription = "Programu inahitaji ufikiaji wa kamera ili kuwezesha malipo kwa kuchanganua misimbo ya QR ya wafanyabiashara na watumiaji wengine.";
+NSFaceIDUsageDescription = "Programu inahitaji ufikiaji wa bayometriki ili kulinda pochi yako.";
+NSContactsUsageDescription = "Programu inahitaji ufikiaji wa anwani zako ili kupendekeza watu unaowajua ili kuwezesha urambazaji na kuhamisha pesa.";

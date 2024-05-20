@@ -1,0 +1,3 @@
+NSCameraUsageDescription = "The app requires camera access to facilitate payments by scanning the QR codes of merchants and other users.";
+NSFaceIDUsageDescription = "The app requires access to biometrics in order to secure your wallet.";
+NSContactsUsageDescription = "The application requires access to your contacts to suggest people you know in order to facilitate navigation and money transfer.";

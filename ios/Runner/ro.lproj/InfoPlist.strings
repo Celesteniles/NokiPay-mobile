@@ -1,0 +1,3 @@
+NSCameraUsageDescription = "Aplicația necesită acces la cameră pentru a facilita plățile prin scanarea codurilor QR ale comercianților și ale altor utilizatori.";
+NSFaceIDUsageDescription = "Aplicația necesită acces la datele biometrice pentru a vă securiza portofelul.";
+NSContactsUsageDescription = "Aplicația necesită acces la contactele dvs. pentru a sugera persoane pe care le cunoașteți pentru a facilita navigarea și transferul de bani.";

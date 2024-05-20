@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>NokiPay</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>NokiPay</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>fr</string>
+		<string>en</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>de</string>
+		<string>ru</string>
+		<string>ar</string>
+		<string>zh_Hans</string>
+		<string>ja</string>
+		<string>it</string>
+		<string>sw</string>
+		<string>zh_Hant</string>
+		<string>hi</string>
+		<string>ro</string>
+		<string>ko</string>
+	</array>
+
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>        <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>nokipay.com</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>nokipay</string>
+        </array>
+        </dict>
+    </array>
+    <key>FlutterDeepLinkingEnabled</key>
+    <true/>
+
+
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>L&#39;application nécessite l&#39;accès à la caméra pour faciliter les paiements en scannant les QR code des marchands et autres utilisateurs.</string>
+	<key>NSFaceIDUsageDescription</key>
+    <string>L&#39;application nécessite l&#39;accès à la biométrie afin de sécuriser votre portefeuille.</string>
+	<key>NSContactsUsageDescription</key>
+    <string>L'application nécessite l'accès à vos contacts pour vous suggérer des personnes que vous connaissez afin de faciliter la navigation et du transfert d'argent.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>L'autorisation d'accès à votre photothèque est nécessaire pour assurer une identification fiable de l'utilisateur et éventuellement importer des photos de profil, garantissant ainsi la sécurité et l'exactitude des informations fournies.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>L'application demande l'accès à votre position approximative afin de fournir des fonctionnalités basées sur la localisation, améliorant ainsi votre expérience utilisateur.</string>
+	<key>NSAppTransportSecurity</key>
+    <string>Cette application nécessite l'accès à l'état de la connexion Internet pour fournir une expérience utilisateur optimale.</string>
+
+
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+</dict>
+</plist>

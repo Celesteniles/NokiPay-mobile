@@ -1,0 +1,3 @@
+NSCameraUsageDescription = "该应用程序需要摄像头访问权限，以便通过扫描商家和其他用户的二维码进行支付。";
+NSFaceIDUsageDescription = "该应用程序需要访问生物识别信息以保护您的钱包。";
+NSContactsUsageDescription = "该应用程序需要访问您的联系人来推荐您认识的人，以便于导航和转账。";
