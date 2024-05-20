@@ -219,7 +219,9 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                           shape: BoxShape
                                                               .rectangle,
                                                           border: Border.all(
-                                                            color: Colors.black,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
                                                             width: 1.0,
                                                           ),
                                                         ),
@@ -567,8 +569,10 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.black,
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
                                                             width: 1.0,
                                                           ),
                                                           borderRadius:
@@ -693,8 +697,10 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.black,
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
                                                             width: 1.0,
                                                           ),
                                                           borderRadius:
@@ -895,9 +901,17 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                       0.0,
                                                                       4.0),
                                                           child: FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
+                                                            onPressed:
+                                                                () async {
+                                                              await _model
+                                                                  .pageViewController
+                                                                  ?.nextPage(
+                                                                duration: const Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                                curve:
+                                                                    Curves.ease,
+                                                              );
                                                             },
                                                             text: FFLocalizations
                                                                     .of(context)
