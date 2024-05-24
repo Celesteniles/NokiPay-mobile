@@ -1,3 +1,6 @@
 NSCameraUsageDescription = "該應用程式需要攝影機存取權限，以便透過掃描商家和其他用戶的二維碼進行付款。";
 NSFaceIDUsageDescription = "該應用程式需要存取生物識別資訊以保護您的錢包。";
 NSContactsUsageDescription = "該應用程式需要訪問您的聯絡人來推薦您認識的人，以便於導航和轉帳。";
+NSPhotoLibraryUsageDescription = "授權存取您的照片庫對於確保可靠的使用者識別以及可能匯入的個人資料照片、確保所提供資訊的安全性和準確性是必要的。";
+NSLocationWhenInUseUsageDescription = "該應用程式請求訪問您的大概位置，以提供基於位置的功能，從而改善您的用戶體驗。";
+NSAppTransportSecurity = "此應用程式需要存取網路連線狀態以提供最佳的使用者體驗。";

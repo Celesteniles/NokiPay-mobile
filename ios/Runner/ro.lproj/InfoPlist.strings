@@ -1,3 +1,6 @@
 NSCameraUsageDescription = "Aplicația necesită acces la cameră pentru a facilita plățile prin scanarea codurilor QR ale comercianților și ale altor utilizatori.";
 NSFaceIDUsageDescription = "Aplicația necesită acces la datele biometrice pentru a vă securiza portofelul.";
 NSContactsUsageDescription = "Aplicația necesită acces la contactele dvs. pentru a sugera persoane pe care le cunoașteți pentru a facilita navigarea și transferul de bani.";
+NSPhotoLibraryUsageDescription = "Autorizarea accesului la biblioteca dvs. de fotografii este necesară pentru a asigura o identificare fiabilă a utilizatorului și, eventual, pentru a importa fotografii de profil, asigurând securitatea și acuratețea informațiilor furnizate.";
+NSLocationWhenInUseUsageDescription = "Aplicația solicită acces la locația dvs. aproximativă pentru a oferi funcții bazate pe locație, îmbunătățind astfel experiența dvs. de utilizator.";
+NSAppTransportSecurity = "Această aplicație necesită acces la starea conexiunii la Internet pentru a oferi o experiență optimă de utilizare.";

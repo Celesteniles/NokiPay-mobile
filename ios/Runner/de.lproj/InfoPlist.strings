@@ -1,3 +1,6 @@
 NSCameraUsageDescription = "Die App erfordert Kamerazugriff, um Zahlungen durch Scannen der QR-Codes von Händlern und anderen Benutzern zu erleichtern.";
 NSFaceIDUsageDescription = "Die App benötigt Zugriff auf biometrische Daten, um Ihr Portemonnaie zu schützen.";
 NSContactsUsageDescription = "Die Anwendung benötigt Zugriff auf Ihre Kontakte, um Personen, die Sie kennen, vorzuschlagen und so die Navigation und den Geldtransfer zu erleichtern.";
+NSPhotoLibraryUsageDescription = "Die Autorisierung des Zugriffs auf Ihre Fotobibliothek ist erforderlich, um eine zuverlässige Benutzeridentifizierung und möglicherweise den Import von Profilfotos sicherzustellen und so die Sicherheit und Genauigkeit der bereitgestellten Informationen zu gewährleisten.";
+NSLocationWhenInUseUsageDescription = "Die App fordert Zugriff auf Ihren ungefähren Standort an, um standortbasierte Funktionen bereitzustellen und so Ihr Benutzererlebnis zu verbessern.";
+NSAppTransportSecurity = "Diese Anwendung benötigt Zugriff auf den Internetverbindungsstatus, um ein optimales Benutzererlebnis zu bieten.";

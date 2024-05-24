@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'home_widget.dart' show HomeWidget;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,6 +8,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Get Solde)] action in Row widget.
+  ApiCallResponse? soldeAPI;
   // State field(s) for Carousel widget.
   CarouselController? carouselController;
 

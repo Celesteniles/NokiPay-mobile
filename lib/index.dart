@@ -50,3 +50,7 @@ export '/qr_example/qr_example_widget.dart' show QrExampleWidget;
 export '/send_page/send_page_widget.dart' show SendPageWidget;
 export '/pages/subpage/receiver_page/receiver_page_widget.dart'
     show ReceiverPageWidget;
+export '/pages/subpage/protection_page/protection_page_widget.dart'
+    show ProtectionPageWidget;
+export '/pages/subpage/notification/notification_widget.dart'
+    show NotificationWidget;

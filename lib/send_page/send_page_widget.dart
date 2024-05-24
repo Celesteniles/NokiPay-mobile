@@ -1,12 +1,13 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'send_page_model.dart';
 export 'send_page_model.dart';
 
@@ -51,6 +52,8 @@ class _SendPageWidgetState extends State<SendPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -241,11 +244,126 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                         ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [],
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 15.0),
+                  child: FutureBuilder<ApiCallResponse>(
+                    future: ApiNokiPayGroup.getContactsCall.call(
+                      accessToken: FFAppState().accessToken,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40.0,
+                            height: 40.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      final rowGetContactsResponse = snapshot.data!;
+                      return Builder(
+                        builder: (context) {
+                          final contact = ApiNokiPayGroup.getContactsCall
+                                  .data(
+                                    rowGetContactsResponse.jsonBody,
+                                  )
+                                  ?.toList() ??
+                              [];
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children:
+                                  List.generate(contact.length, (contactIndex) {
+                                final contactItem = contact[contactIndex];
+                                return Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Icon(
+                                        Icons.phone,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'htc78wls' /* MTN MoMo CG */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .blueTextColor,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                        Text(
+                                          getJsonField(
+                                            contactItem,
+                                            r'''$.mobile''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ].divide(const SizedBox(width: 10.0)),
+                                );
+                              })
+                                      .divide(const SizedBox(width: 15.0))
+                                      .around(const SizedBox(width: 15.0)),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
                 Divider(
@@ -269,10 +387,6 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                               FlutterFlowTheme.of(context).bodyMediumFamily),
                         ),
                   ),
-                ),
-                custom_widgets.FetchContactsWidget(
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.2,
                 ),
               ],
             ),

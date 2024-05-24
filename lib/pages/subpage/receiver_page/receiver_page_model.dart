@@ -29,10 +29,6 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
   FocusNode? prenomFocusNode;
   TextEditingController? prenomTextController;
   String? Function(BuildContext, String?)? prenomTextControllerValidator;
-  // State field(s) for nom widget.
-  FocusNode? nomFocusNode;
-  TextEditingController? nomTextController;
-  String? Function(BuildContext, String?)? nomTextControllerValidator;
   // State field(s) for Expandable widget.
   late ExpandableController expandableExpandableController1;
 
@@ -67,9 +63,6 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
 
     prenomFocusNode?.dispose();
     prenomTextController?.dispose();
-
-    nomFocusNode?.dispose();
-    nomTextController?.dispose();
 
     expandableExpandableController1.dispose();
     phoneMobileFocusNode?.dispose();

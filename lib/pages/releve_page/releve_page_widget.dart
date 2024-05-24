@@ -97,6 +97,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
               return SafeArea(
                 top: false,
                 child: SingleChildScrollView(
+                  primary: false,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +134,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                     .labelMediumFamily),
                                       ),
                                   hintText: FFLocalizations.of(context).getText(
-                                    'a75xoh9u' /* Rechercher */,
+                                    'zmiaiftu' /* Rechercher */,
                                   ),
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -229,17 +230,22 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 15.0, 0.0, 15.0),
+                                      0.0, 10.0, 0.0, 10.0),
                                   iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: _model.filter == 'transfer'
+                                      ? Colors.black
+                                      : FlutterFlowTheme.of(context).alternate,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .titleSmallFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: _model.filter == 'transfer'
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryText,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w800,
@@ -250,7 +256,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(100.0),
-                                  hoverColor: Colors.black,
+                                  hoverColor: const Color(0xB2000000),
                                   hoverTextColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -268,17 +274,22 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 15.0, 0.0, 15.0),
+                                      0.0, 10.0, 0.0, 10.0),
                                   iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: _model.filter == 'paiement'
+                                      ? Colors.black
+                                      : FlutterFlowTheme.of(context).alternate,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .titleSmallFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: _model.filter == 'paiement'
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryText,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w800,
@@ -307,17 +318,22 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 15.0, 0.0, 15.0),
+                                      0.0, 10.0, 0.0, 10.0),
                                   iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: _model.filter == 'facture'
+                                      ? Colors.black
+                                      : FlutterFlowTheme.of(context).alternate,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .titleSmallFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: _model.filter == 'facture'
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .primaryText,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w800,
@@ -434,7 +450,6 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                       16.0,
                                     ),
                                     reverse: true,
-                                    primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: varTransaction.length,
@@ -455,74 +470,81 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Align(
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'r9g2g6is' /* SK */,
-                                                      ),
-                                                      style:
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 18.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
+                                                              .primary,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Text(
+                                                        getJsonField(
+                                                          varTransactionItem,
+                                                          r'''$.type''',
+                                                        )
+                                                            .toString()
+                                                            .maybeHandleOverflow(
+                                                                maxChars: 2),
+                                                        maxLines: 1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'dsz56k8s' /* Stéphane Kane */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          getJsonField(
+                                                            varTransactionItem,
+                                                            r'''$.type''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMediumFamily,
-                                                                fontSize: 16.0,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
@@ -534,16 +556,14 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                                         FlutterFlowTheme.of(context)
                                                                             .bodyMediumFamily),
                                                               ),
-                                                    ),
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'o9bghyme' /* Mar 21, 2024 09:30 */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                        ),
+                                                        Text(
+                                                          getJsonField(
+                                                            varTransactionItem,
+                                                            r'''$.created_at''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
@@ -552,6 +572,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
+                                                                fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 useGoogleFonts: GoogleFonts
@@ -560,11 +581,13 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                                         FlutterFlowTheme.of(context)
                                                                             .bodyMediumFamily),
                                                               ),
+                                                        ),
+                                                      ].divide(const SizedBox(
+                                                          height: 5.0)),
                                                     ),
-                                                  ].divide(
-                                                      const SizedBox(height: 5.0)),
-                                                ),
-                                              ].divide(const SizedBox(width: 15.0)),
+                                                  ),
+                                                ].divide(const SizedBox(width: 15.0)),
+                                              ),
                                             ),
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -572,10 +595,10 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'zgi608lu' /* 20 000 XAF */,
-                                                  ),
+                                                  '${getJsonField(
+                                                    varTransactionItem,
+                                                    r'''$.amount''',
+                                                  ).toString()} F CFA',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -584,7 +607,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyMediumFamily,
-                                                        fontSize: 16.0,
+                                                        fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -644,7 +667,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                 ),
                                               ].divide(const SizedBox(height: 4.0)),
                                             ),
-                                          ],
+                                          ].divide(const SizedBox(width: 12.0)),
                                         ),
                                       );
                                     },

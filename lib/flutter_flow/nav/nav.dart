@@ -352,6 +352,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ReceiverPage',
           path: '/receiverPage',
           builder: (context, params) => const ReceiverPageWidget(),
+        ),
+        FFRoute(
+          name: 'ProtectionPage',
+          path: '/protectionPage',
+          builder: (context, params) => const ProtectionPageWidget(),
+        ),
+        FFRoute(
+          name: 'Notification',
+          path: '/notification',
+          builder: (context, params) => const NotificationWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

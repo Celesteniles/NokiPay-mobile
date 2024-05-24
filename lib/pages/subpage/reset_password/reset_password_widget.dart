@@ -149,18 +149,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           textCapitalization: TextCapitalization.none,
                           obscureText: !_model.codePinVisibility,
                           decoration: InputDecoration(
-                            labelText: FFLocalizations.of(context).getText(
-                              'wa2x1q80' /* Code PIN actuel */,
+                            hintText: FFLocalizations.of(context).getText(
+                              'dwa6ll5k' /* Code PIN actuel */,
                             ),
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
-                                      .labelMediumFamily,
+                                      .bodyMediumFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
+                                          .bodyMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -241,18 +243,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           textCapitalization: TextCapitalization.none,
                           obscureText: !_model.newCodePinVisibility,
                           decoration: InputDecoration(
-                            labelText: FFLocalizations.of(context).getText(
-                              'nbaay635' /* Nouveau code PIN */,
+                            hintText: FFLocalizations.of(context).getText(
+                              'eii3njzh' /* Nouveau code PIN */,
                             ),
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
-                                      .labelMediumFamily,
+                                      .bodyMediumFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
+                                          .bodyMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -333,18 +337,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           textCapitalization: TextCapitalization.none,
                           obscureText: !_model.confirmationCodePinVisibility,
                           decoration: InputDecoration(
-                            labelText: FFLocalizations.of(context).getText(
-                              'f94o17uw' /* Confirmation code PIN */,
+                            hintText: FFLocalizations.of(context).getText(
+                              '1yqvisdw' /* Confirmation code PIN */,
                             ),
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
-                                      .labelMediumFamily,
+                                      .bodyMediumFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: GoogleFonts.asMap()
                                       .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
+                                          .bodyMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(

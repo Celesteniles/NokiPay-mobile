@@ -1,3 +1,6 @@
 NSCameraUsageDescription = "판매자와 다른 사용자의 QR 코드를 스캔하여 결제를 용이하게 하려면 앱에 카메라 액세스가 필요합니다.";
 NSFaceIDUsageDescription = "지갑을 보호하려면 앱에서 생체 인식에 대한 액세스가 필요합니다.";
 NSContactsUsageDescription = "탐색 및 송금을 용이하게 하기 위해 아는 사람을 추천하려면 애플리케이션에 연락처에 대한 액세스가 필요합니다.";
+NSPhotoLibraryUsageDescription = "신뢰할 수 있는 사용자 식별을 보장하고 프로필 사진을 가져오며 제공된 정보의 보안과 정확성을 보장하려면 사진 라이브러리에 대한 액세스 권한을 부여하는 것이 필요합니다.";
+NSLocationWhenInUseUsageDescription = "앱은 위치 기반 기능을 제공하여 사용자 경험을 개선하기 위해 대략적인 위치에 대한 액세스를 요청합니다.";
+NSAppTransportSecurity = "이 애플리케이션은 최적의 사용자 경험을 제공하기 위해 인터넷 연결 상태에 대한 액세스가 필요합니다.";

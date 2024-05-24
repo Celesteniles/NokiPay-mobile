@@ -22,7 +22,9 @@ class AppLifecycleObserver with WidgetsBindingObserver {
       // Do something when app is resumed
       print('App is in foreground');
       if (!FFAppState().connected) {
-        _authenticate();
+        if (!FFAppState().isBlockAllow) {
+          _authenticate();
+        }
       }
     } else if (state == AppLifecycleState.paused) {
       // Do something when app is paused

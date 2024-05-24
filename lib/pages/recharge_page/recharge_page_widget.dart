@@ -198,23 +198,26 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                           TextCapitalization.none,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText:
+                                        hintText:
                                             FFLocalizations.of(context).getText(
-                                          'lew3hywi' /* Montant de la recharge */,
+                                          'hmm4t5vk' /* Montant de la recharge */,
                                         ),
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMediumFamily,
+                                                      .bodyMediumFamily,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
                                                   .containsKey(
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .labelMediumFamily),
+                                                          .bodyMediumFamily),
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
@@ -317,7 +320,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                     0.0, 0.0, 0.0, 0.0),
                                 color: _model.mode == 'mobile'
                                     ? Colors.black
-                                    : Colors.white,
+                                    : FlutterFlowTheme.of(context)
+                                        .tertiareBackground,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -325,7 +329,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                           .titleSmallFamily,
                                       color: _model.mode == 'mobile'
                                           ? FlutterFlowTheme.of(context).primary
-                                          : Colors.black,
+                                          : FlutterFlowTheme.of(context)
+                                              .primaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w800,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -366,7 +371,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                     0.0, 0.0, 0.0, 0.0),
                                 color: _model.mode == 'bancaire'
                                     ? Colors.black
-                                    : Colors.white,
+                                    : FlutterFlowTheme.of(context)
+                                        .tertiareBackground,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -374,7 +380,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                           .titleSmallFamily,
                                       color: _model.mode == 'bancaire'
                                           ? FlutterFlowTheme.of(context).primary
-                                          : Colors.black,
+                                          : FlutterFlowTheme.of(context)
+                                              .primaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w800,
                                       useGoogleFonts: GoogleFonts.asMap()
@@ -1032,7 +1039,9 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                       BorderRadius.circular(
                                                           100.0),
                                                   disabledColor:
-                                                      const Color(0xFFFFF2D3),
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .disabledPrimaryButton,
                                                 ),
                                               ),
                                             ),

@@ -277,7 +277,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                             border: Border.all(
                                                               color:
                                                                   Colors.black,
-                                                              width: 3.0,
+                                                              width: 1.0,
                                                             ),
                                                           ),
                                                           child: Padding(

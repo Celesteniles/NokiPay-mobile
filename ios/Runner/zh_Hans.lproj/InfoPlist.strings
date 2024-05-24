@@ -1,3 +1,6 @@
-NSCameraUsageDescription = "该应用程序需要摄像头访问权限，以便通过扫描商家和其他用户的二维码进行支付。";
+NSCameraUsageDescription = "该应用程序需要摄像头访问权限，以便通过扫描商家和其他用户的二维码进行付款。";
 NSFaceIDUsageDescription = "该应用程序需要访问生物识别信息以保护您的钱包。";
 NSContactsUsageDescription = "该应用程序需要访问您的联系人来推荐您认识的人，以便于导航和转账。";
+NSPhotoLibraryUsageDescription = "授权访问您的照片库对于确保可靠的用户识别以及可能导入的个人资料照片、确保所提供信息的安全性和准确性是必要的。";
+NSLocationWhenInUseUsageDescription = "该应用程序请求访问您的大概位置，以提供基于位置的功能，从而改善您的用户体验。";
+NSAppTransportSecurity = "此应用程序需要访问互联网连接状态以提供最佳的用户体验。";

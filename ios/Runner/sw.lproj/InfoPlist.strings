@@ -1,3 +1,6 @@
 NSCameraUsageDescription = "Programu inahitaji ufikiaji wa kamera ili kuwezesha malipo kwa kuchanganua misimbo ya QR ya wafanyabiashara na watumiaji wengine.";
 NSFaceIDUsageDescription = "Programu inahitaji ufikiaji wa bayometriki ili kulinda pochi yako.";
 NSContactsUsageDescription = "Programu inahitaji ufikiaji wa anwani zako ili kupendekeza watu unaowajua ili kuwezesha urambazaji na kuhamisha pesa.";
+NSPhotoLibraryUsageDescription = "Kuidhinisha ufikiaji wa maktaba yako ya picha ni muhimu ili kuhakikisha utambulisho unaotegemewa wa mtumiaji na ikiwezekana kuleta picha za wasifu, kuhakikisha usalama na usahihi wa taarifa iliyotolewa.";
+NSLocationWhenInUseUsageDescription = "Programu huomba ufikiaji wa kadirio la eneo lako ili kutoa vipengele vinavyotegemea eneo, na hivyo kuboresha matumizi yako ya mtumiaji.";
+NSAppTransportSecurity = "Programu hii inahitaji ufikiaji wa hali ya muunganisho wa Mtandao ili kutoa matumizi bora ya mtumiaji.";
