@@ -103,16 +103,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginWidget(),
         ),
         FFRoute(
-          name: 'TransactionDetails',
-          path: '/transactionDetails',
-          builder: (context, params) => TransactionDetailsWidget(
-            doctorJson: params.getParam(
-              'doctorJson',
-              ParamType.JSON,
-            ),
-          ),
-        ),
-        FFRoute(
           name: 'Onboarding',
           path: '/onboarding',
           builder: (context, params) => const OnboardingWidget(),

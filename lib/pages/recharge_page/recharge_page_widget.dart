@@ -856,7 +856,9 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                       BorderRadius.circular(
                                                           100.0),
                                                   disabledColor:
-                                                      const Color(0xFFFFF2D3),
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .disabledPrimaryButton,
                                                 ),
                                               ),
                                             ),

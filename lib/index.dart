@@ -4,8 +4,6 @@ export '/pages/old/home_page_old/home_page_old_widget.dart'
 export '/pages/releve_page/releve_page_widget.dart' show RelevePageWidget;
 export '/pages/old/settings/settings_widget.dart' show SettingsWidget;
 export '/pages/auth/old/login/login_widget.dart' show LoginWidget;
-export '/pages/subpage/transaction_details/transaction_details_widget.dart'
-    show TransactionDetailsWidget;
 export '/pages/auth/onboarding/onboarding_widget.dart' show OnboardingWidget;
 export '/pages/auth/old/verify/verify_widget.dart' show VerifyWidget;
 export '/pages/old/recharge_page_copy/recharge_page_copy_widget.dart'

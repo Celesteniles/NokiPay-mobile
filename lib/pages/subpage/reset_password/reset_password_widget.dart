@@ -94,12 +94,12 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -537,8 +537,8 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                     ].divide(const SizedBox(height: 10.0)),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

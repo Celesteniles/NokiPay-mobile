@@ -352,7 +352,7 @@ class RegisterCall {
 
 class FindTransactionCall {
   Future<ApiCallResponse> call({
-    int? transId,
+    String? transId = '',
     String? accessToken = '',
   }) async {
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
@@ -421,6 +421,7 @@ class CheckAccountCall {
 
 class GetTransactionsCall {
   Future<ApiCallResponse> call({
+    String? type = '',
     String? accessToken = '',
   }) async {
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
@@ -436,7 +437,9 @@ class GetTransactionsCall {
         'Authorization': 'Bearer $accessToken',
         'Accept': 'application/json',
       },
-      params: {},
+      params: {
+        'type': type,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -598,7 +601,7 @@ class TransfertNokiPayCall {
   Future<ApiCallResponse> call({
     String? receiver = '',
     double? amount,
-    int? pin,
+    String? pin = '',
     String? dialCode = '',
     String? accessToken = '',
   }) async {
@@ -644,7 +647,7 @@ class DepositNokiPayCall {
   Future<ApiCallResponse> call({
     String? receiver = '',
     double? amount,
-    int? pin,
+    String? pin = '',
     String? dialCode = '',
     String? accessToken = '',
   }) async {
@@ -690,7 +693,7 @@ class TransfertNokiPayRemittenceCall {
   Future<ApiCallResponse> call({
     String? telephone = '',
     double? amount,
-    int? pin,
+    String? pin = '',
     String? dialCode = '',
     String? nom = '',
     String? prenom = '',

@@ -508,7 +508,8 @@ class _AgreePageWidgetState extends State<AgreePageWidget> {
                                     width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(100.0),
-                                  disabledColor: const Color(0xFFFFF2D3),
+                                  disabledColor: FlutterFlowTheme.of(context)
+                                      .disabledPrimaryButton,
                                 ),
                               ),
                             ),

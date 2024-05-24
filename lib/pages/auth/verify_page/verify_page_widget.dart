@@ -226,7 +226,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                           ),
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      enableActiveFill: false,
+                                      enableActiveFill: true,
                                       autoFocus: true,
                                       enablePinAutofill: true,
                                       errorTextSpace: 16.0,
@@ -247,13 +247,17 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                           topRight: Radius.circular(12.0),
                                         ),
                                         shape: PinCodeFieldShape.box,
-                                        activeColor: Colors.black,
-                                        inactiveColor: Colors.black,
+                                        activeColor:
+                                            FlutterFlowTheme.of(context).info,
+                                        inactiveColor:
+                                            FlutterFlowTheme.of(context).info,
                                         selectedColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,
-                                        activeFillColor: Colors.black,
-                                        inactiveFillColor: Colors.black,
+                                        activeFillColor:
+                                            FlutterFlowTheme.of(context).info,
+                                        inactiveFillColor:
+                                            FlutterFlowTheme.of(context).info,
                                         selectedFillColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,

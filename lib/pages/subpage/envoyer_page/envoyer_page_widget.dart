@@ -2843,9 +2843,9 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                               .tryParse(_model
                                                                   .amountTextController
                                                                   .text),
-                                                          pin: int.tryParse(_model
+                                                          pin: _model
                                                               .pinCodeController!
-                                                              .text),
+                                                              .text,
                                                           dialCode: functions
                                                               .phoneFormatter(functions
                                                                   .getDialCode(

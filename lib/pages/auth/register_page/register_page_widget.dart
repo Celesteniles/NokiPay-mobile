@@ -277,29 +277,29 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                           obscureText: false,
                                                           decoration:
                                                               InputDecoration(
-                                                            labelText:
+                                                            hintText:
                                                                 FFLocalizations.of(
                                                                         context)
                                                                     .getText(
-                                                              'khxtvc6h' /* Prénom */,
+                                                              '1z65qbht' /* Prénom */,
                                                             ),
-                                                            labelStyle:
+                                                            hintStyle:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelMedium
+                                                                    .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           FlutterFlowTheme.of(context)
-                                                                              .labelMediumFamily,
+                                                                              .bodyMediumFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryText,
+                                                                          .secondaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       useGoogleFonts: GoogleFonts
                                                                               .asMap()
                                                                           .containsKey(
-                                                                              FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                     ),
                                                             enabledBorder:
                                                                 OutlineInputBorder(
@@ -409,29 +409,29 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                           obscureText: false,
                                                           decoration:
                                                               InputDecoration(
-                                                            labelText:
+                                                            hintText:
                                                                 FFLocalizations.of(
                                                                         context)
                                                                     .getText(
-                                                              '3liz3sh9' /* Nom */,
+                                                              'y1jytaq2' /* Nom */,
                                                             ),
-                                                            labelStyle:
+                                                            hintStyle:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelMedium
+                                                                    .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           FlutterFlowTheme.of(context)
-                                                                              .labelMediumFamily,
+                                                                              .bodyMediumFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryText,
+                                                                          .secondaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       useGoogleFonts: GoogleFonts
                                                                               .asMap()
                                                                           .containsKey(
-                                                                              FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                     ),
                                                             enabledBorder:
                                                                 OutlineInputBorder(
@@ -633,8 +633,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                           .circular(
                                                                               100.0),
                                                                   disabledColor:
-                                                                      const Color(
-                                                                          0xFFFFF2D3),
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .disabledPrimaryButton,
                                                                 ),
                                                               ),
                                                             ),
@@ -1069,8 +1070,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                         .circular(
                                                                             100.0),
                                                                 disabledColor:
-                                                                    const Color(
-                                                                        0xFFFFF2D3),
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .disabledPrimaryButton,
                                                               ),
                                                             ),
                                                           ),
@@ -1348,7 +1350,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                     100.0),
                                                         border: Border.all(
                                                           color: Colors.black,
-                                                          width: 3.0,
+                                                          width: 1.0,
                                                         ),
                                                       ),
                                                       child: Column(
@@ -1380,8 +1382,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMediumFamily,
-                                                                  color: Colors
-                                                                      .black,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts: GoogleFonts
@@ -1571,8 +1574,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                         BorderRadius.circular(
                                                                             100.0),
                                                                     disabledColor:
-                                                                        const Color(
-                                                                            0xFFFFF2D3),
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .disabledPrimaryButton,
                                                                   ),
                                                                 ),
                                                               ),
@@ -1775,23 +1778,25 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             obscureText: false,
                                                             decoration:
                                                                 InputDecoration(
-                                                              labelText:
+                                                              hintText:
                                                                   FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                'u1ycv1tm' /* Numéro rue */,
+                                                                'okvi0bsq' /* Numéro rue */,
                                                               ),
-                                                              labelStyle:
+                                                              hintStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMedium
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(
@@ -1902,23 +1907,25 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             obscureText: false,
                                                             decoration:
                                                                 InputDecoration(
-                                                              labelText:
+                                                              hintText:
                                                                   FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                '5d5hh98w' /* Rue */,
+                                                                'ma620l2j' /* Rue */,
                                                               ),
-                                                              labelStyle:
+                                                              hintStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMedium
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(
@@ -2029,23 +2036,25 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             obscureText: false,
                                                             decoration:
                                                                 InputDecoration(
-                                                              labelText:
+                                                              hintText:
                                                                   FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                'k2j05ti3' /* Avenue */,
+                                                                'fnc1h7u1' /* Avenue */,
                                                               ),
-                                                              labelStyle:
+                                                              hintStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMedium
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(
@@ -2156,23 +2165,25 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             obscureText: false,
                                                             decoration:
                                                                 InputDecoration(
-                                                              labelText:
+                                                              hintText:
                                                                   FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                'w9czmr75' /* Quartier */,
+                                                                'yadq0igy' /* Quartier */,
                                                               ),
-                                                              labelStyle:
+                                                              hintStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMedium
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(
@@ -2283,23 +2294,25 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             obscureText: false,
                                                             decoration:
                                                                 InputDecoration(
-                                                              labelText:
+                                                              hintText:
                                                                   FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                'g3jp14qn' /* Ville */,
+                                                                '0fvmqqw1' /* Ville */,
                                                               ),
-                                                              labelStyle:
+                                                              hintStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelMedium
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(
@@ -2500,8 +2513,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                                         .circular(
                                                                             100.0),
                                                                 disabledColor:
-                                                                    const Color(
-                                                                        0xFFFFF2D3),
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .disabledPrimaryButton,
                                                               ),
                                                             ),
                                                           ),

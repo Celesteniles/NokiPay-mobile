@@ -626,8 +626,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                                 .phoneFieldTextController.text),
                                         amount: double.tryParse(_model
                                             .amountFieldTextController.text),
-                                        pin: int.tryParse(
-                                            _model.codePinTextController.text),
+                                        pin: _model.codePinTextController.text,
                                         dialCode: functions.phoneFormatter(
                                             functions.getDialCode(
                                                 FFAppState().countryName)!),

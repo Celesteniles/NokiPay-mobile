@@ -52,6 +52,10 @@ class FFAppState extends ChangeNotifier {
     await _safeInitAsync(() async {
       _balance = await secureStorage.getDouble('ff_balance') ?? _balance;
     });
+    await _safeInitAsync(() async {
+      _isBlockAllow =
+          await secureStorage.getBool('ff_isBlockAllow') ?? _isBlockAllow;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -183,6 +187,17 @@ class FFAppState extends ChangeNotifier {
 
   void deleteBalance() {
     secureStorage.delete(key: 'ff_balance');
+  }
+
+  bool _isBlockAllow = false;
+  bool get isBlockAllow => _isBlockAllow;
+  set isBlockAllow(bool value) {
+    _isBlockAllow = value;
+    secureStorage.setBool('ff_isBlockAllow', value);
+  }
+
+  void deleteIsBlockAllow() {
+    secureStorage.delete(key: 'ff_isBlockAllow');
   }
 }
 

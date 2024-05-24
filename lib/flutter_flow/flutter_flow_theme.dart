@@ -75,6 +75,8 @@ abstract class FlutterFlowTheme {
   late Color secondaryBackgroundAlt;
   late Color tertiaryAccent;
   late Color disabledPrimaryButton;
+  late Color vertClair;
+  late Color vertFonce;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -191,6 +193,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color secondaryBackgroundAlt = const Color(0xFFFFFFFF);
   late Color tertiaryAccent = const Color(0x33000000);
   late Color disabledPrimaryButton = const Color(0xFFF3F3F3);
+  late Color vertClair = const Color(0xFFB2FF50);
+  late Color vertFonce = const Color(0xFF0A8400);
 }
 
 abstract class Typography {
@@ -599,6 +603,8 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color secondaryBackgroundAlt = const Color(0xFF383838);
   late Color tertiaryAccent = const Color(0x80FFFFFF);
   late Color disabledPrimaryButton = const Color(0xFFF3F3F3);
+  late Color vertClair = const Color(0xFFB2FF50);
+  late Color vertFonce = const Color(0xFF0A8400);
 }
 
 extension TextStyleHelper on TextStyle {

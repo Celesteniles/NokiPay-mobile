@@ -436,7 +436,7 @@ class _ConfirmationTransactionWidgetState
                                     receiver: widget.code,
                                     amount: widget.amount,
                                     accessToken: FFAppState().accessToken,
-                                    pin: widget.pin,
+                                    pin: widget.pin?.toString(),
                                   );
                                   if ((_model.apiResultTransfert?.succeeded ??
                                           true) &&

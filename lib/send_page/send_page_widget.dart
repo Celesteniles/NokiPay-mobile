@@ -272,7 +272,7 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                 ),
                 custom_widgets.FetchContactsWidget(
                   width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 1.0,
+                  height: MediaQuery.sizeOf(context).height * 0.2,
                 ),
               ],
             ),

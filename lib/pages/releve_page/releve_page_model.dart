@@ -7,9 +7,17 @@ import 'releve_page_widget.dart' show RelevePageWidget;
 import 'package:flutter/material.dart';
 
 class RelevePageModel extends FlutterFlowModel<RelevePageWidget> {
+  ///  Local state fields for this page.
+
+  String? filter;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
 
@@ -36,6 +44,8 @@ class RelevePageModel extends FlutterFlowModel<RelevePageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
 
     /// Dispose query cache managers for this widget.
 
