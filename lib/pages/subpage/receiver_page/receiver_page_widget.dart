@@ -390,8 +390,14 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                     const Duration(
                                                                         milliseconds:
                                                                             10),
-                                                                    () => setState(
-                                                                        () {}),
+                                                                    () async {
+                                                                      setState(
+                                                                          () {
+                                                                        _model.phoneMobileTextController?.text = _model
+                                                                            .phoneTextController
+                                                                            .text;
+                                                                      });
+                                                                    },
                                                                   ),
                                                                   autofocus:
                                                                       false,
@@ -689,9 +695,38 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                       0.0,
                                                                       4.0),
                                                           child: FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
+                                                            onPressed:
+                                                                () async {
+                                                              context.pushNamed(
+                                                                'Senderpage',
+                                                                queryParameters:
+                                                                    {
+                                                                  'name':
+                                                                      serializeParam(
+                                                                    _model
+                                                                        .nameTextController
+                                                                        .text,
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                  'phone':
+                                                                      serializeParam(
+                                                                    functions
+                                                                        .phoneFormatter(
+                                                                            '${functions.getDialCode(FFAppState().countryName)}${_model.phoneTextController.text}'),
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                  'anotherCurrency':
+                                                                      serializeParam(
+                                                                    functions.getDevise(
+                                                                        functions
+                                                                            .phoneFormatter('${functions.getDialCode(FFAppState().countryName)}${_model.phoneTextController.text}')),
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
                                                             },
                                                             text: FFLocalizations
                                                                     .of(context)
@@ -875,25 +910,11 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await _model.pageViewController
-                                              ?.previousPage(
-                                            duration:
-                                                const Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_back_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 26.0,
-                                        ),
+                                      Icon(
+                                        Icons.arrow_back_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 26.0,
                                       ),
                                       Text(
                                         FFLocalizations.of(context).getText(
@@ -1296,6 +1317,8 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                             ),
                                                                             autofocus:
                                                                                 false,
+                                                                            readOnly:
+                                                                                true,
                                                                             obscureText:
                                                                                 false,
                                                                             decoration:

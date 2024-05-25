@@ -681,3 +681,34 @@ String encodeJson(
   String jsonData = jsonEncode(data);
   return jsonData;
 }
+
+bool isValid(
+  double balance,
+  double amount,
+) {
+  return balance > amount;
+}
+
+String getDevise(String phone) {
+  Map<String, String> countryCurrencyByPhonePrefix = {
+    '237': 'XAF', // Cameroon
+    '242': 'XAF', // Congo
+    '243': 'USD', // Congo Kinshasa
+    '225': 'XOF', // Cote d'Ivoire
+    '33': 'EUR', // France
+    '241': 'XAF', // Gabon
+    '223': 'XOF', // Mali
+    '221': 'XOF', // Senegal
+  };
+  // Remove any non-numeric characters from the phone number
+  phone = phone.replaceAll(RegExp(r'\D'), '');
+
+  // Iterate through the map to find the longest matching prefix
+  for (var prefix in countryCurrencyByPhonePrefix.keys) {
+    if (phone.startsWith(prefix)) {
+      return countryCurrencyByPhonePrefix[prefix]!;
+    }
+  }
+
+  return 'Unknown';
+}

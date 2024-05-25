@@ -1,16 +1,19 @@
+import '/backend/api_requests/api_calls.dart';
+import '/component/mode_reception/mode_reception_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'senderpage_model.dart';
 export 'senderpage_model.dart';
 
@@ -19,10 +22,12 @@ class SenderpageWidget extends StatefulWidget {
     super.key,
     this.name,
     required this.phone,
-  });
+    String? anotherCurrency,
+  }) : anotherCurrency = anotherCurrency ?? 'XAF';
 
   final String? name;
   final String? phone;
+  final String anotherCurrency;
 
   @override
   State<SenderpageWidget> createState() => _SenderpageWidgetState();
@@ -40,28 +45,41 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.contacts = await actions.fetchContacts(
-        '  ',
+      _model.apiResultatPin = await ApiNokiPayGroup.getSoldeCall.call(
+        accessToken: FFAppState().accessToken,
       );
-      setState(() {
-        _model.isCharge = true;
-      });
+      if ((_model.apiResultatPin?.succeeded ?? true) &&
+          (ApiNokiPayGroup.getSoldeCall.code(
+                (_model.apiResultatPin?.jsonBody ?? ''),
+              ) ==
+              FFAppState().zero)) {
+        FFAppState().update(() {
+          FFAppState().balance = ApiNokiPayGroup.getSoldeCall.solde(
+            (_model.apiResultatPin?.jsonBody ?? ''),
+          )!;
+          FFAppState().currency = ApiNokiPayGroup.getSoldeCall.currency(
+            (_model.apiResultatPin?.jsonBody ?? ''),
+          )!;
         });
+      }
+    });
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.senderAmountTextController ??= TextEditingController();
+    _model.senderAmountFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.receiverAmountTextController ??= TextEditingController();
+    _model.receiverAmountFocusNode ??= FocusNode();
 
     _model.objetTextController ??= TextEditingController();
     _model.objetFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          _model.textController1?.text = FFLocalizations.of(context).getText(
+          _model.senderAmountTextController?.text =
+              FFLocalizations.of(context).getText(
             'u3x2025n' /* 0 */,
           );
-          _model.textController2?.text = FFLocalizations.of(context).getText(
+          _model.receiverAmountTextController?.text =
+              FFLocalizations.of(context).getText(
             'jpq8ze1d' /* 0 */,
           );
         }));
@@ -187,8 +205,19 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                         .secondaryBackground,
                                     borderRadius: BorderRadius.circular(100.0),
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                      color: valueOrDefault<Color>(
+                                        functions.isValid(
+                                                    FFAppState().balance,
+                                                    double.parse(_model
+                                                        .senderAmountTextController
+                                                        .text)) ==
+                                                true
+                                            ? FlutterFlowTheme.of(context)
+                                                .alternate
+                                            : FlutterFlowTheme.of(context)
+                                                .error,
+                                        FlutterFlowTheme.of(context).alternate,
+                                      ),
                                     ),
                                   ),
                                   child: Padding(
@@ -205,10 +234,84 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 0.0, 4.0, 0.0),
                                             child: TextFormField(
-                                              controller:
-                                                  _model.textController1,
+                                              controller: _model
+                                                  .senderAmountTextController,
                                               focusNode:
-                                                  _model.textFieldFocusNode1,
+                                                  _model.senderAmountFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.senderAmountTextController',
+                                                const Duration(milliseconds: 0),
+                                                () async {
+                                                  if (widget.anotherCurrency ==
+                                                      FFAppState().currency) {
+                                                    setState(() {
+                                                      _model.receiverAmountTextController
+                                                              ?.text =
+                                                          _model
+                                                              .senderAmountTextController
+                                                              .text;
+                                                    });
+                                                    setState(() {
+                                                      _model.frais = 0.0;
+                                                      _model.total =
+                                                          double.tryParse(_model
+                                                              .senderAmountTextController
+                                                              .text);
+                                                    });
+                                                  } else {
+                                                    _model.apiResultnqh =
+                                                        await ApiNokiPayGroup
+                                                            .getFeesCall
+                                                            .call(
+                                                      amount: FFAppState()
+                                                          .amount
+                                                          .toDouble(),
+                                                      to: widget.phone,
+                                                      accessToken: FFAppState()
+                                                          .accessToken,
+                                                    );
+                                                    if ((_model.apiResultnqh
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      setState(() {
+                                                        _model.frais =
+                                                            ApiNokiPayGroup
+                                                                .getFeesCall
+                                                                .rate(
+                                                          (_model.apiResultnqh
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        );
+                                                        _model.total =
+                                                            ApiNokiPayGroup
+                                                                .getFeesCall
+                                                                .totalPay(
+                                                          (_model.apiResultnqh
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        );
+                                                        _model.converted =
+                                                            ApiNokiPayGroup
+                                                                .getFeesCall
+                                                                .converted(
+                                                          (_model.apiResultnqh
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                        );
+                                                      });
+                                                      setState(() {
+                                                        _model.receiverAmountTextController
+                                                                ?.text =
+                                                            _model.converted
+                                                                .toString();
+                                                      });
+                                                    }
+                                                  }
+
+                                                  setState(() {});
+                                                },
+                                              ),
                                               autofocus: false,
                                               textCapitalization:
                                                   TextCapitalization.none,
@@ -251,7 +354,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: _model
-                                                  .textController1Validator
+                                                  .senderAmountTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -347,7 +450,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 0.0, 0.0),
                                           child: Text(
-                                            FFAppState().currency,
+                                            widget.anotherCurrency,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -375,10 +478,91 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     4.0, 0.0, 12.0, 0.0),
                                             child: TextFormField(
-                                              controller:
-                                                  _model.textController2,
-                                              focusNode:
-                                                  _model.textFieldFocusNode2,
+                                              controller: _model
+                                                  .receiverAmountTextController,
+                                              focusNode: _model
+                                                  .receiverAmountFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.receiverAmountTextController',
+                                                const Duration(milliseconds: 0),
+                                                () => setState(() {}),
+                                              ),
+                                              onFieldSubmitted: (_) async {
+                                                if (widget.anotherCurrency ==
+                                                    FFAppState().currency) {
+                                                  setState(() {
+                                                    _model.senderAmountTextController
+                                                            ?.text =
+                                                        _model
+                                                            .receiverAmountTextController
+                                                            .text;
+                                                  });
+                                                  setState(() {
+                                                    _model.frais = 0.0;
+                                                    _model.total =
+                                                        double.tryParse(_model
+                                                            .receiverAmountTextController
+                                                            .text);
+                                                  });
+                                                } else {
+                                                  _model.apiResultnqhCopy =
+                                                      await ApiNokiPayGroup
+                                                          .getFeesCall
+                                                          .call(
+                                                    amount: FFAppState()
+                                                        .amount
+                                                        .toDouble(),
+                                                    to: widget.phone,
+                                                    accessToken: FFAppState()
+                                                        .accessToken,
+                                                  );
+                                                  if ((_model.apiResultnqhCopy
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    setState(() {
+                                                      _model.frais =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .rate(
+                                                        (_model.apiResultnqhCopy
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                      _model.total =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .totalPay(
+                                                        (_model.apiResultnqhCopy
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                      _model.converted =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .converted(
+                                                        (_model.apiResultnqhCopy
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                    });
+                                                    setState(() {
+                                                      _model.senderAmountTextController
+                                                              ?.text =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .converted(
+                                                                (_model.apiResultnqhCopy
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )!
+                                                              .toString();
+                                                    });
+                                                  }
+                                                }
+
+                                                setState(() {});
+                                              },
                                               autofocus: false,
                                               textCapitalization:
                                                   TextCapitalization.none,
@@ -421,7 +605,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                               keyboardType:
                                                   TextInputType.number,
                                               validator: _model
-                                                  .textController2Validator
+                                                  .receiverAmountTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
@@ -437,9 +621,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              'v837mh70' /* Frais NokiPay = */,
-                            ),
+                            'Frais NokiPay = ${_model.frais?.toString()}',
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -456,9 +638,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                           ),
                         ),
                         Text(
-                          FFLocalizations.of(context).getText(
-                            'p6y8vjfr' /* Total à payer = */,
-                          ),
+                          'Total à payer = ${_model.total?.toString()}',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
@@ -593,54 +773,114 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                       Builder(
                                         builder: (context) {
                                           if (FFAppState().mode == 'nokipay') {
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Container(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'assets/images/NokiPay_plein.png',
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 10.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '86c44jp8' /* NokiPay */,
+                                            return Builder(
+                                              builder: (context) => InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: WebViewAware(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: SizedBox(
+                                                              width: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ModeReceptionWidget(
+                                                                phone: widget
+                                                                    .phone!,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                        style:
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Container(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/NokiPay_plein.png',
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              double.infinity,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              '86c44jp8' /* NokiPay */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
@@ -662,16 +902,15 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                           FlutterFlowTheme.of(context)
                                                                               .bodyMediumFamily),
                                                                 ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '1pb9e76o' /* 242069463954 */,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                          ),
+                                                          Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              widget.phone,
+                                                              'phone',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
@@ -685,57 +924,119 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                           FlutterFlowTheme.of(context)
                                                                               .bodyMediumFamily),
                                                                 ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ].divide(
+                                                      const SizedBox(width: 12.0)),
                                                 ),
-                                              ].divide(const SizedBox(width: 12.0)),
+                                              ),
                                             );
                                           } else {
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Container(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .accent4,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.phone,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    size: 24.0,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 10.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '6ibpgrp9' /* Mobile Money */,
+                                            return Builder(
+                                              builder: (context) => InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: WebViewAware(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: SizedBox(
+                                                              width: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ModeReceptionWidget(
+                                                                phone: widget
+                                                                    .phone!,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                        style:
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Container(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
+                                                                .accent4,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.phone,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              '6ibpgrp9' /* Mobile Money */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
@@ -757,16 +1058,15 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                           FlutterFlowTheme.of(context)
                                                                               .bodyMediumFamily),
                                                                 ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '0rswmc3t' /* 242069463954 */,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                          ),
+                                                          Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              widget.phone,
+                                                              'phone',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
@@ -780,11 +1080,14 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                           FlutterFlowTheme.of(context)
                                                                               .bodyMediumFamily),
                                                                 ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ].divide(
+                                                      const SizedBox(width: 12.0)),
                                                 ),
-                                              ].divide(const SizedBox(width: 12.0)),
+                                              ),
                                             );
                                           }
                                         },
@@ -922,7 +1225,11 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                   ),
                                 ),
                               ),
-                              if (_model.isNotEnough == true)
+                              if (functions.isValid(
+                                      FFAppState().balance,
+                                      double.parse(_model
+                                          .senderAmountTextController.text)) ==
+                                  false)
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1116,9 +1423,18 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
+                          onPressed: ((functions.isValid(
+                                          FFAppState().balance,
+                                          double.parse(_model
+                                              .senderAmountTextController
+                                              .text)) ==
+                                      false) ||
+                                  (_model.senderAmountTextController.text ==
+                                          ''))
+                              ? null
+                              : () {
+                                  print('Button pressed ...');
+                                },
                           text: FFLocalizations.of(context).getText(
                             'v1tsiorm' /* Envoyer */,
                           ),
@@ -1147,6 +1463,8 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                               width: 0.0,
                             ),
                             borderRadius: BorderRadius.circular(100.0),
+                            disabledColor: FlutterFlowTheme.of(context)
+                                .disabledPrimaryButton,
                           ),
                         ),
                       ),

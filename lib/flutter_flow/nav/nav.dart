@@ -375,6 +375,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'phone',
               ParamType.String,
             ),
+            anotherCurrency: params.getParam(
+              'anotherCurrency',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(

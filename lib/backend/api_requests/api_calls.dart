@@ -36,6 +36,7 @@ class ApiNokiPayGroup {
   static GetSoldeCall getSoldeCall = GetSoldeCall();
   static TransfertNokiPayCall transfertNokiPayCall = TransfertNokiPayCall();
   static DepositNokiPayCall depositNokiPayCall = DepositNokiPayCall();
+  static GetFeesCall getFeesCall = GetFeesCall();
   static AddContactCall addContactCall = AddContactCall();
   static TransfertNokiPayRemittenceCall transfertNokiPayRemittenceCall =
       TransfertNokiPayRemittenceCall();
@@ -795,6 +796,64 @@ class DepositNokiPayCall {
   String? msg(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.msg''',
+      ));
+}
+
+class GetFeesCall {
+  Future<ApiCallResponse> call({
+    double? amount,
+    String? to = '',
+    String? accessToken = '',
+  }) async {
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Fees',
+      apiUrl: '$baseUrl/transactions/get-fees',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {
+        'to': to,
+        'amount': amount,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.code''',
+      ));
+  String? msg(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.msg''',
+      ));
+  dynamic rate(dynamic response) => getJsonField(
+        response,
+        r'''$.rate''',
+      );
+  double? majoration(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.rate.majoration''',
+      ));
+  double? converted(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.rate.converted''',
+      ));
+  double? totalPay(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.rate.total_to_pay''',
       ));
 }
 
