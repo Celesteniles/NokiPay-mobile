@@ -55,3 +55,4 @@ export '/pages/subpage/protection_page/protection_page_widget.dart'
 export '/pages/subpage/notification/notification_widget.dart'
     show NotificationWidget;
 export '/pages/senderpage/senderpage_widget.dart' show SenderpageWidget;
+export '/pages/subpage/paiement/paiement_widget.dart' show PaiementWidget;

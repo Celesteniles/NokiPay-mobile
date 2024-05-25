@@ -1,8 +1,12 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'pin_component_model.dart';
 export 'pin_component_model.dart';
 
@@ -42,6 +46,8 @@ class _PinComponentWidgetState extends State<PinComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -141,8 +147,45 @@ class _PinComponentWidgetState extends State<PinComponentWidget> {
               controller: _model.pinCodeController,
               onChanged: (_) {},
               onCompleted: (_) async {
-                await widget.actionComp?.call();
-                Navigator.pop(context);
+                await actions.customToast(
+                  'Vérification en cours ...',
+                );
+                _model.apiResultatPin = await ApiNokiPayGroup.checkPINCall.call(
+                  pin: _model.pinCodeController!.text,
+                  accessToken: FFAppState().accessToken,
+                );
+                if ((_model.apiResultatPin?.succeeded ?? true) &&
+                    (ApiNokiPayGroup.checkPINCall.code(
+                          (_model.apiResultatPin?.jsonBody ?? ''),
+                        ) ==
+                        FFAppState().zero)) {
+                  FFAppState().update(() {
+                    FFAppState().balance = ApiNokiPayGroup.checkPINCall.solde(
+                      (_model.apiResultatPin?.jsonBody ?? ''),
+                    )!;
+                    FFAppState().currency =
+                        ApiNokiPayGroup.checkPINCall.currency(
+                      (_model.apiResultatPin?.jsonBody ?? ''),
+                    )!;
+                  });
+                  await widget.actionComp?.call();
+                  Navigator.pop(context);
+                } else {
+                  await actions.sweetNotification(
+                    context,
+                    valueOrDefault<String>(
+                      functions.arrayToString(ApiNokiPayGroup.checkPINCall
+                          .msg(
+                            (_model.apiResultatPin?.jsonBody ?? ''),
+                          )
+                          ?.toList()),
+                      'Quelque chose ne s\'est pas bien passée.',
+                    ),
+                    'error',
+                  );
+                }
+
+                setState(() {});
               },
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _model.pinCodeControllerValidator.asValidator(context),

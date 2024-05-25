@@ -231,6 +231,12 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_accountBalance');
   }
 
+  String _mode = 'nokipay';
+  String get mode => _mode;
+  set mode(String value) {
+    _mode = value;
+  }
+
   final _contactsListManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> contactsList({
     String? uniqueQueryKey,

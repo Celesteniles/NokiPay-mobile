@@ -529,45 +529,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return WebViewAware(
-                                                child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: SizedBox(
-                                                      height: 250.0,
-                                                      child: PinComponentWidget(
-                                                        actionComp: () async {
-                                                          await actions
-                                                              .sweetNotification(
-                                                            context,
-                                                            'Msg',
-                                                            'Info',
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
+                                          context.pushNamed('Paiement');
                                         },
                                         child: Container(
                                           width:
@@ -803,7 +765,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           .viewInsetsOf(
                                                               context),
                                                       child: const SizedBox(
-                                                        height: 200.0,
+                                                        height: 500.0,
                                                         child:
                                                             PayComponentWidget(),
                                                       ),
@@ -1097,60 +1059,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     PinComponentWidget(
                                                                   actionComp:
                                                                       () async {
-                                                                    await actions
-                                                                        .customToast(
-                                                                      'Veuillez patienter',
-                                                                    );
-                                                                    _model.soldeAPI =
-                                                                        await ApiNokiPayGroup
-                                                                            .getSoldeCall
-                                                                            .call(
-                                                                      accessToken:
-                                                                          FFAppState()
-                                                                              .accessToken,
-                                                                    );
-                                                                    if (ApiNokiPayGroup
-                                                                            .getSoldeCall
-                                                                            .code(
-                                                                          (_model.soldeAPI?.jsonBody ??
-                                                                              ''),
-                                                                        ) ==
-                                                                        FFAppState()
-                                                                            .zero) {
+                                                                    setState(
+                                                                        () {
                                                                       FFAppState()
-                                                                          .update(
-                                                                              () {
-                                                                        FFAppState().isBalance =
-                                                                            true;
-                                                                        FFAppState().currency = ApiNokiPayGroup
-                                                                            .getSoldeCall
-                                                                            .currency(
-                                                                          (_model.soldeAPI?.jsonBody ??
-                                                                              ''),
-                                                                        )!;
-                                                                        FFAppState().balance = ApiNokiPayGroup
-                                                                            .getSoldeCall
-                                                                            .solde(
-                                                                          (_model.soldeAPI?.jsonBody ??
-                                                                              ''),
-                                                                        )!;
-                                                                      });
-                                                                      await actions
-                                                                          .sweetNotification(
-                                                                        context,
-                                                                        'Solde : ${ApiNokiPayGroup.getSoldeCall.solde(
-                                                                              (_model.soldeAPI?.jsonBody ?? ''),
-                                                                            )?.toString()}',
-                                                                        'success',
-                                                                      );
-                                                                    } else {
-                                                                      await actions
-                                                                          .sweetNotification(
-                                                                        context,
-                                                                        'Quelque chose ne s\'est pas bien passé.',
-                                                                        'error',
-                                                                      );
-                                                                    }
+                                                                              .isBalance =
+                                                                          true;
+                                                                    });
                                                                   },
                                                                 ),
                                                               ),
@@ -1160,8 +1074,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       },
                                                     ).then((value) =>
                                                         safeSetState(() {}));
-
-                                                    setState(() {});
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

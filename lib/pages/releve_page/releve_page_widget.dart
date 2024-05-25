@@ -505,6 +505,8 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMediumFamily,
+                                                                  color: Colors
+                                                                      .black,
                                                                   fontSize:
                                                                       18.0,
                                                                   letterSpacing:

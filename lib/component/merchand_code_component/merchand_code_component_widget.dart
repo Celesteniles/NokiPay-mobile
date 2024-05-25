@@ -57,11 +57,12 @@ class _MerchandCodeComponentWidgetState
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 0.0),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'm1oheyum' /* Saisir un code marchand */,
                 ),
+                textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).headlineLarge.override(
                       fontFamily:
                           FlutterFlowTheme.of(context).headlineLargeFamily,

@@ -366,7 +366,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Senderpage',
           path: '/senderpage',
-          builder: (context, params) => const SenderpageWidget(),
+          builder: (context, params) => SenderpageWidget(
+            name: params.getParam(
+              'name',
+              ParamType.String,
+            ),
+            phone: params.getParam(
+              'phone',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Paiement',
+          path: '/paiement',
+          builder: (context, params) => const PaiementWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

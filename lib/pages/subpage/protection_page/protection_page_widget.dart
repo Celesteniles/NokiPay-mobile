@@ -142,7 +142,7 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
                           ),
                           Switch.adaptive(
                             value: _model.switchValue ??=
-                                FFAppState().isBlockAllow,
+                                FFAppState().isBlockAllow == true,
                             onChanged: (newValue) async {
                               setState(() => _model.switchValue = newValue);
                               if (newValue) {

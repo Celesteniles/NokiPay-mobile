@@ -15,6 +15,8 @@ Future<void> initializeApp() async {
   /// Ajouter l'observateur du cycle de vie
   WidgetsBinding.instance.addObserver(AppLifecycleObserver());
 
+  FFAppState().isBalance = false;
+
   // Effectuer l'authentification initiale
   if (!FFAppState().isBlockAllow) {
     await authenticateUser();
