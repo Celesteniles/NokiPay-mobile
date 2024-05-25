@@ -28,12 +28,15 @@ class ApiNokiPayGroup {
   static RegisterCall registerCall = RegisterCall();
   static FindTransactionCall findTransactionCall = FindTransactionCall();
   static CheckAccountCall checkAccountCall = CheckAccountCall();
+  static CheckPINCall checkPINCall = CheckPINCall();
   static GetTransactionsCall getTransactionsCall = GetTransactionsCall();
+  static GetContactsFetchCall getContactsFetchCall = GetContactsFetchCall();
   static GetUserCall getUserCall = GetUserCall();
   static GetContactsCall getContactsCall = GetContactsCall();
   static GetSoldeCall getSoldeCall = GetSoldeCall();
   static TransfertNokiPayCall transfertNokiPayCall = TransfertNokiPayCall();
   static DepositNokiPayCall depositNokiPayCall = DepositNokiPayCall();
+  static AddContactCall addContactCall = AddContactCall();
   static TransfertNokiPayRemittenceCall transfertNokiPayRemittenceCall =
       TransfertNokiPayRemittenceCall();
   static DepotCall depotCall = DepotCall();
@@ -419,6 +422,63 @@ class CheckAccountCall {
       ));
 }
 
+class CheckPINCall {
+  Future<ApiCallResponse> call({
+    String? pin = '',
+    String? accessToken = '',
+  }) async {
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Check PIN',
+      apiUrl: '$baseUrl/user/check-pin',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {
+        'pin': pin,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.code''',
+      ));
+  dynamic userData(dynamic response) => getJsonField(
+        response,
+        r'''$.user''',
+      );
+  List<String>? msg(dynamic response) => (getJsonField(
+        response,
+        r'''$.msg''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  double? solde(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.solde''',
+      ));
+  String? currency(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.currency''',
+      ));
+}
+
 class GetTransactionsCall {
   Future<ApiCallResponse> call({
     String? type = '',
@@ -468,6 +528,47 @@ class GetTransactionsCall {
       ));
 }
 
+class GetContactsFetchCall {
+  Future<ApiCallResponse> call({
+    String? accessToken = '',
+  }) async {
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Contacts Fetch',
+      apiUrl: '$baseUrl/contacts',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.code''',
+      ));
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
 class GetUserCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
@@ -509,6 +610,10 @@ class GetUserCall {
   String? message(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message''',
+      ));
+  String? phone(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.phone''',
       ));
 }
 
@@ -579,7 +684,7 @@ class GetSoldeCall {
         response,
         r'''$''',
       );
-  String? solde(dynamic response) => castToType<String>(getJsonField(
+  double? solde(dynamic response) => castToType<double>(getJsonField(
         response,
         r'''$.solde''',
       ));
@@ -594,6 +699,10 @@ class GetSoldeCall {
   String? currency(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.currency''',
+      ));
+  String? phone(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.phone''',
       ));
 }
 
@@ -687,6 +796,61 @@ class DepositNokiPayCall {
         response,
         r'''$.msg''',
       ));
+}
+
+class AddContactCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? mobile = '',
+    String? phone = '',
+    String? bankName = '',
+    String? ibanBic = '',
+    String? accountNumber = '',
+    String? accessToken = '',
+  }) async {
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Add Contact',
+      apiUrl: '$baseUrl/contacts/store',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {
+        'name': name,
+        'mobile': mobile,
+        'phone': phone,
+        'bank_name': bankName,
+        'iban_bic': ibanBic,
+        'account_number': accountNumber,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.code''',
+      ));
+  List<String>? msg(dynamic response) => (getJsonField(
+        response,
+        r'''$.msg''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class TransfertNokiPayRemittenceCall {

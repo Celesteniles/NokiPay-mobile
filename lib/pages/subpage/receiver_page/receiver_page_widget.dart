@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/component/choose_country/choose_country_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -36,8 +37,8 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
     _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
     _model.phoneFocusNode!.addListener(() => setState(() {}));
-    _model.prenomTextController ??= TextEditingController();
-    _model.prenomFocusNode ??= FocusNode();
+    _model.nameTextController ??= TextEditingController();
+    _model.nameFocusNode ??= FocusNode();
 
     _model.expandableExpandableController1 =
         ExpandableController(initialExpanded: true);
@@ -52,8 +53,8 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
     _model.ibanTextController ??= TextEditingController();
     _model.ibanFocusNode ??= FocusNode();
 
-    _model.bicTextController ??= TextEditingController();
-    _model.bicFocusNode ??= FocusNode();
+    _model.acccountNumberTextController ??= TextEditingController();
+    _model.acccountNumberFocusNode ??= FocusNode();
   }
 
   @override
@@ -102,7 +103,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        15.0, 0.0, 15.0, 0.0),
+                                        15.0, 15.0, 15.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -521,12 +522,12 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                     ),
                                                     TextFormField(
                                                       controller: _model
-                                                          .prenomTextController,
-                                                      focusNode: _model
-                                                          .prenomFocusNode,
+                                                          .nameTextController,
+                                                      focusNode:
+                                                          _model.nameFocusNode,
                                                       onChanged: (_) =>
                                                           EasyDebounce.debounce(
-                                                        '_model.prenomTextController',
+                                                        '_model.nameTextController',
                                                         const Duration(
                                                             milliseconds: 10),
                                                         () => setState(() {}),
@@ -647,7 +648,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                             .bodyMediumFamily),
                                                               ),
                                                       validator: _model
-                                                          .prenomTextControllerValidator
+                                                          .nameTextControllerValidator
                                                           .asValidator(context),
                                                     ),
                                                   ].divide(
@@ -868,7 +869,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 15.0, 0.0),
+                                      15.0, 15.0, 15.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -1123,86 +1124,78 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                   MainAxisSize
                                                                       .max,
                                                               children: [
-                                                                InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    context.pushNamed(
-                                                                        'ReceiverPage');
-                                                                  },
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      FlutterFlowIconButton(
-                                                                        borderRadius:
-                                                                            20.0,
-                                                                        borderWidth:
-                                                                            1.0,
-                                                                        buttonSize:
-                                                                            40.0,
-                                                                        fillColor:
-                                                                            FlutterFlowTheme.of(context).primaryBackground,
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .add,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          size:
-                                                                              24.0,
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    FlutterFlowIconButton(
+                                                                      borderRadius:
+                                                                          20.0,
+                                                                      borderWidth:
+                                                                          1.0,
+                                                                      buttonSize:
+                                                                          40.0,
+                                                                      fillColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primaryBackground,
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .add,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        size:
+                                                                            24.0,
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        print(
+                                                                            'IconButton pressed ...');
+                                                                      },
+                                                                    ),
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          FFLocalizations.of(context)
+                                                                              .getText(
+                                                                            'i1d9etrc' /* Ajouter un autre compte */,
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                fontSize: 14.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
                                                                         ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          print(
-                                                                              'IconButton pressed ...');
-                                                                        },
-                                                                      ),
-                                                                      Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            FFLocalizations.of(context).getText(
-                                                                              'i1d9etrc' /* Ajouter un autre compte */,
-                                                                            ),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                ),
+                                                                        Text(
+                                                                          FFLocalizations.of(context)
+                                                                              .getText(
+                                                                            '5bke1q9c' /* 2 maximum */,
                                                                           ),
-                                                                          Text(
-                                                                            FFLocalizations.of(context).getText(
-                                                                              '5bke1q9c' /* 2 maximum */,
-                                                                            ),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  fontSize: 12.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ].divide(const SizedBox(
-                                                                        width:
-                                                                            15.0)),
-                                                                  ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                fontSize: 12.0,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ].divide(const SizedBox(
+                                                                      width:
+                                                                          15.0)),
                                                                 ),
                                                                 Divider(
                                                                   thickness:
@@ -1303,8 +1296,6 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                             ),
                                                                             autofocus:
                                                                                 false,
-                                                                            readOnly:
-                                                                                true,
                                                                             obscureText:
                                                                                 false,
                                                                             decoration:
@@ -1637,7 +1628,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                       hintText:
                                                                           FFLocalizations.of(context)
                                                                               .getText(
-                                                                        'q56y36xc' /* IBAN */,
+                                                                        'q56y36xc' /* IBAN / BIC */,
                                                                       ),
                                                                       hintStyle: FlutterFlowTheme.of(
                                                                               context)
@@ -1728,9 +1719,9 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                 ),
                                                                 TextFormField(
                                                                   controller: _model
-                                                                      .bicTextController,
+                                                                      .acccountNumberTextController,
                                                                   focusNode: _model
-                                                                      .bicFocusNode,
+                                                                      .acccountNumberFocusNode,
                                                                   autofocus:
                                                                       false,
                                                                   autofillHints: const [
@@ -1747,7 +1738,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                     hintText: FFLocalizations.of(
                                                                             context)
                                                                         .getText(
-                                                                      'imd8zfh3' /* BIC */,
+                                                                      'imd8zfh3' /* Numéro de compte */,
                                                                     ),
                                                                     hintStyle: FlutterFlowTheme.of(
                                                                             context)
@@ -1835,7 +1826,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                             GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                                   validator: _model
-                                                                      .bicTextControllerValidator
+                                                                      .acccountNumberTextControllerValidator
                                                                       .asValidator(
                                                                           context),
                                                                 ),
@@ -1901,9 +1892,84 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                     0.0,
                                                                     4.0),
                                                         child: FFButtonWidget(
-                                                          onPressed: () {
-                                                            print(
-                                                                'Button pressed ...');
+                                                          onPressed: () async {
+                                                            _model.apiResultndl =
+                                                                await ApiNokiPayGroup
+                                                                    .addContactCall
+                                                                    .call(
+                                                              name: _model
+                                                                  .nameTextController
+                                                                  .text,
+                                                              bankName: _model
+                                                                  .nomBanqueTextController
+                                                                  .text,
+                                                              ibanBic: _model
+                                                                  .ibanTextController
+                                                                  .text,
+                                                              accountNumber: _model
+                                                                  .acccountNumberTextController
+                                                                  .text,
+                                                              accessToken:
+                                                                  FFAppState()
+                                                                      .accessToken,
+                                                              mobile: functions
+                                                                  .phoneFormatter(
+                                                                      '${functions.getDialCode(FFAppState().countryName)}${_model.phoneTextController.text}'),
+                                                              phone: functions
+                                                                  .phoneFormatter(
+                                                                      '${functions.getDialCode(FFAppState().countryName)}${_model.phoneMobileTextController.text}'),
+                                                            );
+                                                            if ((_model.apiResultndl
+                                                                        ?.succeeded ??
+                                                                    true) &&
+                                                                (ApiNokiPayGroup
+                                                                        .addContactCall
+                                                                        .code(
+                                                                      (_model.apiResultndl
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    FFAppState()
+                                                                        .zero)) {
+                                                              await actions
+                                                                  .sweetNotification(
+                                                                context,
+                                                                functions.arrayToString(
+                                                                    ApiNokiPayGroup
+                                                                        .addContactCall
+                                                                        .msg(
+                                                                          (_model.apiResultndl?.jsonBody ??
+                                                                              ''),
+                                                                        )
+                                                                        ?.toList())!,
+                                                                'success',
+                                                              );
+                                                              FFAppState()
+                                                                  .clearContactsListCache();
+                                                              if (Navigator.of(
+                                                                      context)
+                                                                  .canPop()) {
+                                                                context.pop();
+                                                              }
+                                                              context.pushNamed(
+                                                                  'SendPage');
+                                                            } else {
+                                                              await actions
+                                                                  .sweetNotification(
+                                                                context,
+                                                                functions.arrayToString(
+                                                                    ApiNokiPayGroup
+                                                                        .addContactCall
+                                                                        .msg(
+                                                                          (_model.apiResultndl?.jsonBody ??
+                                                                              ''),
+                                                                        )
+                                                                        ?.toList())!,
+                                                                'error',
+                                                              );
+                                                            }
+
+                                                            setState(() {});
                                                           },
                                                           text: FFLocalizations
                                                                   .of(context)

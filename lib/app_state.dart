@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'package:synchronized/synchronized.dart';
@@ -55,6 +57,13 @@ class FFAppState extends ChangeNotifier {
     await _safeInitAsync(() async {
       _isBlockAllow =
           await secureStorage.getBool('ff_isBlockAllow') ?? _isBlockAllow;
+    });
+    await _safeInitAsync(() async {
+      _phone = await secureStorage.getString('ff_phone') ?? _phone;
+    });
+    await _safeInitAsync(() async {
+      _accountBalance =
+          await secureStorage.getString('ff_accountBalance') ?? _accountBalance;
     });
   }
 
@@ -199,6 +208,43 @@ class FFAppState extends ChangeNotifier {
   void deleteIsBlockAllow() {
     secureStorage.delete(key: 'ff_isBlockAllow');
   }
+
+  String _phone = '';
+  String get phone => _phone;
+  set phone(String value) {
+    _phone = value;
+    secureStorage.setString('ff_phone', value);
+  }
+
+  void deletePhone() {
+    secureStorage.delete(key: 'ff_phone');
+  }
+
+  String _accountBalance = '';
+  String get accountBalance => _accountBalance;
+  set accountBalance(String value) {
+    _accountBalance = value;
+    secureStorage.setString('ff_accountBalance', value);
+  }
+
+  void deleteAccountBalance() {
+    secureStorage.delete(key: 'ff_accountBalance');
+  }
+
+  final _contactsListManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> contactsList({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _contactsListManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearContactsListCache() => _contactsListManager.clear();
+  void clearContactsListCacheKey(String? uniqueKey) =>
+      _contactsListManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

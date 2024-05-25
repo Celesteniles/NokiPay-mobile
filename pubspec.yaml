@@ -37,6 +37,7 @@ dependencies:
   easy_debounce: 2.0.1
   elegant_notification: ^1.11.2
   emoji_flag_converter: 1.1.0
+  encrypt: ^5.0.3
   equatable: 2.0.5
   expandable: 5.0.1
   file_picker: 6.1.1
@@ -127,12 +128,13 @@ dev_dependencies:
 
 
 flutter_launcher_icons:
-  android: true
+  android: 'launcher_icon'
   ios: true
-  remove_alpha_ios: true
   web:
     generate: true
   image_path: 'assets/images/app_launcher_icon.png'
+  adaptive_icon_background: '#ffdd0f'
+  adaptive_icon_foreground: 'assets/images/adaptive_foreground_icon.png'
 
 
 # For information on the generic Dart part of this file, see the

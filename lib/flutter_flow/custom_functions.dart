@@ -644,22 +644,6 @@ bool estMajeur(DateTime dateNaissance) {
   return age > 18;
 }
 
-String encodeJson(
-  String code,
-  double? amount,
-) {
-  Map<String, dynamic> data = {
-    'code': code,
-  };
-
-  if (amount != null) {
-    data['amount'] = amount;
-  }
-
-  String jsonData = jsonEncode(data);
-  return jsonData;
-}
-
 String genreEnLettre(String genre) {
   if (genre == "M") {
     return "Masculin";
@@ -680,4 +664,20 @@ bool veriferPin(String code) {
 
 double stringToDouble(String char) {
   return double.parse(char);
+}
+
+String encodeJson(
+  String code,
+  String? amount,
+) {
+  Map<String, dynamic> data = {
+    'code': code,
+  };
+
+  if (amount != null) {
+    data['amount'] = amount;
+  }
+
+  String jsonData = jsonEncode(data);
+  return jsonData;
 }

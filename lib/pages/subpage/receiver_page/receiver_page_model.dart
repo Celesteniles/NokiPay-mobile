@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'receiver_page_widget.dart' show ReceiverPageWidget;
 import 'package:expandable/expandable.dart';
@@ -25,10 +26,10 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
   String? Function(BuildContext, String?)? phoneTextControllerValidator;
   // Stores action output result for [Custom Action - takeContactWithIndicatif] action in Icon widget.
   List<String>? contact;
-  // State field(s) for prenom widget.
-  FocusNode? prenomFocusNode;
-  TextEditingController? prenomTextController;
-  String? Function(BuildContext, String?)? prenomTextControllerValidator;
+  // State field(s) for name widget.
+  FocusNode? nameFocusNode;
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
   // State field(s) for Expandable widget.
   late ExpandableController expandableExpandableController1;
 
@@ -47,10 +48,13 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
   FocusNode? ibanFocusNode;
   TextEditingController? ibanTextController;
   String? Function(BuildContext, String?)? ibanTextControllerValidator;
-  // State field(s) for bic widget.
-  FocusNode? bicFocusNode;
-  TextEditingController? bicTextController;
-  String? Function(BuildContext, String?)? bicTextControllerValidator;
+  // State field(s) for acccount_number widget.
+  FocusNode? acccountNumberFocusNode;
+  TextEditingController? acccountNumberTextController;
+  String? Function(BuildContext, String?)?
+      acccountNumberTextControllerValidator;
+  // Stores action output result for [Backend Call - API (Add Contact)] action in Button widget.
+  ApiCallResponse? apiResultndl;
 
   @override
   void initState(BuildContext context) {}
@@ -61,8 +65,8 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
     phoneFocusNode?.dispose();
     phoneTextController?.dispose();
 
-    prenomFocusNode?.dispose();
-    prenomTextController?.dispose();
+    nameFocusNode?.dispose();
+    nameTextController?.dispose();
 
     expandableExpandableController1.dispose();
     phoneMobileFocusNode?.dispose();
@@ -75,7 +79,7 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
     ibanFocusNode?.dispose();
     ibanTextController?.dispose();
 
-    bicFocusNode?.dispose();
-    bicTextController?.dispose();
+    acccountNumberFocusNode?.dispose();
+    acccountNumberTextController?.dispose();
   }
 }

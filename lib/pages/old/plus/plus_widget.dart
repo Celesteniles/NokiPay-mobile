@@ -224,9 +224,10 @@ class _PlusWidgetState extends State<PlusWidget> {
                                                   'XAF ${valueOrDefault<String>(
                                                     ApiNokiPayGroup.getSoldeCall
                                                         .solde(
-                                                      textGetSoldeResponse
-                                                          .jsonBody,
-                                                    ),
+                                                          textGetSoldeResponse
+                                                              .jsonBody,
+                                                        )
+                                                        ?.toString(),
                                                     'null',
                                                   )}',
                                                   textAlign: TextAlign.start,

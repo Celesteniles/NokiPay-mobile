@@ -417,9 +417,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                                   ApiNokiPayGroup
                                                                       .getSoldeCall
                                                                       .solde(
-                                                                    columnGetSoldeResponse
-                                                                        .jsonBody,
-                                                                  ),
+                                                                        columnGetSoldeResponse
+                                                                            .jsonBody,
+                                                                      )
+                                                                      ?.toString(),
                                                                   'null',
                                                                 ),
                                                                 style: FlutterFlowTheme.of(

@@ -177,9 +177,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                               ),
                                               Text(
                                                 'XAF ${ApiNokiPayGroup.getSoldeCall.solde(
-                                                  columnGetSoldeResponse
-                                                      .jsonBody,
-                                                )}',
+                                                      columnGetSoldeResponse
+                                                          .jsonBody,
+                                                    )?.toString()}',
                                                 maxLines: 1,
                                                 style:
                                                     FlutterFlowTheme.of(context)

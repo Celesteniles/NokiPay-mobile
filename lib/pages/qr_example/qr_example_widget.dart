@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -71,7 +72,7 @@ class _QrExampleWidgetState extends State<QrExampleWidget> {
             ),
           ],
           centerTitle: true,
-          elevation: 2.0,
+          elevation: 0.0,
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -83,8 +84,16 @@ class _QrExampleWidgetState extends State<QrExampleWidget> {
                   Container(
                     width: double.infinity,
                     height: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF346A92),
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                    ),
+                    child: const SizedBox(
+                      width: 200.0,
+                      height: 200.0,
+                      child: custom_widgets.QrcodeScan(
+                        width: 200.0,
+                        height: 200.0,
+                      ),
                     ),
                   ),
                   Align(
@@ -162,10 +171,9 @@ class _QrExampleWidgetState extends State<QrExampleWidget> {
                                     : FocusScope.of(context).unfocus(),
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.8,
-                                    child: const MerchandCodeComponentWidget(),
+                                  child: const SizedBox(
+                                    height: 300.0,
+                                    child: MerchandCodeComponentWidget(),
                                   ),
                                 ),
                               ),

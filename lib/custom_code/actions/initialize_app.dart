@@ -16,7 +16,9 @@ Future<void> initializeApp() async {
   WidgetsBinding.instance.addObserver(AppLifecycleObserver());
 
   // Effectuer l'authentification initiale
-  await authenticateUser();
+  if (!FFAppState().isBlockAllow) {
+    await authenticateUser();
+  }
 }
 
 Future<void> authenticateUser() async {
@@ -43,7 +45,9 @@ class AppLifecycleObserver with WidgetsBindingObserver {
       // Do something when app is resumed
       print('App is in foreground');
       if (!FFAppState().connected) {
-        _authenticate();
+        if (!FFAppState().isBlockAllow) {
+          _authenticate();
+        }
       }
     } else if (state == AppLifecycleState.paused) {
       // Do something when app is paused

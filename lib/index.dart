@@ -46,11 +46,12 @@ export '/pages/web_view/web_view_widget.dart' show WebViewWidget;
 export '/pages/subpage/apropos/apropos_widget.dart' show AproposWidget;
 export '/pages/subpage/contact/contact_widget.dart' show ContactWidget;
 export '/pages/withdraw/withdraw_widget.dart' show WithdrawWidget;
-export '/qr_example/qr_example_widget.dart' show QrExampleWidget;
-export '/send_page/send_page_widget.dart' show SendPageWidget;
+export '/pages/qr_example/qr_example_widget.dart' show QrExampleWidget;
+export '/pages/send_page/send_page_widget.dart' show SendPageWidget;
 export '/pages/subpage/receiver_page/receiver_page_widget.dart'
     show ReceiverPageWidget;
 export '/pages/subpage/protection_page/protection_page_widget.dart'
     show ProtectionPageWidget;
 export '/pages/subpage/notification/notification_widget.dart'
     show NotificationWidget;
+export '/pages/senderpage/senderpage_widget.dart' show SenderpageWidget;

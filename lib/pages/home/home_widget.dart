@@ -1,5 +1,6 @@
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/component/pay_component/pay_component_widget.dart';
 import '/component/pin_component/pin_component_widget.dart';
 import '/component/qrcode_component/qrcode_component_widget.dart';
 import '/component/splash/splash_widget.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,17 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.encryptObject = actions.encryptObject(
+        valueOrDefault<String>(
+          FFAppState().phone,
+          'Relancer l\'application',
+        ),
+        '  ',
+      );
+    });
   }
 
   @override
@@ -119,6 +132,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                             'Session invalide. Vous aviez été déconnecté(e)',
                             'info',
                           );
+                        } else {
+                          if (FFAppState().phone == '') {
+                            FFAppState().update(() {
+                              FFAppState().phone =
+                                  ApiNokiPayGroup.getUserCall.phone(
+                                homeGetUserResponse.jsonBody,
+                              )!;
+                            });
+                          }
                         }
 
                         navigate();
@@ -345,11 +367,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           : FocusScope.of(
                                                                   context)
                                                               .unfocus(),
-                                                      child: const SizedBox(
+                                                      child: SizedBox(
                                                         height: double.infinity,
                                                         width: double.infinity,
                                                         child:
-                                                            QrcodeComponentWidget(),
+                                                            QrcodeComponentWidget(
+                                                          qrcodeVar: _model
+                                                                          .encryptObject !=
+                                                                      null &&
+                                                                  _model.encryptObject !=
+                                                                      ''
+                                                              ? _model
+                                                                  .encryptObject!
+                                                              : 'Relancer l\'application',
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -422,8 +453,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       .all(7.0),
                                                               child:
                                                                   BarcodeWidget(
-                                                                data:
-                                                                    '242069463954',
+                                                                data: _model.encryptObject !=
+                                                                            null &&
+                                                                        _model.encryptObject !=
+                                                                            ''
+                                                                    ? _model
+                                                                        .encryptObject!
+                                                                    : 'Relancer l\'application',
                                                                 barcode: Barcode
                                                                     .qrCode(),
                                                                 width: double
@@ -745,7 +781,38 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            context.pushNamed('QrExample');
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return WebViewAware(
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: const SizedBox(
+                                                        height: 200.0,
+                                                        child:
+                                                            PayComponentWidget(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(
@@ -1061,16 +1128,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           (_model.soldeAPI?.jsonBody ??
                                                                               ''),
                                                                         )!;
-                                                                      });
-                                                                      await actions
-                                                                          .sweetNotification(
-                                                                        context,
-                                                                        ApiNokiPayGroup
+                                                                        FFAppState().balance = ApiNokiPayGroup
                                                                             .getSoldeCall
                                                                             .solde(
                                                                           (_model.soldeAPI?.jsonBody ??
                                                                               ''),
-                                                                        )!,
+                                                                        )!;
+                                                                      });
+                                                                      await actions
+                                                                          .sweetNotification(
+                                                                        context,
+                                                                        'Solde : ${ApiNokiPayGroup.getSoldeCall.solde(
+                                                                              (_model.soldeAPI?.jsonBody ?? ''),
+                                                                            )?.toString()}',
                                                                         'success',
                                                                       );
                                                                     } else {

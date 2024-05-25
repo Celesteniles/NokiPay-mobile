@@ -56,18 +56,21 @@ class _MerchandCodeComponentWidgetState
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(
-              FFLocalizations.of(context).getText(
-                'm1oheyum' /* Saisir un code marchand */,
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  'm1oheyum' /* Saisir un code marchand */,
+                ),
+                style: FlutterFlowTheme.of(context).headlineLarge.override(
+                      fontFamily:
+                          FlutterFlowTheme.of(context).headlineLargeFamily,
+                      fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      useGoogleFonts: GoogleFonts.asMap().containsKey(
+                          FlutterFlowTheme.of(context).headlineLargeFamily),
+                    ),
               ),
-              style: FlutterFlowTheme.of(context).headlineLarge.override(
-                    fontFamily:
-                        FlutterFlowTheme.of(context).headlineLargeFamily,
-                    fontSize: 24.0,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).headlineLargeFamily),
-                  ),
             ),
             PinCodeTextField(
               autoDisposeControllers: false,

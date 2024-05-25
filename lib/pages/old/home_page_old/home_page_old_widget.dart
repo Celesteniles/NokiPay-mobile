@@ -427,9 +427,10 @@ class _HomePageOldWidgetState extends State<HomePageOldWidget> {
                                                                   ApiNokiPayGroup
                                                                       .getSoldeCall
                                                                       .solde(
-                                                                    columnGetSoldeResponse
-                                                                        .jsonBody,
-                                                                  ),
+                                                                        columnGetSoldeResponse
+                                                                            .jsonBody,
+                                                                      )
+                                                                      ?.toString(),
                                                                   'null',
                                                                 ),
                                                                 style: FlutterFlowTheme.of(

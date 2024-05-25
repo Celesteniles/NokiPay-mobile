@@ -11,3 +11,5 @@ export 'take_contact_with_indicatif.dart' show takeContactWithIndicatif;
 export 'on_app_background.dart' show onAppBackground;
 export 'initialize_app.dart' show initializeApp;
 export 'connectivity_plus_service.dart' show connectivityPlusService;
+export 'encrypt_object.dart' show encryptObject;
+export 'decrypt_object.dart' show decryptObject;

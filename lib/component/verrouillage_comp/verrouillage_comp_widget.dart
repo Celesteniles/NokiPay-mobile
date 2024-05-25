@@ -104,15 +104,15 @@ class _VerrouillageCompWidgetState extends State<VerrouillageCompWidget> {
                 height: 40.0,
                 padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).accent1,
+                color: FlutterFlowTheme.of(context).alternate,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: Colors.white,
+                      color: FlutterFlowTheme.of(context).secondaryText,
                       letterSpacing: 0.0,
                       useGoogleFonts: GoogleFonts.asMap().containsKey(
                           FlutterFlowTheme.of(context).titleSmallFamily),
                     ),
-                elevation: 3.0,
+                elevation: 0.0,
                 borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1.0,

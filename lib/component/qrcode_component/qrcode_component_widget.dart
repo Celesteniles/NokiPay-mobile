@@ -10,7 +10,12 @@ import 'qrcode_component_model.dart';
 export 'qrcode_component_model.dart';
 
 class QrcodeComponentWidget extends StatefulWidget {
-  const QrcodeComponentWidget({super.key});
+  const QrcodeComponentWidget({
+    super.key,
+    required this.qrcodeVar,
+  });
+
+  final String? qrcodeVar;
 
   @override
   State<QrcodeComponentWidget> createState() => _QrcodeComponentWidgetState();
@@ -93,7 +98,7 @@ class _QrcodeComponentWidgetState extends State<QrcodeComponentWidget> {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: BarcodeWidget(
-                          data: '242069463954',
+                          data: widget.qrcodeVar!,
                           barcode: Barcode.qrCode(),
                           width: double.infinity,
                           height: double.infinity,

@@ -8,6 +8,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Custom Action - encryptObject] action in Home widget.
+  String? encryptObject;
   // Stores action output result for [Backend Call - API (Get Solde)] action in Row widget.
   ApiCallResponse? soldeAPI;
   // State field(s) for Carousel widget.

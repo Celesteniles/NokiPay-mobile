@@ -362,6 +362,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Notification',
           path: '/notification',
           builder: (context, params) => const NotificationWidget(),
+        ),
+        FFRoute(
+          name: 'Senderpage',
+          path: '/senderpage',
+          builder: (context, params) => const SenderpageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
