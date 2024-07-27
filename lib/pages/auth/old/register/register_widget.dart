@@ -836,16 +836,15 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                     0.0, 50.0, 0.0, 16.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() {
-                                                  FFAppState().phoneNumber =
-                                                      functions.phoneFormatter(
-                                                          '${valueOrDefault<String>(
-                                                    functions.getDialCode(_model
-                                                        .countryTextController
-                                                        .text),
-                                                    '+242',
-                                                  )}${_model.phoneTextController.text}');
-                                                });
+                                                FFAppState().phoneNumber =
+                                                    functions.phoneFormatter(
+                                                        '${valueOrDefault<String>(
+                                                  functions.getDialCode(_model
+                                                      .countryTextController
+                                                      .text),
+                                                  '+242',
+                                                )}${_model.phoneTextController.text}');
+                                                setState(() {});
                                                 await _model.pageViewController
                                                     ?.nextPage(
                                                   duration: const Duration(
@@ -2258,6 +2257,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                           .rueTextController
                                                           .text,
                                                     );
+
                                                     if ((_model.apiResultRegister
                                                                 ?.succeeded ??
                                                             true) &&

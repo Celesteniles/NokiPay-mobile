@@ -17,10 +17,6 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
-  // Start initial custom actions code
-  await actions.connectivityPlusService();
-  // End initial custom actions code
-
   await FlutterFlowTheme.initialize();
 
   await authManager.initialize();
@@ -53,12 +49,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
-  late Stream<NokiPayAuthUser> userStream;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
+
+  late Stream<NokiPayAuthUser> userStream;
 
   @override
   void initState() {
@@ -67,7 +64,9 @@ class _MyAppState extends State<MyApp> {
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
     userStream = nokiPayAuthUserStream()
-      ..listen((user) => _appStateNotifier.update(user));
+      ..listen((user) {
+        _appStateNotifier.update(user);
+      });
 
     Future.delayed(
       const Duration(milliseconds: 2000),

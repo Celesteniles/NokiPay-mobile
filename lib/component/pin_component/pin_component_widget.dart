@@ -154,20 +154,19 @@ class _PinComponentWidgetState extends State<PinComponentWidget> {
                   pin: _model.pinCodeController!.text,
                   accessToken: FFAppState().accessToken,
                 );
+
                 if ((_model.apiResultatPin?.succeeded ?? true) &&
                     (ApiNokiPayGroup.checkPINCall.code(
                           (_model.apiResultatPin?.jsonBody ?? ''),
                         ) ==
                         FFAppState().zero)) {
-                  FFAppState().update(() {
-                    FFAppState().balance = ApiNokiPayGroup.checkPINCall.solde(
-                      (_model.apiResultatPin?.jsonBody ?? ''),
-                    )!;
-                    FFAppState().currency =
-                        ApiNokiPayGroup.checkPINCall.currency(
-                      (_model.apiResultatPin?.jsonBody ?? ''),
-                    )!;
-                  });
+                  FFAppState().balance = ApiNokiPayGroup.checkPINCall.solde(
+                    (_model.apiResultatPin?.jsonBody ?? ''),
+                  )!;
+                  FFAppState().currency = ApiNokiPayGroup.checkPINCall.currency(
+                    (_model.apiResultatPin?.jsonBody ?? ''),
+                  )!;
+                  FFAppState().update(() {});
                   await widget.actionComp?.call();
                   Navigator.pop(context);
                 } else {

@@ -1,13 +1,20 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'merchand_code_component_model.dart';
 export 'merchand_code_component_model.dart';
 
 class MerchandCodeComponentWidget extends StatefulWidget {
-  const MerchandCodeComponentWidget({super.key});
+  const MerchandCodeComponentWidget({
+    super.key,
+    this.merchandCode,
+  });
+
+  final String? merchandCode;
 
   @override
   State<MerchandCodeComponentWidget> createState() =>
@@ -39,6 +46,8 @@ class _MerchandCodeComponentWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -114,16 +123,79 @@ class _MerchandCodeComponentWidgetState
               ),
               controller: _model.pinCodeController,
               onChanged: (_) {},
+              onCompleted: (_) async {
+                _model.isProcessing = true;
+                _model.isFailed = false;
+                setState(() {});
+                _model.apiResult016 =
+                    await ApiNokiPayGroup.checkAccountCall.call(
+                  phone: _model.pinCodeController!.text,
+                );
+
+                if (!((_model.apiResult016?.succeeded ?? true) &&
+                    (ApiNokiPayGroup.checkAccountCall.code(
+                          (_model.apiResult016?.jsonBody ?? ''),
+                        ) ==
+                        FFAppState().zero))) {
+                  _model.isProcessing = false;
+                  _model.isFailed = true;
+                  setState(() {});
+                }
+
+                setState(() {});
+              },
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _model.pinCodeControllerValidator.asValidator(context),
             ),
+            if (_model.isProcessing == true)
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    FFLocalizations.of(context).getText(
+                      '9leykw1p' /* Vérification en cours ... */,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          color: const Color(0xFF1A00FF),
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                        ),
+                  ),
+                ].divide(const SizedBox(width: 5.0)),
+              ),
+            if (_model.isFailed == true)
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    FFLocalizations.of(context).getText(
+                      '4tzdn0ue' /* Marchand introuvable */,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          color: FlutterFlowTheme.of(context).error,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                        ),
+                  ),
+                ].divide(const SizedBox(width: 5.0)),
+              ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   FFLocalizations.of(context).getText(
-                    '9leykw1p' /* Marchands favoris */,
+                    'oxf74kvk' /* Marchands favoris */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily:

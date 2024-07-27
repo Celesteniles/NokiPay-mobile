@@ -25,6 +25,8 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProtectionPageModel());
+
+    _model.switchValue = FFAppState().isBlockAllow == true;
   }
 
   @override
@@ -141,8 +143,7 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
                             ),
                           ),
                           Switch.adaptive(
-                            value: _model.switchValue ??=
-                                FFAppState().isBlockAllow == true,
+                            value: _model.switchValue!,
                             onChanged: (newValue) async {
                               setState(() => _model.switchValue = newValue);
                               if (newValue) {
@@ -162,10 +163,9 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
                                 }
 
                                 if (_model.biometric) {
-                                  FFAppState().update(() {
-                                    FFAppState().isBlockAllow =
-                                        !FFAppState().isBlockAllow;
-                                  });
+                                  FFAppState().isBlockAllow =
+                                      !(FFAppState().isBlockAllow ?? true);
+                                  FFAppState().update(() {});
                                 } else {
                                   await actions.sweetNotification(
                                     context,

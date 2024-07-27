@@ -274,6 +274,7 @@ class _RelevePageCopyWidgetState extends State<RelevePageCopyWidget> {
                           );
                         }
                         final listViewGetTransactionsResponse = snapshot.data!;
+
                         return Builder(
                           builder: (context) {
                             final varTransaction =
@@ -293,6 +294,7 @@ class _RelevePageCopyWidgetState extends State<RelevePageCopyWidget> {
                                 ),
                               );
                             }
+
                             return RefreshIndicator(
                               color: FlutterFlowTheme.of(context).primary,
                               onRefresh: () async {

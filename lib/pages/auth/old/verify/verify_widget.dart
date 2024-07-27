@@ -468,6 +468,7 @@ class _VerifyWidgetState extends State<VerifyWidget>
                                 digit: _model.pinCodeController!.text,
                                 phone: widget.phone,
                               );
+
                               if ((_model.apiResultLogin?.succeeded ?? true) &&
                                   valueOrDefault<bool>(
                                     ApiNokiPayGroup.verifyLoginOTPCall.code(
@@ -477,17 +478,15 @@ class _VerifyWidgetState extends State<VerifyWidget>
                                         FFAppState().zero,
                                     false,
                                   )) {
-                                setState(() {
-                                  FFAppState().accessToken =
-                                      ApiNokiPayGroup.verifyLoginOTPCall.token(
-                                    (_model.apiResultLogin?.jsonBody ?? ''),
-                                  )!;
-                                  FFAppState().UserConnecte = ApiNokiPayGroup
-                                      .verifyLoginOTPCall
-                                      .userData(
-                                    (_model.apiResultLogin?.jsonBody ?? ''),
-                                  );
-                                });
+                                FFAppState().accessToken =
+                                    ApiNokiPayGroup.verifyLoginOTPCall.token(
+                                  (_model.apiResultLogin?.jsonBody ?? ''),
+                                )!;
+                                FFAppState().UserConnecte =
+                                    ApiNokiPayGroup.verifyLoginOTPCall.userData(
+                                  (_model.apiResultLogin?.jsonBody ?? ''),
+                                );
+                                setState(() {});
                                 GoRouter.of(context).prepareAuthEvent();
                                 await authManager.signIn(
                                   authenticationToken: FFAppState().accessToken,
@@ -585,6 +584,7 @@ Renvoyer un SMS */
                                       accessToken: FFAppState().accessToken,
                                       phone: widget.phone,
                                     );
+
                                     if ((_model.apiResultyxj?.succeeded ??
                                         true)) {
                                       ScaffoldMessenger.of(context)

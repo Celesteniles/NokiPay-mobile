@@ -42,9 +42,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.dateNaissance = getCurrentTimestamp;
-      });
+      _model.dateNaissance = getCurrentTimestamp;
+      setState(() {});
     });
 
     _model.prenomTextController ??= TextEditingController();
@@ -805,9 +804,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                     ),
                                                     FFButtonWidget(
                                                       onPressed: () async {
-                                                        setState(() {
-                                                          _model.genre = 'M';
-                                                        });
+                                                        _model.genre = 'M';
+                                                        setState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -884,9 +882,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                     ),
                                                     FFButtonWidget(
                                                       onPressed: () async {
-                                                        setState(() {
-                                                          _model.genre = 'F';
-                                                        });
+                                                        _model.genre = 'F';
+                                                        setState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -1330,10 +1327,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                       }
                                                       if (_model.datePicked !=
                                                           null) {
-                                                        setState(() {
-                                                          _model.dateNaissance =
-                                                              _model.datePicked;
-                                                        });
+                                                        _model.dateNaissance =
+                                                            _model.datePicked;
+                                                        setState(() {});
                                                       }
                                                     },
                                                     child: Container(
@@ -2878,6 +2874,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                           dob: _model.datePicked
                                                               ?.toString(),
                                                         );
+
                                                         if ((_model.apiResultRegister
                                                                     ?.succeeded ??
                                                                 true) &&
@@ -2900,38 +2897,37 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             'Votre compte a été créé avec succès.',
                                                             'success',
                                                           );
-                                                          setState(() {
-                                                            FFAppState()
-                                                                    .UserConnecte =
-                                                                ApiNokiPayGroup
-                                                                    .registerCall
-                                                                    .userData(
+                                                          FFAppState()
+                                                                  .UserConnecte =
+                                                              ApiNokiPayGroup
+                                                                  .registerCall
+                                                                  .userData(
+                                                            (_model.apiResultRegister
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          );
+                                                          FFAppState()
+                                                                  .accessToken =
+                                                              ApiNokiPayGroup
+                                                                  .registerCall
+                                                                  .token(
+                                                            (_model.apiResultRegister
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          )!;
+                                                          FFAppState()
+                                                                  .currency =
+                                                              valueOrDefault<
+                                                                  String>(
+                                                            getJsonField(
                                                               (_model.apiResultRegister
                                                                       ?.jsonBody ??
                                                                   ''),
-                                                            );
-                                                            FFAppState()
-                                                                    .accessToken =
-                                                                ApiNokiPayGroup
-                                                                    .registerCall
-                                                                    .token(
-                                                              (_model.apiResultRegister
-                                                                      ?.jsonBody ??
-                                                                  ''),
-                                                            )!;
-                                                            FFAppState()
-                                                                    .currency =
-                                                                valueOrDefault<
-                                                                    String>(
-                                                              getJsonField(
-                                                                (_model.apiResultRegister
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                                r'''$.currency''',
-                                                              )?.toString(),
-                                                              'XAF',
-                                                            );
-                                                          });
+                                                              r'''$.currency''',
+                                                            )?.toString(),
+                                                            'XAF',
+                                                          );
+                                                          setState(() {});
                                                           GoRouter.of(context)
                                                               .prepareAuthEvent();
                                                           await authManager

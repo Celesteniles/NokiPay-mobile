@@ -300,9 +300,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                setState(() {
-                                  _model.mode = 'mobile';
-                                });
+                                _model.mode = 'mobile';
+                                setState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '3cp18nyh' /* Via Mobile Money */,
@@ -351,9 +350,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                setState(() {
-                                  _model.mode = 'bancaire';
-                                });
+                                _model.mode = 'bancaire';
+                                setState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '7luq6p77' /* Via une carte bancaire */,
@@ -687,11 +685,9 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                           contactsPermission);
                                                       _model.contact = await actions
                                                           .takeContactWithIndicatif();
-                                                      setState(() {
-                                                        FFAppState()
-                                                                .countryName =
-                                                            _model.contact![0];
-                                                      });
+                                                      FFAppState().countryName =
+                                                          _model.contact![0];
+                                                      setState(() {});
                                                       setState(() {
                                                         _model.phoneTextController
                                                                 ?.text =
@@ -699,6 +695,13 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                                 .phoneFormatter(
                                                                     _model.contact![
                                                                         2]);
+                                                        _model.phoneTextController
+                                                                ?.selection =
+                                                            TextSelection.collapsed(
+                                                                offset: _model
+                                                                    .phoneTextController!
+                                                                    .text
+                                                                    .length);
                                                       });
 
                                                       setState(() {});
@@ -759,6 +762,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                                       FFAppState()
                                                                           .countryName)!),
                                                         );
+
                                                         if ((_model.apiResultRecharge
                                                                     ?.succeeded ??
                                                                 true) &&
@@ -917,6 +921,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                                   FFAppState()
                                                                       .accessToken,
                                                             );
+
                                                             if ((_model.apiResultRechargeBank
                                                                         ?.succeeded ??
                                                                     true) &&

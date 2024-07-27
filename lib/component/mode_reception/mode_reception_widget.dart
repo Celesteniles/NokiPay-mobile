@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -137,9 +138,8 @@ class _ModeReceptionWidgetState extends State<ModeReceptionWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        FFAppState().update(() {
-                          FFAppState().mode = 'nokipay';
-                        });
+                        FFAppState().mode = 'nokipay';
+                        FFAppState().update(() {});
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -253,9 +253,8 @@ class _ModeReceptionWidgetState extends State<ModeReceptionWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        FFAppState().update(() {
-                          FFAppState().mode = 'mobile';
-                        });
+                        FFAppState().mode = 'mobile';
+                        FFAppState().update(() {});
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -264,19 +263,73 @@ class _ModeReceptionWidgetState extends State<ModeReceptionWidget> {
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Container(
-                                width: 50.0,
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Icon(
-                                  Icons.phone_sharp,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
+                              Builder(
+                                builder: (context) {
+                                  if (functions
+                                          .getNetworkCarrier(widget.phone!) ==
+                                      'MTN') {
+                                    return Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/momo.png',
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  } else if (functions
+                                          .getNetworkCarrier(widget.phone!) ==
+                                      'Airtel') {
+                                    return Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/airtel.png',
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Icon(
+                                        Icons.phone_sharp,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,

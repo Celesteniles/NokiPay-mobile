@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -86,14 +85,6 @@ class _QrExampleWidgetState extends State<QrExampleWidget> {
                     height: double.infinity,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryText,
-                    ),
-                    child: const SizedBox(
-                      width: 200.0,
-                      height: 200.0,
-                      child: custom_widgets.QrcodeScan(
-                        width: 200.0,
-                        height: 200.0,
-                      ),
                     ),
                   ),
                   Align(

@@ -360,9 +360,8 @@ class _AgreePageWidgetState extends State<AgreePageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              setState(() {
-                                                _model.agree = !_model.agree;
-                                              });
+                                              _model.agree = !_model.agree;
+                                              setState(() {});
                                             },
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,

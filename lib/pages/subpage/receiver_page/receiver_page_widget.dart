@@ -396,6 +396,9 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                         _model.phoneMobileTextController?.text = _model
                                                                             .phoneTextController
                                                                             .text;
+                                                                        _model
+                                                                            .phoneMobileTextController
+                                                                            ?.selection = TextSelection.collapsed(offset: _model.phoneMobileTextController!.text.length);
                                                                       });
                                                                     },
                                                                   ),
@@ -494,18 +497,23 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                   _model.contact =
                                                                       await actions
                                                                           .takeContactWithIndicatif();
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                            .countryName =
-                                                                        _model.contact![
-                                                                            0];
-                                                                  });
+                                                                  FFAppState()
+                                                                          .countryName =
+                                                                      _model.contact![
+                                                                          0];
+                                                                  setState(
+                                                                      () {});
                                                                   setState(() {
                                                                     _model
                                                                         .phoneTextController
                                                                         ?.text = functions.phoneFormatter(_model
                                                                             .contact![
                                                                         2]);
+                                                                    _model.phoneTextController?.selection = TextSelection.collapsed(
+                                                                        offset: _model
+                                                                            .phoneTextController!
+                                                                            .text
+                                                                            .length);
                                                                   });
 
                                                                   setState(
@@ -1942,6 +1950,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                   .phoneFormatter(
                                                                       '${functions.getDialCode(FFAppState().countryName)}${_model.phoneMobileTextController.text}'),
                                                             );
+
                                                             if ((_model.apiResultndl
                                                                         ?.succeeded ??
                                                                     true) &&

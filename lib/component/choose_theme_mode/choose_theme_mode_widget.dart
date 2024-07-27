@@ -122,7 +122,10 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
                             'nubrnu2u' /* Sombre */,
                           )
                         ].toList(),
-                        onChanged: (val) => setState(() {}),
+                        onChanged: (val) async {
+                          setState(() {});
+                          setDarkModeSetting(context, ThemeMode.system);
+                        },
                         controller: _model.radioButtonValueController ??=
                             FormFieldController<String>(null),
                         optionHeight: 32.0,

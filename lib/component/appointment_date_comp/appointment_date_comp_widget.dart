@@ -84,6 +84,7 @@ class _AppointmentDateCompWidgetState extends State<AppointmentDateCompWidget> {
               expanded: Builder(
                 builder: (context) {
                   final hourItem = widget.hours?.toList() ?? [];
+
                   return GridView.builder(
                     padding: const EdgeInsets.fromLTRB(
                       0,

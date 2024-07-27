@@ -403,6 +403,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                                                           }
                                                           final columnGetSoldeResponse =
                                                               snapshot.data!;
+
                                                           return Column(
                                                             mainAxisSize:
                                                                 MainAxisSize

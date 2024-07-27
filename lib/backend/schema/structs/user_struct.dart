@@ -14,6 +14,7 @@ class UserStruct extends BaseStruct {
   String? _token;
   String get token => _token ?? '';
   set token(String? val) => _token = val;
+
   bool hasToken() => _token != null;
 
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(

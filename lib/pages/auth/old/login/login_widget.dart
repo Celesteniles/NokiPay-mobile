@@ -620,19 +620,19 @@ class _LoginWidgetState extends State<LoginWidget>
                               0.0, 0.0, 0.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              setState(() {
-                                FFAppState().phoneNumber = functions
-                                    .phoneFormatter('${valueOrDefault<String>(
-                                  functions.getDialCode(
-                                      _model.countrySelectedOption),
-                                  '+242',
-                                )}${_model.phoneTextController.text}');
-                              });
+                              FFAppState().phoneNumber = functions
+                                  .phoneFormatter('${valueOrDefault<String>(
+                                functions
+                                    .getDialCode(_model.countrySelectedOption),
+                                '+242',
+                              )}${_model.phoneTextController.text}');
+                              setState(() {});
                               _model.apiResultLogin =
                                   await ApiNokiPayGroup.loginCall.call(
                                 phone: FFAppState().phoneNumber,
                                 pin: _model.codePinTextController.text,
                               );
+
                               if ((_model.apiResultLogin?.succeeded ?? true) &&
                                   valueOrDefault<bool>(
                                     ApiNokiPayGroup.loginCall.code(

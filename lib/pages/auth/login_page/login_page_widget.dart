@@ -448,6 +448,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                     phone: widget.phone,
                                     pin: _model.pinCodeController!.text,
                                   );
+
                                   if ((_model.apiResultLogin?.succeeded ??
                                           true) &&
                                       (ApiNokiPayGroup.loginCall.code(
@@ -460,25 +461,23 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       'Authentification réussie',
                                       'success',
                                     );
-                                    setState(() {
-                                      FFAppState().accessToken =
-                                          ApiNokiPayGroup.loginCall.token(
+                                    FFAppState().accessToken =
+                                        ApiNokiPayGroup.loginCall.token(
+                                      (_model.apiResultLogin?.jsonBody ?? ''),
+                                    )!;
+                                    FFAppState().UserConnecte =
+                                        ApiNokiPayGroup.loginCall.userData(
+                                      (_model.apiResultLogin?.jsonBody ?? ''),
+                                    );
+                                    FFAppState().currency =
+                                        valueOrDefault<String>(
+                                      getJsonField(
                                         (_model.apiResultLogin?.jsonBody ?? ''),
-                                      )!;
-                                      FFAppState().UserConnecte =
-                                          ApiNokiPayGroup.loginCall.userData(
-                                        (_model.apiResultLogin?.jsonBody ?? ''),
-                                      );
-                                      FFAppState().currency =
-                                          valueOrDefault<String>(
-                                        getJsonField(
-                                          (_model.apiResultLogin?.jsonBody ??
-                                              ''),
-                                          r'''$.currency''',
-                                        )?.toString(),
-                                        'XAF',
-                                      );
-                                    });
+                                        r'''$.currency''',
+                                      )?.toString(),
+                                      'XAF',
+                                    );
+                                    setState(() {});
                                     GoRouter.of(context).prepareAuthEvent();
                                     await authManager.signIn(
                                       authenticationToken:

@@ -48,19 +48,19 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
       _model.apiResultatPin = await ApiNokiPayGroup.getSoldeCall.call(
         accessToken: FFAppState().accessToken,
       );
+
       if ((_model.apiResultatPin?.succeeded ?? true) &&
           (ApiNokiPayGroup.getSoldeCall.code(
                 (_model.apiResultatPin?.jsonBody ?? ''),
               ) ==
               FFAppState().zero)) {
-        FFAppState().update(() {
-          FFAppState().balance = ApiNokiPayGroup.getSoldeCall.solde(
-            (_model.apiResultatPin?.jsonBody ?? ''),
-          )!;
-          FFAppState().currency = ApiNokiPayGroup.getSoldeCall.currency(
-            (_model.apiResultatPin?.jsonBody ?? ''),
-          )!;
-        });
+        FFAppState().balance = ApiNokiPayGroup.getSoldeCall.solde(
+          (_model.apiResultatPin?.jsonBody ?? ''),
+        )!;
+        FFAppState().currency = ApiNokiPayGroup.getSoldeCall.currency(
+          (_model.apiResultatPin?.jsonBody ?? ''),
+        )!;
+        FFAppState().update(() {});
       }
     });
 
@@ -251,14 +251,20 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                           _model
                                                               .senderAmountTextController
                                                               .text;
+                                                      _model.receiverAmountTextController
+                                                              ?.selection =
+                                                          TextSelection.collapsed(
+                                                              offset: _model
+                                                                  .receiverAmountTextController!
+                                                                  .text
+                                                                  .length);
                                                     });
-                                                    setState(() {
-                                                      _model.frais = 0.0;
-                                                      _model.total =
-                                                          double.tryParse(_model
-                                                              .senderAmountTextController
-                                                              .text);
-                                                    });
+                                                    _model.frais = 0.0;
+                                                    _model.total =
+                                                        double.tryParse(_model
+                                                            .senderAmountTextController
+                                                            .text);
+                                                    setState(() {});
                                                   } else {
                                                     _model.apiResultnqh =
                                                         await ApiNokiPayGroup
@@ -271,40 +277,47 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                       accessToken: FFAppState()
                                                           .accessToken,
                                                     );
+
                                                     if ((_model.apiResultnqh
                                                             ?.succeeded ??
                                                         true)) {
-                                                      setState(() {
-                                                        _model.frais =
-                                                            ApiNokiPayGroup
-                                                                .getFeesCall
-                                                                .rate(
-                                                          (_model.apiResultnqh
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        );
-                                                        _model.total =
-                                                            ApiNokiPayGroup
-                                                                .getFeesCall
-                                                                .totalPay(
-                                                          (_model.apiResultnqh
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        );
-                                                        _model.converted =
-                                                            ApiNokiPayGroup
-                                                                .getFeesCall
-                                                                .converted(
-                                                          (_model.apiResultnqh
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                        );
-                                                      });
+                                                      _model.frais =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .rate(
+                                                        (_model.apiResultnqh
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                      _model.total =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .totalPay(
+                                                        (_model.apiResultnqh
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                      _model.converted =
+                                                          ApiNokiPayGroup
+                                                              .getFeesCall
+                                                              .converted(
+                                                        (_model.apiResultnqh
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      );
+                                                      setState(() {});
                                                       setState(() {
                                                         _model.receiverAmountTextController
                                                                 ?.text =
                                                             _model.converted
                                                                 .toString();
+                                                        _model.receiverAmountTextController
+                                                                ?.selection =
+                                                            TextSelection.collapsed(
+                                                                offset: _model
+                                                                    .receiverAmountTextController!
+                                                                    .text
+                                                                    .length);
                                                       });
                                                     }
                                                   }
@@ -497,14 +510,20 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         _model
                                                             .receiverAmountTextController
                                                             .text;
+                                                    _model.senderAmountTextController
+                                                            ?.selection =
+                                                        TextSelection.collapsed(
+                                                            offset: _model
+                                                                .senderAmountTextController!
+                                                                .text
+                                                                .length);
                                                   });
-                                                  setState(() {
-                                                    _model.frais = 0.0;
-                                                    _model.total =
-                                                        double.tryParse(_model
-                                                            .receiverAmountTextController
-                                                            .text);
-                                                  });
+                                                  _model.frais = 0.0;
+                                                  _model.total =
+                                                      double.tryParse(_model
+                                                          .receiverAmountTextController
+                                                          .text);
+                                                  setState(() {});
                                                 } else {
                                                   _model.apiResultnqhCopy =
                                                       await ApiNokiPayGroup
@@ -517,35 +536,35 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                     accessToken: FFAppState()
                                                         .accessToken,
                                                   );
+
                                                   if ((_model.apiResultnqhCopy
                                                           ?.succeeded ??
                                                       true)) {
-                                                    setState(() {
-                                                      _model.frais =
-                                                          ApiNokiPayGroup
-                                                              .getFeesCall
-                                                              .rate(
-                                                        (_model.apiResultnqhCopy
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      );
-                                                      _model.total =
-                                                          ApiNokiPayGroup
-                                                              .getFeesCall
-                                                              .totalPay(
-                                                        (_model.apiResultnqhCopy
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      );
-                                                      _model.converted =
-                                                          ApiNokiPayGroup
-                                                              .getFeesCall
-                                                              .converted(
-                                                        (_model.apiResultnqhCopy
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      );
-                                                    });
+                                                    _model.frais =
+                                                        ApiNokiPayGroup
+                                                            .getFeesCall
+                                                            .rate(
+                                                      (_model.apiResultnqhCopy
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    );
+                                                    _model.total =
+                                                        ApiNokiPayGroup
+                                                            .getFeesCall
+                                                            .totalPay(
+                                                      (_model.apiResultnqhCopy
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    );
+                                                    _model.converted =
+                                                        ApiNokiPayGroup
+                                                            .getFeesCall
+                                                            .converted(
+                                                      (_model.apiResultnqhCopy
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    );
+                                                    setState(() {});
                                                     setState(() {
                                                       _model.senderAmountTextController
                                                               ?.text =
@@ -557,6 +576,13 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                     ''),
                                                               )!
                                                               .toString();
+                                                      _model.senderAmountTextController
+                                                              ?.selection =
+                                                          TextSelection.collapsed(
+                                                              offset: _model
+                                                                  .senderAmountTextController!
+                                                                  .text
+                                                                  .length);
                                                     });
                                                   }
                                                 }
@@ -621,7 +647,10 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Text(
-                            'Frais NokiPay = ${_model.frais?.toString()}',
+                            'Frais NokiPay = ${valueOrDefault<String>(
+                              _model.frais?.toString(),
+                              '0',
+                            )}',
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -638,7 +667,10 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                           ),
                         ),
                         Text(
-                          'Total à payer = ${_model.total?.toString()}',
+                          'Total à payer = ${valueOrDefault<String>(
+                            _model.total?.toString(),
+                            '0',
+                          )}',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
@@ -716,8 +748,8 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                 alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Text(
-                                                  functions
-                                                      .getInitial(widget.name!),
+                                                  functions.getInitial(
+                                                      widget.name!),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -993,26 +1025,102 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    Container(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .accent4,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.phone,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        size: 24.0,
-                                                      ),
+                                                    Builder(
+                                                      builder: (context) {
+                                                        if (functions
+                                                                .getNetworkCarrier(
+                                                                    widget
+                                                                        .phone!) ==
+                                                            'MTN') {
+                                                          return Container(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/momo.png',
+                                                                width: double
+                                                                    .infinity,
+                                                                height: double
+                                                                    .infinity,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        } else if (functions
+                                                                .getNetworkCarrier(
+                                                                    widget
+                                                                        .phone!) ==
+                                                            'Airtel') {
+                                                          return Container(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/airtel.png',
+                                                                width: double
+                                                                    .infinity,
+                                                                height: double
+                                                                    .infinity,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        } else {
+                                                          return Container(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .accent4,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.phone,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryText,
+                                                              size: 24.0,
+                                                            ),
+                                                          );
+                                                        }
+                                                      },
                                                     ),
                                                     Padding(
                                                       padding:

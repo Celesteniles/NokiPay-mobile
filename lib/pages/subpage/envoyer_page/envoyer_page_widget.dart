@@ -547,13 +547,12 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                     _model.contact =
                                                                         await actions
                                                                             .takeContactWithIndicatif();
+                                                                    FFAppState()
+                                                                            .countryName =
+                                                                        _model.contact![
+                                                                            0];
                                                                     setState(
-                                                                        () {
-                                                                      FFAppState()
-                                                                              .countryName =
-                                                                          _model
-                                                                              .contact![0];
-                                                                    });
+                                                                        () {});
                                                                     setState(
                                                                         () {
                                                                       _model
@@ -561,6 +560,11 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                           ?.text = functions.phoneFormatter(_model
                                                                               .contact![
                                                                           2]);
+                                                                      _model.phoneTextController?.selection = TextSelection.collapsed(
+                                                                          offset: _model
+                                                                              .phoneTextController!
+                                                                              .text
+                                                                              .length);
                                                                     });
 
                                                                     setState(
@@ -892,6 +896,8 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                               () {
                                                                             _model.phoneMobileTextController?.text =
                                                                                 (_model.phoneFocusNode?.hasFocus ?? false).toString();
+                                                                            _model.phoneMobileTextController?.selection =
+                                                                                TextSelection.collapsed(offset: _model.phoneMobileTextController!.text.length);
                                                                           });
                                                                           await _model
                                                                               .pageViewController
@@ -1192,10 +1198,9 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                       ),
                                                       FFButtonWidget(
                                                         onPressed: () async {
-                                                          setState(() {
-                                                            _model.mode =
-                                                                'mobile';
-                                                          });
+                                                          _model.mode =
+                                                              'mobile';
+                                                          setState(() {});
                                                         },
                                                         text:
                                                             FFLocalizations.of(
@@ -1273,10 +1278,9 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                       ),
                                                       FFButtonWidget(
                                                         onPressed: () async {
-                                                          setState(() {
-                                                            _model.mode =
-                                                                'bancaire';
-                                                          });
+                                                          _model.mode =
+                                                              'bancaire';
+                                                          setState(() {});
                                                         },
                                                         text:
                                                             FFLocalizations.of(
@@ -2871,6 +2875,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                               FFAppState()
                                                                   .accessToken,
                                                         );
+
                                                         if ((_model.apiResultRegister
                                                                     ?.succeeded ??
                                                                 true) &&

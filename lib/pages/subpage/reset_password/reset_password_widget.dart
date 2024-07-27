@@ -450,6 +450,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                         _model.newCodePinTextController.text,
                                     accessToken: FFAppState().accessToken,
                                   );
+
                                   if ((_model.apiResultsReset?.succeeded ??
                                           true) &&
                                       (ApiNokiPayGroup.resetPINCodeCall.code(

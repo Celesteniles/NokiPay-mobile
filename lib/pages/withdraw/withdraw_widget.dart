@@ -632,6 +632,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                                 FFAppState().countryName)!),
                                         accessToken: FFAppState().accessToken,
                                       );
+
                                       if ((_model.apiResultTransfert
                                                   ?.succeeded ??
                                               true) &&

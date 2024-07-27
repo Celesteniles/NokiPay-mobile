@@ -220,6 +220,7 @@ class _PlusWidgetState extends State<PlusWidget> {
                                                 }
                                                 final textGetSoldeResponse =
                                                     snapshot.data!;
+
                                                 return Text(
                                                   'XAF ${valueOrDefault<String>(
                                                     ApiNokiPayGroup.getSoldeCall
@@ -946,13 +947,13 @@ class _PlusWidgetState extends State<PlusWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        FFAppState().deleteUserConnecte();
-                        FFAppState().UserConnecte = null;
+                      FFAppState().deleteUserConnecte();
+                      FFAppState().UserConnecte = null;
 
-                        FFAppState().deleteAccessToken();
-                        FFAppState().accessToken = '';
-                      });
+                      FFAppState().deleteAccessToken();
+                      FFAppState().accessToken = '';
+
+                      setState(() {});
                       GoRouter.of(context).prepareAuthEvent();
                       await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();

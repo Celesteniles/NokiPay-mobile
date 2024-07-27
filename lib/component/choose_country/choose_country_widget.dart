@@ -129,6 +129,7 @@ class _ChooseCountryWidgetState extends State<ChooseCountryWidget> {
                         builder: (context) {
                           final countryVar =
                               functions.getCountryList().toList();
+
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -145,10 +146,9 @@ class _ChooseCountryWidgetState extends State<ChooseCountryWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        _model.updatePage(() {
-                                          FFAppState().countryName =
-                                              countryVarItem;
-                                        });
+                                        FFAppState().countryName =
+                                            countryVarItem;
+                                        _model.updatePage(() {});
                                         Navigator.pop(context);
                                       },
                                       child: Row(

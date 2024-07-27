@@ -309,6 +309,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                         phone: widget.phone,
                                         dialCode: widget.dialCode,
                                       );
+
                                       if ((_model.apiResultResend?.succeeded ??
                                               true) &&
                                           (ApiNokiPayGroup.sendOTPCall.code(
@@ -397,7 +398,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                             child: Builder(
                               builder: (context) => Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    1.0, 1.0, 1.0, 4.0),
+                                    0.0, 0.0, 0.0, 4.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     await actions.customToast(
@@ -410,6 +411,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                       telephone:
                                           '${widget.dialCode}${widget.phone}',
                                     );
+
                                     if ((_model.apiResultVerify?.succeeded ??
                                             true) &&
                                         (ApiNokiPayGroup.verifyOTPCall.code(
@@ -424,6 +426,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                         phone:
                                             '${widget.dialCode}${widget.phone}',
                                       );
+
                                       await actions.sweetNotification(
                                         context,
                                         'Numéro de téléphone vérifié avec succès',
@@ -439,15 +442,14 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                                     ''),
                                               ) ==
                                               FFAppState().zero)) {
-                                        setState(() {
-                                          FFAppState().UserConnecte =
-                                              ApiNokiPayGroup.checkAccountCall
-                                                  .userData(
-                                            (_model.apiResultCheckAccount
-                                                    ?.jsonBody ??
-                                                ''),
-                                          );
-                                        });
+                                        FFAppState().UserConnecte =
+                                            ApiNokiPayGroup.checkAccountCall
+                                                .userData(
+                                          (_model.apiResultCheckAccount
+                                                  ?.jsonBody ??
+                                              ''),
+                                        );
+                                        setState(() {});
 
                                         context.goNamed(
                                           'LoginPage',

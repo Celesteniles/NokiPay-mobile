@@ -212,146 +212,138 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            15.0, 0.0, 15.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  setState(() {
-                                    _model.filter = 'transfer';
-                                  });
-                                },
-                                text: FFLocalizations.of(context).getText(
-                                  'su2owttd' /* Transferts */,
-                                ),
-                                options: FFButtonOptions(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 10.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: _model.filter == 'transfer'
-                                      ? Colors.black
-                                      : FlutterFlowTheme.of(context).alternate,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color: _model.filter == 'transfer'
-                                            ? FlutterFlowTheme.of(context)
-                                                .primary
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  hoverColor: const Color(0xB2000000),
-                                  hoverTextColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Flexible(
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _model.filter = 'transfer';
+                                setState(() {});
+                              },
+                              text: FFLocalizations.of(context).getText(
+                                'su2owttd' /* Transferts */,
+                              ),
+                              options: FFButtonOptions(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 10.0, 10.0, 10.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: _model.filter == 'transfer'
+                                    ? Colors.black
+                                    : FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: _model.filter == 'transfer'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w800,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(100.0),
+                                hoverColor: const Color(0xB2000000),
+                                hoverTextColor:
+                                    FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                            Expanded(
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  setState(() {
-                                    _model.filter = 'paiement';
-                                  });
-                                },
-                                text: FFLocalizations.of(context).getText(
-                                  '7mbhyzda' /* Paiements */,
-                                ),
-                                options: FFButtonOptions(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 10.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: _model.filter == 'paiement'
-                                      ? Colors.black
-                                      : FlutterFlowTheme.of(context).alternate,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color: _model.filter == 'paiement'
-                                            ? FlutterFlowTheme.of(context)
-                                                .primary
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  hoverColor: Colors.black,
-                                  hoverTextColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                ),
+                          ),
+                          Flexible(
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _model.filter = 'paiement';
+                                setState(() {});
+                              },
+                              text: FFLocalizations.of(context).getText(
+                                '7mbhyzda' /* Paiements */,
+                              ),
+                              options: FFButtonOptions(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 10.0, 10.0, 10.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: _model.filter == 'paiement'
+                                    ? Colors.black
+                                    : FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: _model.filter == 'paiement'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w800,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(100.0),
+                                hoverColor: Colors.black,
+                                hoverTextColor:
+                                    FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                            Expanded(
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  setState(() {
-                                    _model.filter = 'facture';
-                                  });
-                                },
-                                text: FFLocalizations.of(context).getText(
-                                  'v9ydkjqi' /* Factures */,
-                                ),
-                                options: FFButtonOptions(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 10.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: _model.filter == 'facture'
-                                      ? Colors.black
-                                      : FlutterFlowTheme.of(context).alternate,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color: _model.filter == 'facture'
-                                            ? FlutterFlowTheme.of(context)
-                                                .primary
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w800,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  hoverColor: Colors.black,
-                                  hoverTextColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                ),
+                          ),
+                          Flexible(
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                _model.filter = 'facture';
+                                setState(() {});
+                              },
+                              text: FFLocalizations.of(context).getText(
+                                'v9ydkjqi' /* Factures */,
+                              ),
+                              options: FFButtonOptions(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 10.0, 10.0, 10.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: _model.filter == 'facture'
+                                    ? Colors.black
+                                    : FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: _model.filter == 'facture'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      fontSize: 14.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w800,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(100.0),
+                                hoverColor: Colors.black,
+                                hoverTextColor:
+                                    FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                          ].divide(const SizedBox(width: 12.0)),
-                        ),
+                          ),
+                        ]
+                            .divide(const SizedBox(width: 12.0))
+                            .around(const SizedBox(width: 12.0)),
                       ),
                       Divider(
                         thickness: 2.0,
@@ -414,6 +406,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                             }
                             final listViewGetTransactionsResponse =
                                 snapshot.data!;
+
                             return Builder(
                               builder: (context) {
                                 final varTransaction =
@@ -433,6 +426,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                     ),
                                   );
                                 }
+
                                 return RefreshIndicator(
                                   color: FlutterFlowTheme.of(context).primary,
                                   onRefresh: () async {

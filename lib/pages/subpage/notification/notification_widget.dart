@@ -22,6 +22,10 @@ class _NotificationWidgetState extends State<NotificationWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NotificationModel());
+
+    _model.switchValue1 = true;
+    _model.switchValue2 = _model.disabled;
+    _model.switchValue3 = _model.disabled;
   }
 
   @override
@@ -136,7 +140,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             ),
                           ),
                           Switch.adaptive(
-                            value: _model.switchValue1 ??= true,
+                            value: _model.switchValue1!,
                             onChanged: (_model.disabled == false)
                                 ? null
                                 : (newValue) async {
@@ -201,7 +205,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             ),
                           ),
                           Switch.adaptive(
-                            value: _model.switchValue2 ??= _model.disabled,
+                            value: _model.switchValue2!,
                             onChanged: _model.disabled
                                 ? null
                                 : (newValue) async {
@@ -266,7 +270,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             ),
                           ),
                           Switch.adaptive(
-                            value: _model.switchValue3 ??= _model.disabled,
+                            value: _model.switchValue3!,
                             onChanged: _model.disabled
                                 ? null
                                 : (newValue) async {

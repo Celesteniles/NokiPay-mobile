@@ -413,6 +413,7 @@ class _HomePageOldWidgetState extends State<HomePageOldWidget> {
                                                           }
                                                           final columnGetSoldeResponse =
                                                               snapshot.data!;
+
                                                           return Column(
                                                             mainAxisSize:
                                                                 MainAxisSize

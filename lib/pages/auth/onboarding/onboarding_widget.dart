@@ -574,11 +574,10 @@ de l'argent */
                                       await actions.customToast(
                                         'Connexion au serveur',
                                       );
-                                      setState(() {
-                                        FFAppState().phoneNumber =
-                                            functions.phoneFormatter(
-                                                '${functions.getDialCode(FFAppState().phoneNumber)}${_model.phoneTextController.text}');
-                                      });
+                                      FFAppState().phoneNumber =
+                                          functions.phoneFormatter(
+                                              '${functions.getDialCode(FFAppState().phoneNumber)}${_model.phoneTextController.text}');
+                                      setState(() {});
                                       _model.apiResultCheck =
                                           await ApiNokiPayGroup.sendOTPCall
                                               .call(
@@ -587,6 +586,7 @@ de l'argent */
                                             functions.getDialCode(
                                                 FFAppState().countryName)!),
                                       );
+
                                       if ((_model.apiResultCheck?.succeeded ??
                                               true) &&
                                           (ApiNokiPayGroup.sendOTPCall.code(
@@ -669,9 +669,6 @@ de l'argent */
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 3.0,
-                                borderSide: const BorderSide(
-                                  width: 0.0,
-                                ),
                                 borderRadius: BorderRadius.circular(100.0),
                                 disabledColor: FlutterFlowTheme.of(context)
                                     .disabledPrimaryButton,

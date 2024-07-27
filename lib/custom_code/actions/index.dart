@@ -1,7 +1,6 @@
 export 'fetch_contacts.dart' show fetchContacts;
 export 'get_country_flag2.dart' show getCountryFlag2;
 export 'change_status_bar_color.dart' show changeStatusBarColor;
-export 'check_internet_connection.dart' show checkInternetConnection;
 export 'take_contact.dart' show takeContact;
 export 'sweet_notification.dart' show sweetNotification;
 export 'on_app_background_alt.dart' show onAppBackgroundAlt;
@@ -10,6 +9,5 @@ export 'show_date_picker.dart' show showDatePicker;
 export 'take_contact_with_indicatif.dart' show takeContactWithIndicatif;
 export 'on_app_background.dart' show onAppBackground;
 export 'initialize_app.dart' show initializeApp;
-export 'connectivity_plus_service.dart' show connectivityPlusService;
 export 'encrypt_object.dart' show encryptObject;
 export 'decrypt_object.dart' show decryptObject;

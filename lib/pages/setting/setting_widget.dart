@@ -332,12 +332,11 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                                     PinComponentWidget(
                                                                   actionComp:
                                                                       () async {
+                                                                    FFAppState()
+                                                                            .isBalance =
+                                                                        true;
                                                                     setState(
-                                                                        () {
-                                                                      FFAppState()
-                                                                              .isBalance =
-                                                                          true;
-                                                                    });
+                                                                        () {});
                                                                   },
                                                                 ),
                                                               ),
@@ -1160,13 +1159,13 @@ class _SettingWidgetState extends State<SettingWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        FFAppState().deleteUserConnecte();
-                        FFAppState().UserConnecte = null;
+                      FFAppState().deleteUserConnecte();
+                      FFAppState().UserConnecte = null;
 
-                        FFAppState().deleteAccessToken();
-                        FFAppState().accessToken = '';
-                      });
+                      FFAppState().deleteAccessToken();
+                      FFAppState().accessToken = '';
+
+                      setState(() {});
                       GoRouter.of(context).prepareAuthEvent();
                       await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();

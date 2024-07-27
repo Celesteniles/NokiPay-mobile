@@ -12,7 +12,6 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   final unfocusNode = FocusNode();
   // State field(s) for Carousel widget.
   CarouselController? carouselController;
-
   int carouselCurrentIndex = 1;
 
   /// Query cache managers for this widget.

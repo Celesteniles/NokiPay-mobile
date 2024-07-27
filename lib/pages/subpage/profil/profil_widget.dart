@@ -61,6 +61,7 @@ class _ProfilWidgetState extends State<ProfilWidget> {
           );
         }
         final profilGetUserResponse = snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)

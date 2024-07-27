@@ -8,11 +8,11 @@ class SenderpageModel extends FlutterFlowModel<SenderpageWidget> {
 
   bool isNotEnough = false;
 
-  double? frais;
+  double? frais = 0.0;
 
-  double? total;
+  double? total = 0.0;
 
-  double? converted;
+  double? converted = 0.0;
 
   ///  State fields for stateful widgets in this page.
 

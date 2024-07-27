@@ -34,9 +34,8 @@ class _SendPageWidgetState extends State<SendPageWidget> {
       _model.contacts = await actions.fetchContacts(
         '  ',
       );
-      setState(() {
-        _model.isCharge = true;
-      });
+      _model.isCharge = true;
+      setState(() {});
         });
 
     _model.textController ??= TextEditingController();
@@ -264,9 +263,8 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              FFAppState().update(() {
-                                FFAppState().mode = 'mobile';
-                              });
+                              FFAppState().mode = 'mobile';
+                              FFAppState().update(() {});
 
                               context.pushNamed(
                                 'Senderpage',
@@ -412,6 +410,7 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                       );
                     }
                     final columnGetContactsFetchResponse = snapshot.data!;
+
                     return Builder(
                       builder: (context) {
                         final contactVar = ApiNokiPayGroup.getContactsFetchCall
@@ -420,6 +419,7 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                                 )
                                 ?.toList() ??
                             [];
+
                         return Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,

@@ -126,6 +126,7 @@ class _PayComponentWidgetState extends State<PayComponentWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      Navigator.pop(context);
                       await showModalBottomSheet(
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,

@@ -304,6 +304,7 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
                                     phone:
                                         _model.codeMarchandTextController.text,
                                   );
+
                                   if ((_model.apiCheckAccount?.succeeded ??
                                           true) &&
                                       (ApiNokiPayGroup.checkAccountCall.code(

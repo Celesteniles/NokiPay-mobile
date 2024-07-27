@@ -60,6 +60,7 @@ class _AdresseWidgetState extends State<AdresseWidget> {
           );
         }
         final adresseGetContactsResponse = snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -160,6 +161,7 @@ class _AdresseWidgetState extends State<AdresseWidget> {
                               )
                               ?.toList() ??
                           [];
+
                       return Column(
                         mainAxisSize: MainAxisSize.max,
                         children:

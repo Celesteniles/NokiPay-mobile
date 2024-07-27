@@ -944,6 +944,7 @@ class _RegisterCopyWidgetState extends State<RegisterCopyWidget>
                               numeroRue: _model.numeroRueTextController.text,
                               rue: _model.rueTextController.text,
                             );
+
                             if ((_model.apiResultRegister?.succeeded ?? true) &&
                                 valueOrDefault<bool>(
                                   ApiNokiPayGroup.registerCall.code(

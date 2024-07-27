@@ -483,14 +483,18 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                   await requestPermission(contactsPermission);
                                   _model.contact =
                                       await actions.takeContactWithIndicatif();
-                                  setState(() {
-                                    FFAppState().countryName =
-                                        _model.contact![0];
-                                  });
+                                  FFAppState().countryName = _model.contact![0];
+                                  setState(() {});
                                   setState(() {
                                     _model.phoneFieldTextController?.text =
                                         functions
                                             .phoneFormatter(_model.contact![2]);
+                                    _model.phoneFieldTextController?.selection =
+                                        TextSelection.collapsed(
+                                            offset: _model
+                                                .phoneFieldTextController!
+                                                .text
+                                                .length);
                                   });
 
                                   setState(() {});
@@ -650,6 +654,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                             '${functions.getDialCode(FFAppState().countryName)}${_model.phoneFieldTextController.text}'),
                                         accessToken: FFAppState().accessToken,
                                       );
+
                                       if ((_model.apiAccount?.succeeded ??
                                               true) &&
                                           (ApiNokiPayGroup.checkAccountCall

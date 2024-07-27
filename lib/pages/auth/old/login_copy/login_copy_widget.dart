@@ -762,6 +762,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
                                 phone: _model.telephoneTextController.text,
                                 pin: _model.passwordTextController.text,
                               );
+
                               if ((_model.apiResultLogin?.succeeded ?? true) &&
                                   valueOrDefault<bool>(
                                     ApiNokiPayGroup.loginCall.code(

@@ -441,6 +441,7 @@ class _ConfirmationComponentWidgetState
                                       accessToken: FFAppState().accessToken,
                                       pin: widget.pin?.toString(),
                                     );
+
                                     if ((_model.apiResultTransfert?.succeeded ??
                                             true) &&
                                         (ApiNokiPayGroup.transfertNokiPayCall

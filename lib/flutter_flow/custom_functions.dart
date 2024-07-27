@@ -712,3 +712,14 @@ String getDevise(String phone) {
 
   return 'Unknown';
 }
+
+String getNetworkCarrier(String phoneNumber) {
+  if (phoneNumber.startsWith("24206")) {
+    return "MTN";
+  } else if (phoneNumber.startsWith("24205") ||
+      phoneNumber.startsWith("24204")) {
+    return "Airtel";
+  } else {
+    return "Unknown";
+  }
+}

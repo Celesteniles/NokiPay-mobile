@@ -145,6 +145,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           }
                                           final columnGetSoldeResponse =
                                               snapshot.data!;
+
                                           return Column(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
@@ -822,13 +823,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        FFAppState().deleteUserConnecte();
-                        FFAppState().UserConnecte = null;
+                      FFAppState().deleteUserConnecte();
+                      FFAppState().UserConnecte = null;
 
-                        FFAppState().deleteAccessToken();
-                        FFAppState().accessToken = '';
-                      });
+                      FFAppState().deleteAccessToken();
+                      FFAppState().accessToken = '';
+
+                      setState(() {});
                       GoRouter.of(context).prepareAuthEvent();
                       await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();
