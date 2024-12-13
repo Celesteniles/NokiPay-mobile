@@ -38,9 +38,10 @@ class _NotificationWidgetState extends State<NotificationWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -144,7 +145,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             onChanged: (_model.disabled == false)
                                 ? null
                                 : (newValue) async {
-                                    setState(
+                                    safeSetState(
                                         () => _model.switchValue1 = newValue);
                                   },
                             activeColor: FlutterFlowTheme.of(context).primary,
@@ -209,7 +210,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             onChanged: _model.disabled
                                 ? null
                                 : (newValue) async {
-                                    setState(
+                                    safeSetState(
                                         () => _model.switchValue2 = newValue);
                                   },
                             activeColor: FlutterFlowTheme.of(context).primary,
@@ -274,7 +275,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             onChanged: _model.disabled
                                 ? null
                                 : (newValue) async {
-                                    setState(
+                                    safeSetState(
                                         () => _model.switchValue3 = newValue);
                                   },
                             activeColor: FlutterFlowTheme.of(context).primary,

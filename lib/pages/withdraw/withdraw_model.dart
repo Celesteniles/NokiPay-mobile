@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class WithdrawModel extends FlutterFlowModel<WithdrawWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for amountField widget.
   FocusNode? amountFieldFocusNode;
   TextEditingController? amountFieldTextController;
@@ -30,7 +29,6 @@ class WithdrawModel extends FlutterFlowModel<WithdrawWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     amountFieldFocusNode?.dispose();
     amountFieldTextController?.dispose();
 

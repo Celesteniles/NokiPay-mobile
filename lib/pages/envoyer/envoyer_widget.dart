@@ -55,9 +55,10 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -185,7 +186,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.amountFieldTextController',
                                       const Duration(milliseconds: 0),
-                                      () => setState(() {}),
+                                      () => safeSetState(() {}),
                                     ),
                                     autofocus: true,
                                     autofillHints: const [
@@ -213,7 +214,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Colors.black,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -222,7 +223,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -231,7 +232,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .error,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -240,7 +241,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .error,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -292,7 +293,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                           shape: BoxShape.rectangle,
                           border: Border.all(
                             color: Colors.black,
-                            width: 1.0,
+                            width: 0.5,
                           ),
                         ),
                         child: Padding(
@@ -315,13 +316,11 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -363,13 +362,11 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -410,7 +407,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.phoneFieldTextController',
                                     const Duration(milliseconds: 10),
-                                    () => setState(() {}),
+                                    () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
                                   obscureText: false,
@@ -483,21 +480,26 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                   await requestPermission(contactsPermission);
                                   _model.contact =
                                       await actions.takeContactWithIndicatif();
-                                  FFAppState().countryName = _model.contact![0];
-                                  setState(() {});
-                                  setState(() {
+                                  FFAppState().countryName =
+                                      (_model.contact!.elementAtOrNull(0))!;
+                                  safeSetState(() {});
+                                  safeSetState(() {
                                     _model.phoneFieldTextController?.text =
-                                        functions
-                                            .phoneFormatter(_model.contact![2]);
-                                    _model.phoneFieldTextController?.selection =
-                                        TextSelection.collapsed(
-                                            offset: _model
-                                                .phoneFieldTextController!
-                                                .text
-                                                .length);
+                                        functions.phoneFormatter((_model
+                                            .contact!
+                                            .elementAtOrNull(2))!);
+                                    _model.phoneFieldFocusNode?.requestFocus();
+                                    WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      _model.phoneFieldTextController
+                                          ?.selection = TextSelection.collapsed(
+                                        offset: _model.phoneFieldTextController!
+                                            .text.length,
+                                      );
+                                    });
                                   });
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: Icon(
                                   Icons.contacts_rounded,
@@ -525,7 +527,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.codePinTextController',
                                   const Duration(milliseconds: 10),
-                                  () => setState(() {}),
+                                  () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
                                 autofillHints: const [AutofillHints.telephoneNumber],
@@ -550,7 +552,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: Colors.black,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
@@ -558,21 +560,21 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                     borderSide: BorderSide(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
@@ -581,7 +583,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                       .tertiareBackground,
                                   contentPadding: const EdgeInsets.all(24.0),
                                   suffixIcon: InkWell(
-                                    onTap: () => setState(
+                                    onTap: () => safeSetState(
                                       () => _model.codePinVisibility =
                                           !_model.codePinVisibility,
                                     ),
@@ -731,7 +733,7 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                               text: FFLocalizations.of(context).getText(
                                 '35gnxn9o' /* Envoyer */,

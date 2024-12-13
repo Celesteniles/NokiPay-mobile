@@ -125,7 +125,7 @@ class _LoginWidgetState extends State<LoginWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.countryTextController?.text =
               FFLocalizations.of(context).getText(
             'zkh3bdh3' /* Congo */,
@@ -145,9 +145,10 @@ class _LoginWidgetState extends State<LoginWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -324,7 +325,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                     );
                                   },
                                   onSelected: (String selection) {
-                                    setState(() => _model
+                                    safeSetState(() => _model
                                         .countrySelectedOption = selection);
                                     FocusScope.of(context).unfocus();
                                   },
@@ -566,7 +567,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                       errorBorder: InputBorder.none,
                                       focusedErrorBorder: InputBorder.none,
                                       suffixIcon: InkWell(
-                                        onTap: () => setState(
+                                        onTap: () => safeSetState(
                                           () => _model.codePinVisibility =
                                               !_model.codePinVisibility,
                                         ),
@@ -626,7 +627,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                     .getDialCode(_model.countrySelectedOption),
                                 '+242',
                               )}${_model.phoneTextController.text}');
-                              setState(() {});
+                              safeSetState(() {});
                               _model.apiResultLogin =
                                   await ApiNokiPayGroup.loginCall.call(
                                 phone: FFAppState().phoneNumber,
@@ -665,7 +666,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                 );
                               }
 
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             text: FFLocalizations.of(context).getText(
                               '6l41bb95' /* S'authentifier */,

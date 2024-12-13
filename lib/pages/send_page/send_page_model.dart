@@ -9,7 +9,6 @@ class SendPageModel extends FlutterFlowModel<SendPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - fetchContacts] action in SendPage widget.
   List<dynamic>? contacts;
   // State field(s) for TextField widget.
@@ -22,7 +21,6 @@ class SendPageModel extends FlutterFlowModel<SendPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

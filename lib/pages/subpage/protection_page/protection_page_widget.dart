@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
@@ -41,9 +42,10 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -145,21 +147,26 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
                           Switch.adaptive(
                             value: _model.switchValue!,
                             onChanged: (newValue) async {
-                              setState(() => _model.switchValue = newValue);
+                              safeSetState(
+                                  () => _model.switchValue = newValue);
                               if (newValue) {
                                 final localAuth = LocalAuthentication();
                                 bool isBiometricSupported =
                                     await localAuth.isDeviceSupported();
 
                                 if (isBiometricSupported) {
-                                  _model.biometric =
-                                      await localAuth.authenticate(
-                                          localizedReason:
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                    '37nnfdc5' /* Analyez votre empreinte. */,
-                                  ));
-                                  setState(() {});
+                                  try {
+                                    _model.biometric =
+                                        await localAuth.authenticate(
+                                            localizedReason:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                      '37nnfdc5' /* Analyez votre empreinte. */,
+                                    ));
+                                  } on PlatformException {
+                                    _model.biometric = false;
+                                  }
+                                  safeSetState(() {});
                                 }
 
                                 if (_model.biometric) {
@@ -174,7 +181,7 @@ class _ProtectionPageWidgetState extends State<ProtectionPageWidget> {
                                   );
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               }
                             },
                             activeColor: FlutterFlowTheme.of(context).primary,

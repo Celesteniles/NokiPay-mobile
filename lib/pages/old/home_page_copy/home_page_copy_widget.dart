@@ -2,9 +2,9 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:styled_divider/styled_divider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,9 +43,10 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).tertiareBackground,
@@ -902,7 +903,7 @@ class _HomePageCopyWidgetState extends State<HomePageCopyWidget> {
                       ),
                     ],
                     carouselController: _model.carouselController ??=
-                        CarouselController(),
+                        CarouselSliderController(),
                     options: CarouselOptions(
                       initialPage: 1,
                       viewportFraction: 0.8,

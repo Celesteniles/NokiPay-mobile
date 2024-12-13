@@ -10,7 +10,6 @@ class EnvoyerPageModel extends FlutterFlowModel<EnvoyerPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -66,7 +65,6 @@ class EnvoyerPageModel extends FlutterFlowModel<EnvoyerPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     phoneFocusNode?.dispose();
     phoneTextController?.dispose();
 

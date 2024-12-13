@@ -62,9 +62,10 @@ class _ConfirmationTransactionWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -382,6 +383,7 @@ class _ConfirmationTransactionWidgetState
                         ),
                         icon: const FaIcon(
                           FontAwesomeIcons.windowClose,
+                          size: 15.0,
                         ),
                         options: FFButtonOptions(
                           height: 50.0,
@@ -462,13 +464,13 @@ class _ConfirmationTransactionWidgetState
                                                   Directionality.of(context)),
                                           child: WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
+                                              onTap: () {
+                                                FocusScope.of(dialogContext)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
                                               child: SizedBox(
                                                 height: double.infinity,
                                                 width: double.infinity,
@@ -487,7 +489,7 @@ class _ConfirmationTransactionWidgetState
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   } else {
                                     await actions.sweetNotification(
                                       context,
@@ -511,7 +513,7 @@ class _ConfirmationTransactionWidgetState
                                   );
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '2yf5ayvg' /* Confirmer */,

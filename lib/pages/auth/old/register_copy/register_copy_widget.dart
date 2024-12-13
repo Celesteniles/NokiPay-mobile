@@ -152,9 +152,10 @@ class _RegisterCopyWidgetState extends State<RegisterCopyWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -403,7 +404,7 @@ class _RegisterCopyWidgetState extends State<RegisterCopyWidget>
                           )
                         ],
                         onChanged: (val) =>
-                            setState(() => _model.dropDownValue = val),
+                            safeSetState(() => _model.dropDownValue = val),
                         width: double.infinity,
                         height: 56.0,
                         textStyle: FlutterFlowTheme.of(context)
@@ -997,7 +998,7 @@ class _RegisterCopyWidgetState extends State<RegisterCopyWidget>
                               );
                             }
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: FFLocalizations.of(context).getText(
                             'hbzejyf2' /* S'inscrire */,

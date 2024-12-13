@@ -47,9 +47,10 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -151,7 +152,7 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.codeMarchandTextController',
                             const Duration(milliseconds: 2000),
-                            () => setState(() {}),
+                            () => safeSetState(() {}),
                           ),
                           autofocus: true,
                           autofillHints: const [AutofillHints.telephoneNumber],
@@ -209,7 +210,7 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
                                     onTap: () async {
                                       _model.codeMarchandTextController
                                           ?.clear();
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: const Icon(
                                       Icons.clear,
@@ -267,7 +268,7 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
                           ScanMode.QR,
                         );
 
-                        setState(() {});
+                        safeSetState(() {});
                       },
                     ),
                   ].divide(const SizedBox(width: 12.0)),
@@ -354,7 +355,7 @@ class _PayMerchandWidgetState extends State<PayMerchandWidget> {
                                   }
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                         text: FFLocalizations.of(context).getText(
                           'a3q12wl3' /* Poursuivre */,

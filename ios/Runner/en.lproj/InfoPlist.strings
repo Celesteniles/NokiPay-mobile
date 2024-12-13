@@ -1,6 +1,6 @@
-NSCameraUsageDescription = "The app requires camera access to facilitate payments by scanning the QR codes of merchants and other users.";
-NSFaceIDUsageDescription = "The app requires access to biometrics in order to secure your wallet.";
-NSContactsUsageDescription = "The application requires access to your contacts to suggest people you know in order to facilitate navigation and money transfer.";
-NSPhotoLibraryUsageDescription = "Authorizing access to your photo library is necessary to ensure reliable user identification and possibly import profile photos, ensuring the security and accuracy of the information provided.";
-NSLocationWhenInUseUsageDescription = "The app requests access to your approximate location in order to provide location-based features, thereby improving your user experience.";
-NSAppTransportSecurity = "This application requires access to Internet connection status to provide optimal user experience.";
+NSCameraUsageDescription = "The app requires camera access to facilitate payments by scanning QR codes from merchants and other users.";
+NSFaceIDUsageDescription = "The app requires biometrics access in order to secure your wallet.";
+NSContactsUsageDescription = "The app requires access to your contacts to suggest people you know to facilitate navigation and money transfer.";
+NSPhotoLibraryUsageDescription = "Permission to access your photo library is required to ensure reliable user identification and possibly import profile photos, thus ensuring the security and accuracy of the information provided.";
+NSLocationWhenInUseUsageDescription = "The App requests access to your approximate location in order to provide location-based features, thereby improving your user experience.";
+NSAppTransportSecurity = "This application requires access to internet connection status to provide an optimal user experience.";

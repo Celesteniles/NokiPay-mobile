@@ -328,7 +328,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.countryTextController?.text =
               FFLocalizations.of(context).getText(
             've2ca2ih' /* Congo */,
@@ -348,9 +348,10 @@ class _RegisterWidgetState extends State<RegisterWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -584,7 +585,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                     },
                                                     onSelected:
                                                         (String selection) {
-                                                      setState(() => _model
+                                                      safeSetState(() => _model
                                                               .countrySelectedOption =
                                                           selection);
                                                       FocusScope.of(context)
@@ -844,7 +845,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                       .text),
                                                   '+242',
                                                 )}${_model.phoneTextController.text}');
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 await _model.pageViewController
                                                     ?.nextPage(
                                                   duration: const Duration(
@@ -859,6 +860,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                               icon: const FaIcon(
                                                 FontAwesomeIcons
                                                     .arrowAltCircleRight,
+                                                size: 15.0,
                                               ),
                                               options: FFButtonOptions(
                                                 height: 52.0,
@@ -1290,7 +1292,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                               'u1gkkgfb' /* M */,
                                             )
                                           ],
-                                          onChanged: (val) => setState(
+                                          onChanged: (val) => safeSetState(
                                               () => _model.dropDownValue = val),
                                           width: double.infinity,
                                           height: 56.0,
@@ -1367,6 +1369,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                   icon: const FaIcon(
                                                     FontAwesomeIcons
                                                         .arrowAltCircleLeft,
+                                                    size: 15.0,
                                                   ),
                                                   options: FFButtonOptions(
                                                     height: 52.0,
@@ -1433,6 +1436,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                   icon: const FaIcon(
                                                     FontAwesomeIcons
                                                         .arrowAltCircleRight,
+                                                    size: 15.0,
                                                   ),
                                                   options: FFButtonOptions(
                                                     height: 52.0,
@@ -2177,6 +2181,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                   icon: const FaIcon(
                                                     FontAwesomeIcons
                                                         .arrowAltCircleLeft,
+                                                    size: 15.0,
                                                   ),
                                                   options: FFButtonOptions(
                                                     height: 52.0,
@@ -2307,7 +2312,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                       );
                                                     }
 
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   text: FFLocalizations.of(
                                                           context)
@@ -2316,6 +2321,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                                                   ),
                                                   icon: const FaIcon(
                                                     FontAwesomeIcons.solidSave,
+                                                    size: 15.0,
                                                   ),
                                                   options: FFButtonOptions(
                                                     height: 52.0,
@@ -2390,7 +2396,7 @@ class _RegisterWidgetState extends State<RegisterWidget>
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.ease,
                             );
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           effect: smooth_page_indicator.ExpandingDotsEffect(
                             expansionFactor: 2.0,

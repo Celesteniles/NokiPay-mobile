@@ -194,7 +194,7 @@ class _VerifyWidgetState extends State<VerifyWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -209,9 +209,10 @@ class _VerifyWidgetState extends State<VerifyWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -368,12 +369,6 @@ class _VerifyWidgetState extends State<VerifyWidget>
                           activeColor: FlutterFlowTheme.of(context).primaryText,
                           inactiveColor: FlutterFlowTheme.of(context).alternate,
                           selectedColor: FlutterFlowTheme.of(context).primary,
-                          activeFillColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          inactiveFillColor:
-                              FlutterFlowTheme.of(context).alternate,
-                          selectedFillColor:
-                              FlutterFlowTheme.of(context).primary,
                         ),
                         controller: _model.pinCodeController,
                         onChanged: (_) {},
@@ -414,7 +409,7 @@ class _VerifyWidgetState extends State<VerifyWidget>
                                 onChanged: (value, displayTime, shouldUpdate) {
                                   _model.timerMilliseconds = value;
                                   _model.timerValue = displayTime;
-                                  if (shouldUpdate) setState(() {});
+                                  if (shouldUpdate) safeSetState(() {});
                                 },
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context)
@@ -486,7 +481,7 @@ class _VerifyWidgetState extends State<VerifyWidget>
                                     ApiNokiPayGroup.verifyLoginOTPCall.userData(
                                   (_model.apiResultLogin?.jsonBody ?? ''),
                                 );
-                                setState(() {});
+                                safeSetState(() {});
                                 GoRouter.of(context).prepareAuthEvent();
                                 await authManager.signIn(
                                   authenticationToken: FFAppState().accessToken,
@@ -516,7 +511,7 @@ class _VerifyWidgetState extends State<VerifyWidget>
 
                               navigate();
 
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             text: FFLocalizations.of(context).getText(
                               '4ohufpvb' /* Vérifier */,
@@ -645,7 +640,7 @@ Renvoyer un SMS */
                                       );
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                               )
                             ],

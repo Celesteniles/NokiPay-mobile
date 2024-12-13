@@ -73,7 +73,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
     _model.objetTextController ??= TextEditingController();
     _model.objetFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.senderAmountTextController?.text =
               FFLocalizations.of(context).getText(
             'u3x2025n' /* 0 */,
@@ -97,9 +97,10 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -245,26 +246,35 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                 () async {
                                                   if (widget.anotherCurrency ==
                                                       FFAppState().currency) {
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model.receiverAmountTextController
                                                               ?.text =
                                                           _model
                                                               .senderAmountTextController
                                                               .text;
-                                                      _model.receiverAmountTextController
-                                                              ?.selection =
-                                                          TextSelection.collapsed(
-                                                              offset: _model
-                                                                  .receiverAmountTextController!
-                                                                  .text
-                                                                  .length);
+                                                      _model
+                                                          .receiverAmountFocusNode
+                                                          ?.requestFocus();
+                                                      WidgetsBinding.instance
+                                                          .addPostFrameCallback(
+                                                              (_) {
+                                                        _model.receiverAmountTextController
+                                                                ?.selection =
+                                                            TextSelection
+                                                                .collapsed(
+                                                          offset: _model
+                                                              .receiverAmountTextController!
+                                                              .text
+                                                              .length,
+                                                        );
+                                                      });
                                                     });
                                                     _model.frais = 0.0;
                                                     _model.total =
                                                         double.tryParse(_model
                                                             .senderAmountTextController
                                                             .text);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   } else {
                                                     _model.apiResultnqh =
                                                         await ApiNokiPayGroup
@@ -305,24 +315,33 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                 ?.jsonBody ??
                                                             ''),
                                                       );
-                                                      setState(() {});
-                                                      setState(() {
+                                                      safeSetState(() {});
+                                                      safeSetState(() {
                                                         _model.receiverAmountTextController
                                                                 ?.text =
                                                             _model.converted
                                                                 .toString();
-                                                        _model.receiverAmountTextController
-                                                                ?.selection =
-                                                            TextSelection.collapsed(
-                                                                offset: _model
-                                                                    .receiverAmountTextController!
-                                                                    .text
-                                                                    .length);
+                                                        _model
+                                                            .receiverAmountFocusNode
+                                                            ?.requestFocus();
+                                                        WidgetsBinding.instance
+                                                            .addPostFrameCallback(
+                                                                (_) {
+                                                          _model.receiverAmountTextController
+                                                                  ?.selection =
+                                                              TextSelection
+                                                                  .collapsed(
+                                                            offset: _model
+                                                                .receiverAmountTextController!
+                                                                .text
+                                                                .length,
+                                                          );
+                                                        });
                                                       });
                                                     }
                                                   }
 
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 },
                                               ),
                                               autofocus: false,
@@ -499,31 +518,39 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.receiverAmountTextController',
                                                 const Duration(milliseconds: 0),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               onFieldSubmitted: (_) async {
                                                 if (widget.anotherCurrency ==
                                                     FFAppState().currency) {
-                                                  setState(() {
+                                                  safeSetState(() {
                                                     _model.senderAmountTextController
                                                             ?.text =
                                                         _model
                                                             .receiverAmountTextController
                                                             .text;
-                                                    _model.senderAmountTextController
-                                                            ?.selection =
-                                                        TextSelection.collapsed(
-                                                            offset: _model
-                                                                .senderAmountTextController!
-                                                                .text
-                                                                .length);
+                                                    _model.senderAmountFocusNode
+                                                        ?.requestFocus();
+                                                    WidgetsBinding.instance
+                                                        .addPostFrameCallback(
+                                                            (_) {
+                                                      _model.senderAmountTextController
+                                                              ?.selection =
+                                                          TextSelection
+                                                              .collapsed(
+                                                        offset: _model
+                                                            .senderAmountTextController!
+                                                            .text
+                                                            .length,
+                                                      );
+                                                    });
                                                   });
                                                   _model.frais = 0.0;
                                                   _model.total =
                                                       double.tryParse(_model
                                                           .receiverAmountTextController
                                                           .text);
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 } else {
                                                   _model.apiResultnqhCopy =
                                                       await ApiNokiPayGroup
@@ -564,8 +591,8 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                               ?.jsonBody ??
                                                           ''),
                                                     );
-                                                    setState(() {});
-                                                    setState(() {
+                                                    safeSetState(() {});
+                                                    safeSetState(() {
                                                       _model.senderAmountTextController
                                                               ?.text =
                                                           ApiNokiPayGroup
@@ -576,18 +603,27 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                     ''),
                                                               )!
                                                               .toString();
-                                                      _model.senderAmountTextController
-                                                              ?.selection =
-                                                          TextSelection.collapsed(
-                                                              offset: _model
-                                                                  .senderAmountTextController!
-                                                                  .text
-                                                                  .length);
+                                                      _model
+                                                          .senderAmountFocusNode
+                                                          ?.requestFocus();
+                                                      WidgetsBinding.instance
+                                                          .addPostFrameCallback(
+                                                              (_) {
+                                                        _model.senderAmountTextController
+                                                                ?.selection =
+                                                            TextSelection
+                                                                .collapsed(
+                                                          offset: _model
+                                                              .senderAmountTextController!
+                                                              .text
+                                                              .length,
+                                                        );
+                                                      });
                                                     });
                                                   }
                                                 }
 
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               autofocus: false,
                                               textCapitalization:
@@ -831,17 +867,15 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         child: WebViewAware(
                                                           child:
                                                               GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      dialogContext)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
                                                             child: SizedBox(
                                                               width: double
                                                                   .infinity,
@@ -855,8 +889,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         ),
                                                       );
                                                     },
-                                                  ).then((value) =>
-                                                      setState(() {}));
+                                                  );
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -992,17 +1025,15 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         child: WebViewAware(
                                                           child:
                                                               GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      dialogContext)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
                                                             child: SizedBox(
                                                               width: double
                                                                   .infinity,
@@ -1016,8 +1047,7 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         ),
                                                       );
                                                     },
-                                                  ).then((value) =>
-                                                      setState(() {}));
+                                                  );
                                                 },
                                                 child: Row(
                                                   mainAxisSize:

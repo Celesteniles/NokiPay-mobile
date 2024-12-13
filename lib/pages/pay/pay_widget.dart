@@ -55,9 +55,10 @@ class _PayWidgetState extends State<PayWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -324,7 +325,7 @@ class _PayWidgetState extends State<PayWidget> {
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.amountFieldTextController',
                                       const Duration(milliseconds: 0),
-                                      () => setState(() {}),
+                                      () => safeSetState(() {}),
                                     ),
                                     autofocus: true,
                                     autofillHints: const [
@@ -435,7 +436,7 @@ class _PayWidgetState extends State<PayWidget> {
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.codePinTextController',
                                   const Duration(milliseconds: 10),
-                                  () => setState(() {}),
+                                  () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
                                 autofillHints: const [AutofillHints.telephoneNumber],
@@ -491,7 +492,7 @@ class _PayWidgetState extends State<PayWidget> {
                                       .tertiareBackground,
                                   contentPadding: const EdgeInsets.all(24.0),
                                   suffixIcon: InkWell(
-                                    onTap: () => setState(
+                                    onTap: () => safeSetState(
                                       () => _model.codePinVisibility =
                                           !_model.codePinVisibility,
                                     ),

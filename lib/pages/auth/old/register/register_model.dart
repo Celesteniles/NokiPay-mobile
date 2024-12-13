@@ -8,7 +8,6 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class RegisterModel extends FlutterFlowModel<RegisterWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -67,7 +66,6 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     countryFocusNode?.dispose();
 
     phoneFocusNode?.dispose();

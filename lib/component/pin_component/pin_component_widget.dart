@@ -140,9 +140,6 @@ class _PinComponentWidgetState extends State<PinComponentWidget> {
                 activeColor: Colors.white,
                 inactiveColor: FlutterFlowTheme.of(context).alternate,
                 selectedColor: Colors.black,
-                activeFillColor: Colors.white,
-                inactiveFillColor: FlutterFlowTheme.of(context).alternate,
-                selectedFillColor: Colors.black,
               ),
               controller: _model.pinCodeController,
               onChanged: (_) {},
@@ -184,7 +181,7 @@ class _PinComponentWidgetState extends State<PinComponentWidget> {
                   );
                 }
 
-                setState(() {});
+                safeSetState(() {});
               },
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _model.pinCodeControllerValidator.asValidator(context),

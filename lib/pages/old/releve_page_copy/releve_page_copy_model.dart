@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 class RelevePageCopyModel extends FlutterFlowModel<RelevePageCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
 
@@ -35,8 +34,6 @@ class RelevePageCopyModel extends FlutterFlowModel<RelevePageCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
-
     /// Dispose query cache managers for this widget.
 
     clearTransactionCache();

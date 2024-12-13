@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for codePin widget.
   FocusNode? codePinFocusNode;
   TextEditingController? codePinTextController;
@@ -35,7 +34,6 @@ class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     codePinFocusNode?.dispose();
     codePinTextController?.dispose();
 

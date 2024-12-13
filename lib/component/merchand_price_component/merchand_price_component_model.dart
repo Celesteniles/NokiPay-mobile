@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 
 class MerchandPriceComponentModel
     extends FlutterFlowModel<MerchandPriceComponentWidget> {
-  ///  Local state fields for this component.
-
-  bool isValid = false;
-
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for payAmount widget.

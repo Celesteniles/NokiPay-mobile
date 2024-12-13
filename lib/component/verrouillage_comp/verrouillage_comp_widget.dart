@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
 import 'verrouillage_comp_model.dart';
@@ -35,11 +36,15 @@ class _VerrouillageCompWidgetState extends State<VerrouillageCompWidget> {
       bool isBiometricSupported = await localAuth.isDeviceSupported();
 
       if (isBiometricSupported) {
-        _model.biometrie = await localAuth.authenticate(
-            localizedReason: FFLocalizations.of(context).getText(
-          'ywnu47jx' /* Veuillez vous authentifier pou... */,
-        ));
-        setState(() {});
+        try {
+          _model.biometrie = await localAuth.authenticate(
+              localizedReason: FFLocalizations.of(context).getText(
+            'ywnu47jx' /* Veuillez vous authentifier pou... */,
+          ));
+        } on PlatformException {
+          _model.biometrie = false;
+        }
+        safeSetState(() {});
       }
 
       if (_model.biometrie) {

@@ -6,10 +6,6 @@ import 'settings_widget.dart' show SettingsWidget;
 import 'package:flutter/material.dart';
 
 class SettingsModel extends FlutterFlowModel<SettingsWidget> {
-  ///  State fields for stateful widgets in this page.
-
-  final unfocusNode = FocusNode();
-
   /// Query cache managers for this widget.
 
   final _soldeManager = FutureRequestManager<ApiCallResponse>();
@@ -32,8 +28,6 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
-
     /// Dispose query cache managers for this widget.
 
     clearSoldeCache();

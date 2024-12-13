@@ -126,7 +126,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.telephoneTextController?.text =
               FFLocalizations.of(context).getText(
             'zxv5ni78' /* 242 */,
@@ -146,9 +146,10 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -322,7 +323,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
                                     );
                                   },
                                   onSelected: (String selection) {
-                                    setState(() => _model
+                                    safeSetState(() => _model
                                         .countrySelectedOption1 = selection);
                                     FocusScope.of(context).unfocus();
                                   },
@@ -489,7 +490,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
                                     );
                                   },
                                   onSelected: (String selection) {
-                                    setState(() => _model
+                                    safeSetState(() => _model
                                         .countrySelectedOption2 = selection);
                                     FocusScope.of(context).unfocus();
                                   },
@@ -713,7 +714,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
                                   .secondaryBackground,
                               contentPadding: const EdgeInsets.all(24.0),
                               suffixIcon: InkWell(
-                                onTap: () => setState(
+                                onTap: () => safeSetState(
                                   () => _model.passwordVisibility =
                                       !_model.passwordVisibility,
                                 ),
@@ -806,7 +807,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget>
                                 );
                               }
 
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             text: FFLocalizations.of(context).getText(
                               'zphyw7oh' /* S'authentifier */,

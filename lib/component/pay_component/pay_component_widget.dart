@@ -1,10 +1,14 @@
+import '/backend/api_requests/api_calls.dart';
 import '/component/merchand_code_component/merchand_code_component_widget.dart';
+import '/component/merchand_pin_component/merchand_pin_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'pay_component_model.dart';
 export 'pay_component_model.dart';
@@ -40,6 +44,8 @@ class _PayComponentWidgetState extends State<PayComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -79,16 +85,72 @@ class _PayComponentWidgetState extends State<PayComponentWidget> {
                 children: [
                   FFButtonWidget(
                     onPressed: () async {
+                      var shouldSetState = false;
                       _model.qrcoscan = await FlutterBarcodeScanner.scanBarcode(
                         '#C62828', // scanning line color
                         FFLocalizations.of(context).getText(
-                          'pzqptup2' /* Cancel */,
+                          '0xv0g0p8' /* Cancel */,
                         ), // cancel button text
                         true, // whether to show the flash icon
                         ScanMode.QR,
                       );
 
-                      setState(() {});
+                      shouldSetState = true;
+                      _model.objectDecrypted = await actions.decryptObject(
+                        _model.qrcoscan,
+                      );
+                      shouldSetState = true;
+                      _model.apiResult70i =
+                          await ApiNokiPayGroup.getMerchantCall.call(
+                        code: getJsonField(
+                          _model.objectDecrypted,
+                          r'''$.code''',
+                        ).toString(),
+                        accessToken: FFAppState().accessToken,
+                      );
+
+                      shouldSetState = true;
+                      if ((_model.apiResult70i?.succeeded ?? true)) {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return WebViewAware(
+                              child: Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: SizedBox(
+                                  height: 500.0,
+                                  child: MerchandPinComponentWidget(
+                                    marchand:
+                                        ApiNokiPayGroup.getMerchantCall.data(
+                                      (_model.apiResult70i?.jsonBody ?? ''),
+                                    ),
+                                    amount: getJsonField(
+                                      _model.objectDecrypted,
+                                      r'''$.amount''',
+                                    ).toString(),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
+
+                        if (shouldSetState) safeSetState(() {});
+                        return;
+                      } else {
+                        await actions.sweetNotification(
+                          context,
+                          'error',
+                          'Compte marchand introuvable',
+                        );
+                        if (shouldSetState) safeSetState(() {});
+                        return;
+                      }
+
+                      if (shouldSetState) safeSetState(() {});
                     },
                     text: FFLocalizations.of(context).getText(
                       'smw8ploa' /* Scanner un QR Code */,

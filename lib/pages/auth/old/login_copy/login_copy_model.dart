@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class LoginCopyModel extends FlutterFlowModel<LoginCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for country widget.
   final countryKey1 = GlobalKey();
   FocusNode? countryFocusNode1;
@@ -38,7 +37,6 @@ class LoginCopyModel extends FlutterFlowModel<LoginCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     countryFocusNode1?.dispose();
 
     countryFocusNode2?.dispose();

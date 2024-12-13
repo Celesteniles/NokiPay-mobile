@@ -38,7 +38,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
 
     _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
-    _model.phoneFocusNode!.addListener(() => setState(() {}));
+    _model.phoneFocusNode!.addListener(() => safeSetState(() {}));
   }
 
   @override
@@ -53,9 +53,10 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -188,7 +189,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.amountFieldTextController',
                                         const Duration(milliseconds: 0),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: true,
                                       autofillHints: const [
@@ -301,7 +302,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                             FFButtonWidget(
                               onPressed: () async {
                                 _model.mode = 'mobile';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '3cp18nyh' /* Via Mobile Money */,
@@ -351,7 +352,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                             FFButtonWidget(
                               onPressed: () async {
                                 _model.mode = 'bancaire';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '7luq6p77' /* Via une carte bancaire */,
@@ -453,17 +454,15 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                           return WebViewAware(
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
                                                               child: Padding(
                                                                 padding: MediaQuery
                                                                     .viewInsetsOf(
@@ -517,17 +516,15 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                           return WebViewAware(
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
+                                                              onTap: () {
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .unfocus();
+                                                                FocusManager
+                                                                    .instance
+                                                                    .primaryFocus
+                                                                    ?.unfocus();
+                                                              },
                                                               child: Padding(
                                                                 padding: MediaQuery
                                                                     .viewInsetsOf(
@@ -584,7 +581,8 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                         '_model.phoneTextController',
                                                         const Duration(
                                                             milliseconds: 10),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -686,25 +684,35 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                       _model.contact = await actions
                                                           .takeContactWithIndicatif();
                                                       FFAppState().countryName =
-                                                          _model.contact![0];
-                                                      setState(() {});
-                                                      setState(() {
+                                                          (_model.contact!
+                                                              .elementAtOrNull(
+                                                                  0))!;
+                                                      safeSetState(() {});
+                                                      safeSetState(() {
                                                         _model.phoneTextController
                                                                 ?.text =
-                                                            functions
-                                                                .phoneFormatter(
-                                                                    _model.contact![
-                                                                        2]);
-                                                        _model.phoneTextController
-                                                                ?.selection =
-                                                            TextSelection.collapsed(
-                                                                offset: _model
-                                                                    .phoneTextController!
-                                                                    .text
-                                                                    .length);
+                                                            functions.phoneFormatter(
+                                                                (_model.contact!
+                                                                    .elementAtOrNull(
+                                                                        2))!);
+                                                        _model.phoneFocusNode
+                                                            ?.requestFocus();
+                                                        WidgetsBinding.instance
+                                                            .addPostFrameCallback(
+                                                                (_) {
+                                                          _model.phoneTextController
+                                                                  ?.selection =
+                                                              TextSelection
+                                                                  .collapsed(
+                                                            offset: _model
+                                                                .phoneTextController!
+                                                                .text
+                                                                .length,
+                                                          );
+                                                        });
                                                       });
 
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     },
                                                     child: Icon(
                                                       Icons.contacts_rounded,
@@ -816,7 +824,7 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                           }
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                 text:
                                                     FFLocalizations.of(context)
@@ -912,11 +920,13 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                             );
                                                             _model.apiResultRechargeBank =
                                                                 await ApiNokiPayGroup
-                                                                    .depotBankCall
+                                                                    .depotBankVCall
                                                                     .call(
                                                               amount: _model
                                                                   .amountFieldTextController
                                                                   .text,
+                                                              rechargingAccount:
+                                                                  '242067230202',
                                                               accessToken:
                                                                   FFAppState()
                                                                       .accessToken,
@@ -925,50 +935,50 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                             if ((_model.apiResultRechargeBank
                                                                         ?.succeeded ??
                                                                     true) &&
-                                                                (ApiNokiPayGroup
-                                                                        .depotBankCall
-                                                                        .code(
-                                                                      (_model.apiResultRechargeBank
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                    ) ==
-                                                                    FFAppState()
-                                                                        .zero)) {
+                                                                ApiNokiPayGroup
+                                                                    .depotBankVCall
+                                                                    .status(
+                                                                  (_model.apiResultRechargeBank
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                )!) {
                                                               await actions
                                                                   .sweetNotification(
                                                                 context,
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  ApiNokiPayGroup
-                                                                      .depotBankCall
-                                                                      .msg(
-                                                                    (_model.apiResultRechargeBank
-                                                                            ?.jsonBody ??
-                                                                        ''),
-                                                                  ),
-                                                                  'Quelque chose ne s\'est pas bien passée.',
-                                                                ),
+                                                                functions.arrayToString(
+                                                                    ApiNokiPayGroup
+                                                                        .depotBankVCall
+                                                                        .message(
+                                                                          (_model.apiResultRechargeBank?.jsonBody ??
+                                                                              ''),
+                                                                        )
+                                                                        ?.toList())!,
                                                                 'success',
                                                               );
 
-                                                              context.goNamed(
+                                                              context.pushNamed(
                                                                 'WebView',
                                                                 queryParameters:
                                                                     {
                                                                   'link':
                                                                       serializeParam(
-                                                                    getJsonField(
+                                                                    ApiNokiPayGroup
+                                                                        .depotBankVCall
+                                                                        .data(
                                                                       (_model.apiResultRechargeBank
                                                                               ?.jsonBody ??
                                                                           ''),
-                                                                      r'''$.link_url''',
-                                                                    ).toString(),
+                                                                    ),
                                                                     ParamType
                                                                         .String,
                                                                   ),
                                                                   'title':
                                                                       serializeParam(
-                                                                    'Recharge via Carte bancaire',
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'uv1amqby' /* Recharge via Carte bancaire */,
+                                                                    ),
                                                                     ParamType
                                                                         .String,
                                                                   ),
@@ -980,20 +990,20 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                                 context,
                                                                 valueOrDefault<
                                                                     String>(
-                                                                  ApiNokiPayGroup
-                                                                      .depotBankCall
-                                                                      .msg(
-                                                                    (_model.apiResultRechargeBank
-                                                                            ?.jsonBody ??
-                                                                        ''),
-                                                                  ),
+                                                                  functions.arrayToString(ApiNokiPayGroup
+                                                                      .depotBankVCall
+                                                                      .message(
+                                                                        (_model.apiResultRechargeBank?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.toList()),
                                                                   'Quelque chose ne s\'est pas bien passée.',
                                                                 ),
                                                                 'error',
                                                               );
                                                             }
 
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           },
                                                 text:
                                                     FFLocalizations.of(context)

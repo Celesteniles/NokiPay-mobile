@@ -3,4 +3,4 @@ NSFaceIDUsageDescription = "L'app richiede l'accesso ai dati biometrici per prot
 NSContactsUsageDescription = "L'applicazione richiede l'accesso ai tuoi contatti per suggerirti le persone che conosci in modo da facilitare la navigazione e il trasferimento di denaro.";
 NSPhotoLibraryUsageDescription = "Autorizzare l'accesso alla tua libreria fotografica è necessario per garantire un'identificazione affidabile dell'utente ed eventualmente importare le foto del profilo, garantendo la sicurezza e l'accuratezza delle informazioni fornite.";
 NSLocationWhenInUseUsageDescription = "L'app richiede l'accesso alla tua posizione approssimativa per fornire funzionalità basate sulla posizione, migliorando così la tua esperienza utente.";
-NSAppTransportSecurity = "Questa app richiede l'accesso allo stato della connessione Internet per fornire un'esperienza utente ottimale.";
+NSAppTransportSecurity = "Questa applicazione richiede l'accesso allo stato della connessione Internet per fornire un'esperienza utente ottimale.";

@@ -16,7 +16,7 @@ class MerchandCodeComponentModel
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
-  // Stores action output result for [Backend Call - API (Check Account)] action in PinCode widget.
+  // Stores action output result for [Backend Call - API (Get Merchant)] action in PinCode widget.
   ApiCallResponse? apiResult016;
 
   @override

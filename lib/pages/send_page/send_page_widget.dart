@@ -35,12 +35,12 @@ class _SendPageWidgetState extends State<SendPageWidget> {
         '  ',
       );
       _model.isCharge = true;
-      setState(() {});
+      safeSetState(() {});
         });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
-    _model.textFieldFocusNode!.addListener(() => setState(() {}));
+    _model.textFieldFocusNode!.addListener(() => safeSetState(() {}));
   }
 
   @override
@@ -55,9 +55,10 @@ class _SendPageWidgetState extends State<SendPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -111,7 +112,7 @@ class _SendPageWidgetState extends State<SendPageWidget> {
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.textController',
                       const Duration(milliseconds: 0),
-                      () => setState(() {}),
+                      () => safeSetState(() {}),
                     ),
                     autofocus: false,
                     obscureText: false,

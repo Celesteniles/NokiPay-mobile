@@ -36,7 +36,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
 
     _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
-    _model.phoneFocusNode!.addListener(() => setState(() {}));
+    _model.phoneFocusNode!.addListener(() => safeSetState(() {}));
     _model.nameTextController ??= TextEditingController();
     _model.nameFocusNode ??= FocusNode();
 
@@ -69,9 +69,10 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -263,9 +264,11 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                       return WebViewAware(
                                                                         child:
                                                                             GestureDetector(
-                                                                          onTap: () => _model.unfocusNode.canRequestFocus
-                                                                              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                              : FocusScope.of(context).unfocus(),
+                                                                          onTap:
+                                                                              () {
+                                                                            FocusScope.of(context).unfocus();
+                                                                            FocusManager.instance.primaryFocus?.unfocus();
+                                                                          },
                                                                           child:
                                                                               Padding(
                                                                             padding:
@@ -332,9 +335,11 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                       return WebViewAware(
                                                                         child:
                                                                             GestureDetector(
-                                                                          onTap: () => _model.unfocusNode.canRequestFocus
-                                                                              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                              : FocusScope.of(context).unfocus(),
+                                                                          onTap:
+                                                                              () {
+                                                                            FocusScope.of(context).unfocus();
+                                                                            FocusManager.instance.primaryFocus?.unfocus();
+                                                                          },
                                                                           child:
                                                                               Padding(
                                                                             padding:
@@ -391,14 +396,24 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                         milliseconds:
                                                                             10),
                                                                     () async {
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {
                                                                         _model.phoneMobileTextController?.text = _model
                                                                             .phoneTextController
                                                                             .text;
                                                                         _model
-                                                                            .phoneMobileTextController
-                                                                            ?.selection = TextSelection.collapsed(offset: _model.phoneMobileTextController!.text.length);
+                                                                            .phoneMobileFocusNode
+                                                                            ?.requestFocus();
+                                                                        WidgetsBinding
+                                                                            .instance
+                                                                            .addPostFrameCallback((_) {
+                                                                          _model
+                                                                              .phoneMobileTextController
+                                                                              ?.selection = TextSelection.collapsed(
+                                                                            offset:
+                                                                                _model.phoneMobileTextController!.text.length,
+                                                                          );
+                                                                        });
                                                                       });
                                                                     },
                                                                   ),
@@ -499,24 +514,39 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                           .takeContactWithIndicatif();
                                                                   FFAppState()
                                                                           .countryName =
-                                                                      _model.contact![
-                                                                          0];
-                                                                  setState(
+                                                                      (_model
+                                                                          .contact!
+                                                                          .elementAtOrNull(
+                                                                              0))!;
+                                                                  safeSetState(
                                                                       () {});
-                                                                  setState(() {
+                                                                  safeSetState(
+                                                                      () {
+                                                                    _model.phoneTextController
+                                                                            ?.text =
+                                                                        functions.phoneFormatter((_model
+                                                                            .contact!
+                                                                            .elementAtOrNull(2))!);
                                                                     _model
-                                                                        .phoneTextController
-                                                                        ?.text = functions.phoneFormatter(_model
-                                                                            .contact![
-                                                                        2]);
-                                                                    _model.phoneTextController?.selection = TextSelection.collapsed(
+                                                                        .phoneFocusNode
+                                                                        ?.requestFocus();
+                                                                    WidgetsBinding
+                                                                        .instance
+                                                                        .addPostFrameCallback(
+                                                                            (_) {
+                                                                      _model.phoneTextController
+                                                                              ?.selection =
+                                                                          TextSelection
+                                                                              .collapsed(
                                                                         offset: _model
                                                                             .phoneTextController!
                                                                             .text
-                                                                            .length);
+                                                                            .length,
+                                                                      );
+                                                                    });
                                                                   });
 
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 },
                                                                 child: Icon(
@@ -544,7 +574,8 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                         '_model.nameTextController',
                                                         const Duration(
                                                             milliseconds: 10),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       autofillHints: const [
@@ -1321,7 +1352,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                                 EasyDebounce.debounce(
                                                                               '_model.phoneMobileTextController',
                                                                               const Duration(milliseconds: 10),
-                                                                              () => setState(() {}),
+                                                                              () => safeSetState(() {}),
                                                                             ),
                                                                             autofocus:
                                                                                 false,
@@ -2001,7 +2032,7 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                               );
                                                             }
 
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           },
                                                           text: FFLocalizations
                                                                   .of(context)

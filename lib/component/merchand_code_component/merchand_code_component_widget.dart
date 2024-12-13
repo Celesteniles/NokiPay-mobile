@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
+import '/component/merchand_price_component/merchand_price_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'merchand_code_component_model.dart';
 export 'merchand_code_component_model.dart';
 
@@ -117,32 +119,60 @@ class _MerchandCodeComponentWidgetState
                 activeColor: Colors.white,
                 inactiveColor: FlutterFlowTheme.of(context).alternate,
                 selectedColor: Colors.black,
-                activeFillColor: Colors.white,
-                inactiveFillColor: FlutterFlowTheme.of(context).alternate,
-                selectedFillColor: Colors.black,
               ),
               controller: _model.pinCodeController,
               onChanged: (_) {},
               onCompleted: (_) async {
+                var shouldSetState = false;
                 _model.isProcessing = true;
                 _model.isFailed = false;
-                setState(() {});
+                safeSetState(() {});
                 _model.apiResult016 =
-                    await ApiNokiPayGroup.checkAccountCall.call(
-                  phone: _model.pinCodeController!.text,
+                    await ApiNokiPayGroup.getMerchantCall.call(
+                  code: _model.pinCodeController!.text,
+                  accessToken: FFAppState().accessToken,
                 );
 
-                if (!((_model.apiResult016?.succeeded ?? true) &&
-                    (ApiNokiPayGroup.checkAccountCall.code(
+                shouldSetState = true;
+                if ((_model.apiResult016?.succeeded ?? true) &&
+                    (ApiNokiPayGroup.getMerchantCall.status(
                           (_model.apiResult016?.jsonBody ?? ''),
                         ) ==
-                        FFAppState().zero))) {
+                        true)) {
+                  _model.isProcessing = false;
+                  _model.isFailed = false;
+                  safeSetState(() {});
+                  Navigator.pop(context);
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return WebViewAware(
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: SizedBox(
+                            height: 500.0,
+                            child: MerchandPriceComponentWidget(
+                              marchand: ApiNokiPayGroup.getMerchantCall.data(
+                                (_model.apiResult016?.jsonBody ?? ''),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                } else {
                   _model.isProcessing = false;
                   _model.isFailed = true;
-                  setState(() {});
+                  safeSetState(() {});
+                  if (shouldSetState) safeSetState(() {});
+                  return;
                 }
 
-                setState(() {});
+                if (shouldSetState) safeSetState(() {});
               },
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: _model.pinCodeControllerValidator.asValidator(context),

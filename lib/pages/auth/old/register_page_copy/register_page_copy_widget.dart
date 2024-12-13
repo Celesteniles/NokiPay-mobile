@@ -70,9 +70,10 @@ class _RegisterPageCopyWidgetState extends State<RegisterPageCopyWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -1023,7 +1024,7 @@ class _RegisterPageCopyWidgetState extends State<RegisterPageCopyWidget>
                                                     children: [
                                                       Text(
                                                         dateTimeFormat(
-                                                          'd/M/y',
+                                                          "d/M/y",
                                                           _model.datePicked,
                                                           locale:
                                                               FFLocalizations.of(
@@ -2385,7 +2386,7 @@ class _RegisterPageCopyWidgetState extends State<RegisterPageCopyWidget>
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             effect: const smooth_page_indicator.SlideEffect(
                               spacing: 8.0,

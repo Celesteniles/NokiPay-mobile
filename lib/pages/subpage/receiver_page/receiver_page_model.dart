@@ -11,7 +11,6 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -61,7 +60,6 @@ class ReceiverPageModel extends FlutterFlowModel<ReceiverPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     phoneFocusNode?.dispose();
     phoneTextController?.dispose();
 

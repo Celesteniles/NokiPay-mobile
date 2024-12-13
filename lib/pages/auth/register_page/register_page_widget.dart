@@ -43,7 +43,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.dateNaissance = getCurrentTimestamp;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.prenomTextController ??= TextEditingController();
@@ -80,9 +80,10 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -263,8 +264,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             const Duration(
                                                                 milliseconds:
                                                                     10),
-                                                            () =>
-                                                                setState(() {}),
+                                                            () => safeSetState(
+                                                                () {}),
                                                           ),
                                                           autofocus: true,
                                                           autofillHints: const [
@@ -395,8 +396,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             const Duration(
                                                                 milliseconds:
                                                                     10),
-                                                            () =>
-                                                                setState(() {}),
+                                                            () => safeSetState(
+                                                                () {}),
                                                           ),
                                                           autofocus: false,
                                                           autofillHints: const [
@@ -805,7 +806,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                     FFButtonWidget(
                                                       onPressed: () async {
                                                         _model.genre = 'M';
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -883,7 +884,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                     FFButtonWidget(
                                                       onPressed: () async {
                                                         _model.genre = 'F';
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -1329,7 +1330,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                           null) {
                                                         _model.dateNaissance =
                                                             _model.datePicked;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                     },
                                                     child: Container(
@@ -1360,7 +1361,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             valueOrDefault<
                                                                 String>(
                                                               dateTimeFormat(
-                                                                'dd/MM/y',
+                                                                "dd/MM/y",
                                                                 _model
                                                                     .datePicked,
                                                                 locale: FFLocalizations.of(
@@ -1404,7 +1405,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                 if ((_model.datePicked !=
                                                         null) &&
                                                     (dateTimeFormat(
-                                                              'Md',
+                                                              "Md",
                                                               _model.datePicked,
                                                               locale: FFLocalizations
                                                                       .of(context)
@@ -1761,8 +1762,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: true,
                                                             autofillHints: const [
@@ -1890,8 +1892,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: false,
                                                             autofillHints: const [
@@ -2019,8 +2022,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: false,
                                                             autofillHints: const [
@@ -2148,8 +2152,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: false,
                                                             autofillHints: const [
@@ -2277,8 +2282,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: false,
                                                             autofillHints: const [
@@ -2787,11 +2793,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               selectedColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
-                                              activeFillColor: Colors.black,
-                                              inactiveFillColor: Colors.white,
-                                              selectedFillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
                                             ),
                                             controller:
                                                 _model.pinCodeController,
@@ -2927,7 +2928,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                             )?.toString(),
                                                             'XAF',
                                                           );
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           GoRouter.of(context)
                                                               .prepareAuthEvent();
                                                           await authManager
@@ -2976,7 +2977,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
                                                         navigate();
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -3066,7 +3067,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             effect: const smooth_page_indicator.SlideEffect(
                               spacing: 8.0,

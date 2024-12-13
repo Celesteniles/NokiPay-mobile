@@ -37,7 +37,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
 
     _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
-    _model.phoneFocusNode!.addListener(() => setState(() {}));
+    _model.phoneFocusNode!.addListener(() => safeSetState(() {}));
     _model.prenomTextController ??= TextEditingController();
     _model.prenomFocusNode ??= FocusNode();
 
@@ -72,9 +72,10 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -321,9 +322,11 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                         return WebViewAware(
                                                                           child:
                                                                               GestureDetector(
-                                                                            onTap: () => _model.unfocusNode.canRequestFocus
-                                                                                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                                : FocusScope.of(context).unfocus(),
+                                                                            onTap:
+                                                                                () {
+                                                                              FocusScope.of(context).unfocus();
+                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                            },
                                                                             child:
                                                                                 Padding(
                                                                               padding: MediaQuery.viewInsetsOf(context),
@@ -389,9 +392,11 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                         return WebViewAware(
                                                                           child:
                                                                               GestureDetector(
-                                                                            onTap: () => _model.unfocusNode.canRequestFocus
-                                                                                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                                : FocusScope.of(context).unfocus(),
+                                                                            onTap:
+                                                                                () {
+                                                                              FocusScope.of(context).unfocus();
+                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                            },
                                                                             child:
                                                                                 Padding(
                                                                               padding: MediaQuery.viewInsetsOf(context),
@@ -447,7 +452,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                       const Duration(
                                                                           milliseconds:
                                                                               10),
-                                                                      () => setState(
+                                                                      () => safeSetState(
                                                                           () {}),
                                                                     ),
                                                                     autofocus:
@@ -547,27 +552,37 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                     _model.contact =
                                                                         await actions
                                                                             .takeContactWithIndicatif();
-                                                                    FFAppState()
-                                                                            .countryName =
-                                                                        _model.contact![
-                                                                            0];
-                                                                    setState(
+                                                                    FFAppState().countryName = (_model
+                                                                        .contact!
+                                                                        .elementAtOrNull(
+                                                                            0))!;
+                                                                    safeSetState(
                                                                         () {});
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {
+                                                                      _model.phoneTextController?.text = functions.phoneFormatter((_model
+                                                                          .contact!
+                                                                          .elementAtOrNull(
+                                                                              2))!);
                                                                       _model
-                                                                          .phoneTextController
-                                                                          ?.text = functions.phoneFormatter(_model
-                                                                              .contact![
-                                                                          2]);
-                                                                      _model.phoneTextController?.selection = TextSelection.collapsed(
+                                                                          .phoneFocusNode
+                                                                          ?.requestFocus();
+                                                                      WidgetsBinding
+                                                                          .instance
+                                                                          .addPostFrameCallback(
+                                                                              (_) {
+                                                                        _model
+                                                                            .phoneTextController
+                                                                            ?.selection = TextSelection.collapsed(
                                                                           offset: _model
                                                                               .phoneTextController!
                                                                               .text
-                                                                              .length);
+                                                                              .length,
+                                                                        );
+                                                                      });
                                                                     });
 
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   },
                                                                   child: Icon(
@@ -596,8 +611,8 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                             const Duration(
                                                                 milliseconds:
                                                                     10),
-                                                            () =>
-                                                                setState(() {}),
+                                                            () => safeSetState(
+                                                                () {}),
                                                           ),
                                                           autofocus: false,
                                                           autofillHints: const [
@@ -725,8 +740,8 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                             const Duration(
                                                                 milliseconds:
                                                                     10),
-                                                            () =>
-                                                                setState(() {}),
+                                                            () => safeSetState(
+                                                                () {}),
                                                           ),
                                                           autofocus: false,
                                                           autofillHints: const [
@@ -892,12 +907,16 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                     : () async {
                                                                         if ((_model.nomTextController.text != '') &&
                                                                             (_model.prenomTextController.text != '')) {
-                                                                          setState(
+                                                                          safeSetState(
                                                                               () {
                                                                             _model.phoneMobileTextController?.text =
                                                                                 (_model.phoneFocusNode?.hasFocus ?? false).toString();
-                                                                            _model.phoneMobileTextController?.selection =
-                                                                                TextSelection.collapsed(offset: _model.phoneMobileTextController!.text.length);
+                                                                            _model.phoneMobileFocusNode?.requestFocus();
+                                                                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                                              _model.phoneMobileTextController?.selection = TextSelection.collapsed(
+                                                                                offset: _model.phoneMobileTextController!.text.length,
+                                                                              );
+                                                                            });
                                                                           });
                                                                           await _model
                                                                               .pageViewController
@@ -1200,7 +1219,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                         onPressed: () async {
                                                           _model.mode =
                                                               'mobile';
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         },
                                                         text:
                                                             FFLocalizations.of(
@@ -1280,7 +1299,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                         onPressed: () async {
                                                           _model.mode =
                                                               'bancaire';
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         },
                                                         text:
                                                             FFLocalizations.of(
@@ -1436,7 +1455,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                             color:
                                                                                 Colors.black,
                                                                             width:
-                                                                                3.0,
+                                                                                0.5,
                                                                           ),
                                                                         ),
                                                                         child:
@@ -1488,7 +1507,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                                   onChanged: (_) => EasyDebounce.debounce(
                                                                                     '_model.phoneMobileTextController',
                                                                                     const Duration(milliseconds: 10),
-                                                                                    () => setState(() {}),
+                                                                                    () => safeSetState(() {}),
                                                                                   ),
                                                                                   autofocus: false,
                                                                                   readOnly: true,
@@ -2227,8 +2246,9 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                               const Duration(
                                                                   milliseconds:
                                                                       10),
-                                                              () => setState(
-                                                                  () {}),
+                                                              () =>
+                                                                  safeSetState(
+                                                                      () {}),
                                                             ),
                                                             autofocus: true,
                                                             autofillHints: const [
@@ -2783,15 +2803,6 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                 selectedColor:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                activeFillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                inactiveFillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                selectedFillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
                                               ),
                                               controller:
                                                   _model.pinCodeController,
@@ -2927,7 +2938,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                           );
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: FFLocalizations.of(
                                                               context)
@@ -3017,7 +3028,7 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             effect: smooth_page_indicator.SlideEffect(
                               spacing: 8.0,

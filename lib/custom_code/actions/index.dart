@@ -11,3 +11,4 @@ export 'on_app_background.dart' show onAppBackground;
 export 'initialize_app.dart' show initializeApp;
 export 'encrypt_object.dart' show encryptObject;
 export 'decrypt_object.dart' show decryptObject;
+export 'get_device_id.dart' show getDeviceId;

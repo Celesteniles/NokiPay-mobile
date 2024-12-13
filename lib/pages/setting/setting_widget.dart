@@ -46,9 +46,10 @@ class _SettingWidgetState extends State<SettingWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -311,17 +312,15 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                         return WebViewAware(
                                                           child:
                                                               GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
                                                             child: Padding(
                                                               padding: MediaQuery
                                                                   .viewInsetsOf(
@@ -335,7 +334,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                                     FFAppState()
                                                                             .isBalance =
                                                                         true;
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   },
                                                                 ),
@@ -531,42 +530,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('Profil');
                                 },
-                                child: ListTile(
-                                  leading: FaIcon(
-                                    FontAwesomeIcons.solidUserCircle,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'yq161mpz' /* Mon profil */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: FaIcon(
+                                      FontAwesomeIcons.solidUserCircle,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'yq161mpz' /* Mon profil */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -577,42 +579,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('Adresse');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.map_sharp,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'oqpvsu45' /* Mon adresse */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.map_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'oqpvsu45' /* Mon adresse */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                             ].divide(const SizedBox(height: 12.0)),
@@ -686,13 +691,11 @@ class _SettingWidgetState extends State<SettingWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -708,42 +711,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.language_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'y7kzlgat' /* Langue */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.language_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'y7kzlgat' /* Langue */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -760,13 +766,11 @@ class _SettingWidgetState extends State<SettingWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -782,42 +786,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.light_mode_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'r9g0p08h' /* Thème */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.light_mode_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'r9g0p08h' /* Thème */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -828,42 +835,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('ProtectionPage');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.fingerprint_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      '2svve2d7' /* Protection de l'application */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.fingerprint_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        '2svve2d7' /* Protection de l'application */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -874,42 +884,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('Notification');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.notifications_none_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'p8zudxde' /* Paramètres des notifications */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.notifications_none_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'p8zudxde' /* Paramètres des notifications */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -920,42 +933,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('ResetPassword');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.pin_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'uwbeoji6' /* Réinitialiser code PIN */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.pin_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'uwbeoji6' /* Réinitialiser code PIN */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -967,42 +983,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                   await launchURL(
                                       'https://noki-services.com/confidentialite/');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.lock_outline,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      '4sq3d92f' /* Politique de confidentialité */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.lock_outline,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        '4sq3d92f' /* Politique de confidentialité */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -1014,42 +1033,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                   await launchURL(
                                       'https://noki-services.com/confidentialite/');
                                 },
-                                child: ListTile(
-                                  leading: FaIcon(
-                                    FontAwesomeIcons.fileAlt,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      't83j6wq9' /* Conditions d'utilisation */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: FaIcon(
+                                      FontAwesomeIcons.fileAlt,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        't83j6wq9' /* Conditions d'utilisation */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -1060,42 +1082,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('Contact');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.mail_outline_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      '5chk1v4s' /* Nous contacter */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.mail_outline_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        '5chk1v4s' /* Nous contacter */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                               InkWell(
@@ -1106,42 +1131,45 @@ class _SettingWidgetState extends State<SettingWidget> {
                                 onTap: () async {
                                   context.pushNamed('Apropos');
                                 },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.info_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                  title: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'i499cv9c' /* A propos */,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.info_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
+                                    title: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'i499cv9c' /* A propos */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 12.0,
+                                    ),
+                                    tileColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    dense: false,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 12.0,
-                                  ),
-                                  tileColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  dense: false,
                                 ),
                               ),
                             ].divide(const SizedBox(height: 12.0)),
@@ -1165,7 +1193,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                       FFAppState().deleteAccessToken();
                       FFAppState().accessToken = '';
 
-                      setState(() {});
+                      safeSetState(() {});
                       GoRouter.of(context).prepareAuthEvent();
                       await authManager.signOut();
                       GoRouter.of(context).clearRedirectLocation();

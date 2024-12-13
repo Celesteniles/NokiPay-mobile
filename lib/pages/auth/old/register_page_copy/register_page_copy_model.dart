@@ -9,7 +9,6 @@ class RegisterPageCopyModel extends FlutterFlowModel<RegisterPageCopyWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -33,7 +32,6 @@ class RegisterPageCopyModel extends FlutterFlowModel<RegisterPageCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     prenomFocusNode?.dispose();
     prenomTextController?.dispose();
 

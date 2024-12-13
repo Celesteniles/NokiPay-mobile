@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class ProtectionPageModel extends FlutterFlowModel<ProtectionPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Switch widget.
   bool? switchValue;
   bool biometric = false;
@@ -14,7 +13,5 @@ class ProtectionPageModel extends FlutterFlowModel<ProtectionPageWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

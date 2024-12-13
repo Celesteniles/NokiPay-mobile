@@ -16,7 +16,6 @@ class SenderpageModel extends FlutterFlowModel<SenderpageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (Get Solde)] action in Senderpage widget.
   ApiCallResponse? apiResultatPin;
   // State field(s) for senderAmount widget.
@@ -42,7 +41,6 @@ class SenderpageModel extends FlutterFlowModel<SenderpageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     senderAmountFocusNode?.dispose();
     senderAmountTextController?.dispose();
 

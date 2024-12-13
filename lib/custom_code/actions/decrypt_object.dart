@@ -9,38 +9,47 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:convert';
-import 'dart:math';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
-// Clé AES-256 fixe
-final String aesKey = '4T7Pz9NhkK3Ls6Yy0D2Qe5W8vJ1BtX4Z'; // 32 caractères
+final String aesKey = '4T7Pz9NhkK3Ls6Yy0D2Qe5W8vJ1BtX4Z'; // Clé AES-256
 
-// Fonction pour générer des octets aléatoires sécurisés
-List<int> generateSecureRandomBytes(int length) {
-  final secureRandom = Random.secure();
-  return List<int>.generate(length, (i) => secureRandom.nextInt(256));
-}
+Future<dynamic> decryptObject(String encryptedData) async {
+  print(":::::::::::::::::::DEBUT DECRYPTION:::::::::::::::::::");
+  print("Données reçues: $encryptedData");
 
-// Générer un IV unique (16 octets)
-String generateIV() {
-  final ivBytes = generateSecureRandomBytes(16); // 16 bytes for IV
-  return base64UrlEncode(ivBytes).substring(0, 16); // Ensure 16 characters
-}
+  try {
+    // Créer la clé de chiffrement
+    final key = encrypt.Key.fromUtf8(aesKey);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
-dynamic decryptObject(String encryptedString) {
-  // Add your function code here!
-  final key = encrypt.Key.fromUtf8(aesKey);
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    // Décoder le JSON
+    final Map<String, dynamic> decodedData = jsonDecode(encryptedData);
 
-  // Déchiffrement de la chaîne chiffrée
-  final decrypted = encrypter.decrypt64(encryptedString);
+    // Racourci
+    return decodedData;
 
-  // Conversion de la chaîne JSON déchiffrée en objet
-  Map<String, dynamic> data = jsonDecode(decrypted);
+    final String? ivBase64 = decodedData['iv'];
+    final String? encryptedBase64 = decodedData['encrypted'];
 
-  // Supprimer l'IV de l'objet
-  data.remove('iv');
+    if (ivBase64 == null || encryptedBase64 == null) {
+      throw Exception("IV ou données encryptées manquantes");
+    }
 
-  // Retourner l'objet sans l'IV
-  return data;
+    // Convertir l'IV et les données encryptées
+    final iv = encrypt.IV.fromBase64(ivBase64);
+    final encrypted = encrypt.Encrypted.fromBase64(encryptedBase64);
+
+    // Déchiffrer
+    final decryptedJson = encrypter.decrypt(encrypted, iv: iv);
+    print("Données déchiffrées: $decryptedJson");
+
+    // Parser le JSON
+    final result = jsonDecode(decryptedJson);
+    print(":::::::::::::::::::FIN DECRYPTION:::::::::::::::::::");
+    return result;
+  } catch (e) {
+    print(":::::::::::::::::::CATCH DECRYPTION:::::::::::::::::::");
+    print("Erreur lors du déchiffrement : $e");
+    return null;
+  }
 }

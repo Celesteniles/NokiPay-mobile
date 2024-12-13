@@ -34,9 +34,10 @@ class _PaiementWidgetState extends State<PaiementWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -108,7 +109,7 @@ class _PaiementWidgetState extends State<PaiementWidget> {
                         children: [
                           TextSpan(
                             text: FFLocalizations.of(context).getText(
-                              '91s8myor' /* Aucun résultat */,
+                              '91s8myor' /* Bientôt disponible */,
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium

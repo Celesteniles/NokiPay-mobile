@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneTextController;
@@ -19,7 +18,6 @@ class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     phoneFocusNode?.dispose();
     phoneTextController?.dispose();
   }

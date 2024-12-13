@@ -9,9 +9,8 @@ import 'package:flutter/material.dart';
 class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Carousel widget.
-  CarouselController? carouselController;
+  CarouselSliderController? carouselController;
   int carouselCurrentIndex = 1;
 
   /// Query cache managers for this widget.
@@ -36,8 +35,6 @@ class HomePageCopyModel extends FlutterFlowModel<HomePageCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
-
     /// Dispose query cache managers for this widget.
 
     clearSoldeCacheCache();

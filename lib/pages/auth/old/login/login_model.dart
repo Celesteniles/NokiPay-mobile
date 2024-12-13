@@ -7,7 +7,6 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class LoginModel extends FlutterFlowModel<LoginWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for country widget.
   final countryKey = GlobalKey();
   FocusNode? countryFocusNode;
@@ -34,7 +33,6 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     countryFocusNode?.dispose();
 
     phoneFocusNode?.dispose();

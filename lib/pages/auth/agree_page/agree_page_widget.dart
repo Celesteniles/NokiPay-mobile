@@ -41,9 +41,10 @@ class _AgreePageWidgetState extends State<AgreePageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -361,7 +362,7 @@ class _AgreePageWidgetState extends State<AgreePageWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               _model.agree = !_model.agree;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,

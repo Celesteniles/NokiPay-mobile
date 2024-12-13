@@ -155,9 +155,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -391,13 +392,11 @@ de l'argent */
                                       builder: (context) {
                                         return WebViewAware(
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
@@ -439,13 +438,11 @@ de l'argent */
                                       builder: (context) {
                                         return WebViewAware(
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
@@ -487,7 +484,7 @@ de l'argent */
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.phoneTextController',
                                       const Duration(milliseconds: 10),
-                                      () => setState(() {}),
+                                      () => safeSetState(() {}),
                                     ),
                                     autofocus: false,
                                     obscureText: false,
@@ -577,7 +574,7 @@ de l'argent */
                                       FFAppState().phoneNumber =
                                           functions.phoneFormatter(
                                               '${functions.getDialCode(FFAppState().phoneNumber)}${_model.phoneTextController.text}');
-                                      setState(() {});
+                                      safeSetState(() {});
                                       _model.apiResultCheck =
                                           await ApiNokiPayGroup.sendOTPCall
                                               .call(
@@ -642,7 +639,7 @@ de l'argent */
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                               text: FFLocalizations.of(context).getText(
                                 'zlqq2dcj' /* Commencer */,

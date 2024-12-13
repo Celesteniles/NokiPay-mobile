@@ -42,9 +42,10 @@ class _WebViewWidgetState extends State<WebViewWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -68,7 +69,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
           title: Text(
             valueOrDefault<String>(
               widget.title,
-              'Page',
+              'NokiPay',
             ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,

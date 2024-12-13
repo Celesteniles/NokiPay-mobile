@@ -44,9 +44,10 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -115,7 +116,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.textController',
                                   const Duration(milliseconds: 2000),
-                                  () => setState(() {}),
+                                  () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
                                 textCapitalization: TextCapitalization.none,
@@ -185,7 +186,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                           ? InkWell(
                                               onTap: () async {
                                                 _model.textController?.clear();
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               child: const Icon(
                                                 Icons.clear,
@@ -219,7 +220,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 _model.filter = 'transfer';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 'su2owttd' /* Transferts */,
@@ -261,7 +262,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 _model.filter = 'paiement';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 '7mbhyzda' /* Paiements */,
@@ -303,7 +304,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 _model.filter = 'facture';
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
                                 'v9ydkjqi' /* Factures */,
@@ -430,7 +431,7 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                 return RefreshIndicator(
                                   color: FlutterFlowTheme.of(context).primary,
                                   onRefresh: () async {
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.clearTransactionCache();
                                       _model.apiRequestCompleted = false;
                                     });
@@ -489,7 +490,8 @@ class _RelevePageWidgetState extends State<RelevePageWidget> {
                                                         )
                                                             .toString()
                                                             .maybeHandleOverflow(
-                                                                maxChars: 2),
+                                                              maxChars: 2,
+                                                            ),
                                                         maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(

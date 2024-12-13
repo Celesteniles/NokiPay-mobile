@@ -51,9 +51,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -197,7 +198,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 .secondaryBackgroundAlt,
                             contentPadding: const EdgeInsets.all(24.0),
                             suffixIcon: InkWell(
-                              onTap: () => setState(
+                              onTap: () => safeSetState(
                                 () => _model.codePinVisibility =
                                     !_model.codePinVisibility,
                               ),
@@ -291,7 +292,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 .secondaryBackgroundAlt,
                             contentPadding: const EdgeInsets.all(24.0),
                             suffixIcon: InkWell(
-                              onTap: () => setState(
+                              onTap: () => safeSetState(
                                 () => _model.newCodePinVisibility =
                                     !_model.newCodePinVisibility,
                               ),
@@ -385,7 +386,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 .secondaryBackgroundAlt,
                             contentPadding: const EdgeInsets.all(24.0),
                             suffixIcon: InkWell(
-                              onTap: () => setState(
+                              onTap: () => safeSetState(
                                 () => _model.confirmationCodePinVisibility =
                                     !_model.confirmationCodePinVisibility,
                               ),
@@ -506,7 +507,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 );
                               }
 
-                              setState(() {});
+                              safeSetState(() {});
                             },
                             text: FFLocalizations.of(context).getText(
                               'ragtytlo' /* Réinitialiser */,

@@ -14,8 +14,12 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 class ApiNokiPayGroup {
   static String getBaseUrl({
     String? accessToken = '',
-  }) =>
-      'https://partners.nokipay.net/api/v2';
+    String? apiUrl,
+  }) {
+    apiUrl ??= FFDevEnvironmentValues().API;
+    return '$apiUrl/api/v2';
+  }
+
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer [access_token]',
@@ -42,8 +46,11 @@ class ApiNokiPayGroup {
       TransfertNokiPayRemittenceCall();
   static DepotCall depotCall = DepotCall();
   static DepotBankCall depotBankCall = DepotBankCall();
+  static DepotBankVCall depotBankVCall = DepotBankVCall();
   static ResetPINCodeCall resetPINCodeCall = ResetPINCodeCall();
   static GetNewsCall getNewsCall = GetNewsCall();
+  static MerchantPayCall merchantPayCall = MerchantPayCall();
+  static GetMerchantCall getMerchantCall = GetMerchantCall();
 }
 
 class LoginCall {
@@ -51,9 +58,12 @@ class LoginCall {
     String? phone = '',
     String? pin = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -119,9 +129,12 @@ class VerifyOTPCall {
     String? digit = '',
     String? telephone = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -175,9 +188,12 @@ class VerifyLoginOTPCall {
     String? digit = '',
     String? phone = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -235,9 +251,12 @@ class SendOTPCall {
     String? phone = '',
     String? dialCode = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -302,9 +321,12 @@ class RegisterCall {
     String? dialCode = '',
     String? dob = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -363,9 +385,12 @@ class FindTransactionCall {
   Future<ApiCallResponse> call({
     String? transId = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -392,9 +417,12 @@ class CheckAccountCall {
   Future<ApiCallResponse> call({
     String? phone = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -434,9 +462,12 @@ class CheckPINCall {
   Future<ApiCallResponse> call({
     String? pin = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -492,9 +523,12 @@ class GetTransactionsCall {
   Future<ApiCallResponse> call({
     String? type = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -541,9 +575,12 @@ class GetTransactionsCall {
 class GetContactsFetchCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -583,9 +620,12 @@ class GetContactsFetchCall {
 class GetUserCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -632,9 +672,12 @@ class GetUserCall {
 class GetContactsCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -670,9 +713,12 @@ class GetContactsCall {
 class GetSoldeCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -727,9 +773,12 @@ class TransfertNokiPayCall {
     String? pin = '',
     String? dialCode = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -774,9 +823,12 @@ class DepositNokiPayCall {
     String? pin = '',
     String? dialCode = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -819,9 +871,12 @@ class GetFeesCall {
     double? amount,
     String? to = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -882,9 +937,12 @@ class AddContactCall {
     String? ibanBic = '',
     String? accountNumber = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -942,9 +1000,12 @@ class TransfertNokiPayRemittenceCall {
     String? iban = '',
     String? bic = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -994,9 +1055,12 @@ class DepotCall {
     String? amount = '',
     String? dialCode = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -1039,9 +1103,12 @@ class DepotBankCall {
     String? amount = '',
     String? dialCode = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -1078,14 +1145,72 @@ class DepotBankCall {
       ));
 }
 
+class DepotBankVCall {
+  Future<ApiCallResponse> call({
+    String? amount = '',
+    String? rechargingAccount = '',
+    String? accessToken = '',
+    String? apiUrl,
+  }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+      apiUrl: apiUrl,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Depot Bank v',
+      apiUrl: '$baseUrl/visa/recharge',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {
+        'amount': amount,
+        'recharging_account': rechargingAccount,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? data(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data''',
+      ));
+  List<String>? message(dynamic response) => (getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+}
+
 class ResetPINCodeCall {
   Future<ApiCallResponse> call({
     String? oldPin = '',
     String? newPin = '',
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -1129,9 +1254,12 @@ class ResetPINCodeCall {
 class GetNewsCall {
   Future<ApiCallResponse> call({
     String? accessToken = '',
+    String? apiUrl,
   }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
     final baseUrl = ApiNokiPayGroup.getBaseUrl(
       accessToken: accessToken,
+      apiUrl: apiUrl,
     );
 
     return ApiManager.instance.makeApiCall(
@@ -1162,6 +1290,126 @@ class GetNewsCall {
         r'''$.data''',
         true,
       ) as List?;
+}
+
+class MerchantPayCall {
+  Future<ApiCallResponse> call({
+    String? merchantCode = '',
+    String? amount = '',
+    String? pin = '',
+    String? accessToken = '',
+    String? apiUrl,
+  }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+      apiUrl: apiUrl,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Merchant Pay',
+      apiUrl: '$baseUrl/merchant/payment/nokipay',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {
+        'merchant_code': merchantCode,
+        'amount': amount,
+        'pin': pin,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+  List<String>? message(dynamic response) => (getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  String? msg(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.msg''',
+      ));
+  String? code(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.code''',
+      ));
+  dynamic transactionData(dynamic response) => getJsonField(
+        response,
+        r'''$.transactiondata''',
+      );
+}
+
+class GetMerchantCall {
+  Future<ApiCallResponse> call({
+    String? code = '',
+    String? accessToken = '',
+    String? apiUrl,
+  }) async {
+    apiUrl ??= FFDevEnvironmentValues().API;
+    final baseUrl = ApiNokiPayGroup.getBaseUrl(
+      accessToken: accessToken,
+      apiUrl: apiUrl,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Merchant',
+      apiUrl: '$baseUrl/merchant/$code/show',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+        'Accept': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+  List<String>? message(dynamic response) => (getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  dynamic data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
 }
 
 /// End API NOKI PAY Group Code

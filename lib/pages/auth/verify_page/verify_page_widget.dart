@@ -51,9 +51,10 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -254,13 +255,6 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                         selectedColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,
-                                        activeFillColor:
-                                            FlutterFlowTheme.of(context).info,
-                                        inactiveFillColor:
-                                            FlutterFlowTheme.of(context).info,
-                                        selectedFillColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
                                       ),
                                       controller: _model.pinCodeController,
                                       onChanged: (_) {},
@@ -348,7 +342,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Text(
                                       FFLocalizations.of(context).getText(
@@ -449,7 +443,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                                   ?.jsonBody ??
                                               ''),
                                         );
-                                        setState(() {});
+                                        safeSetState(() {});
 
                                         context.goNamed(
                                           'LoginPage',
@@ -477,14 +471,13 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                                               context)),
                                               child: WebViewAware(
                                                 child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
                                                   child: SizedBox(
                                                     width: double.infinity,
                                                     child: PhoneVerifiedWidget(
@@ -495,7 +488,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                               ),
                                             );
                                           },
-                                        ).then((value) => setState(() {}));
+                                        );
                                       }
                                     } else {
                                       await actions.sweetNotification(
@@ -510,7 +503,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                                       );
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: FFLocalizations.of(context).getText(
                                     's6dv84bf' /* Continuer */,

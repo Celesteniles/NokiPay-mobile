@@ -8,8 +8,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,7 +57,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         FFAppState().deleteAccessToken();
         FFAppState().accessToken = '';
 
-        setState(() {});
+        safeSetState(() {});
         GoRouter.of(context).prepareAuthEvent();
         await authManager.signOut();
         GoRouter.of(context).clearRedirectLocation();
@@ -91,12 +91,64 @@ class _HomeWidgetState extends State<HomeWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundAlt,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              context: context,
+              builder: (context) {
+                return WebViewAware(
+                  child: GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: const SizedBox(
+                        height: 500.0,
+                        child: PayComponentWidget(),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          icon: const Icon(
+            Icons.qr_code_scanner_rounded,
+          ),
+          elevation: 8.0,
+          label: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                FFLocalizations.of(context).getText(
+                  'i1ibaebe' /* Payer */,
+                ),
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      fontFamily:
+                          FlutterFlowTheme.of(context).titleMediumFamily,
+                      fontSize: 16.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                      useGoogleFonts: GoogleFonts.asMap().containsKey(
+                          FlutterFlowTheme.of(context).titleMediumFamily),
+                    ),
+              ),
+            ],
+          ),
+        ),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -318,14 +370,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               context)),
                                               child: WebViewAware(
                                                 child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
                                                   child: SizedBox(
                                                     height: double.infinity,
                                                     width: double.infinity,
@@ -345,7 +396,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ),
                                             );
                                           },
-                                        ).then((value) => setState(() {}));
+                                        );
                                       },
                                       child: Container(
                                         width:
@@ -661,152 +712,161 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 0.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryAlt,
-                                          offset: const Offset(
-                                            0.0,
-                                            4.0,
-                                          ),
-                                        )
-                                      ],
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                    ),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return WebViewAware(
-                                              child: GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: const SizedBox(
-                                                    height: 500.0,
-                                                    child: PayComponentWidget(),
+                              if (false)
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryAlt,
+                                            offset: const Offset(
+                                              0.0,
+                                              4.0,
+                                            ),
+                                          )
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                      ),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return WebViewAware(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: const SizedBox(
+                                                      height: 500.0,
+                                                      child:
+                                                          PayComponentWidget(),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        'anbnuy0a' /* Payer */,
-                                      ),
-                                      icon: const Icon(
-                                        Icons.qr_code_scanner,
-                                        size: 18.0,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.42,
-                                        height: 50.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryAlt,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'DM Sans',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .blueTextColor,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w800,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey('DM Sans'),
-                                            ),
-                                        elevation: 0.0,
-                                        borderRadius:
-                                            BorderRadius.circular(100.0),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 0.0,
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'anbnuy0a' /* Payer */,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.qr_code_scanner,
+                                          size: 18.0,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.42,
+                                          height: 50.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryAlt,
-                                          offset: const Offset(
-                                            0.0,
-                                            4.0,
-                                          ),
-                                        )
-                                      ],
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                    ),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        context.pushNamed('SendPage');
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        'xbk9va4r' /* Envoyer */,
+                                              .primaryAlt,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'DM Sans',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .blueTextColor,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w800,
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey('DM Sans'),
+                                              ),
+                                          elevation: 0.0,
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                        ),
                                       ),
-                                      options: FFButtonOptions(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.42,
-                                        height: 50.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryAlt,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'DM Sans',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .blueTextColor,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w800,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey('DM Sans'),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryAlt,
+                                            offset: const Offset(
+                                              0.0,
+                                              4.0,
                                             ),
-                                        elevation: 0.0,
+                                          )
+                                        ],
                                         borderRadius:
                                             BorderRadius.circular(100.0),
                                       ),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          context.pushNamed('EnvoyerSelect');
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'xbk9va4r' /* Envoyer */,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.42,
+                                          height: 50.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryAlt,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'DM Sans',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .blueTextColor,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w800,
+                                                useGoogleFonts:
+                                                    GoogleFonts.asMap()
+                                                        .containsKey('DM Sans'),
+                                              ),
+                                          elevation: 0.0,
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -951,16 +1011,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   builder: (context) {
                                                     return WebViewAware(
                                                       child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
+                                                        onTap: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
@@ -974,7 +1031,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                 FFAppState()
                                                                         .isBalance =
                                                                     true;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                             ),
                                                           ),
@@ -1574,9 +1632,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   ),
                                                 );
                                               },
-                                              carouselController:
-                                                  _model.carouselController ??=
-                                                      CarouselController(),
+                                              carouselController: _model
+                                                      .carouselController ??=
+                                                  CarouselSliderController(),
                                               options: CarouselOptions(
                                                 initialPage: max(
                                                     0,

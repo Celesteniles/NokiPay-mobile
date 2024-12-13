@@ -1,8 +1,8 @@
 import '/component/merchand_code_component/merchand_code_component_widget.dart';
+import '/component/merchand_pin_component/merchand_pin_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,13 +42,6 @@ class _MerchandPriceComponentWidgetState
 
     _model.payAmountTextController ??= TextEditingController();
     _model.payAmountFocusNode ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          _model.payAmountTextController?.text =
-              FFLocalizations.of(context).getText(
-            'owl5fl4p' /* 0 */,
-          );
-        }));
   }
 
   @override
@@ -156,16 +149,28 @@ class _MerchandPriceComponentWidgetState
                           color: FlutterFlowTheme.of(context).primary,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/NokiPay_plein.png',
+                            width: 200.0,
+                            height: 200.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            getJsonField(
+                            '${getJsonField(
                               widget.marchand,
-                              r'''$.name''',
-                            ).toString(),
+                              r'''$.nom''',
+                            ).toString()} ${getJsonField(
+                              widget.marchand,
+                              r'''$.prenom''',
+                            ).toString()}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -181,7 +186,7 @@ class _MerchandPriceComponentWidgetState
                           Text(
                             getJsonField(
                               widget.marchand,
-                              r'''$.address''',
+                              r'''$.merchant_code''',
                             ).toString(),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -219,17 +224,7 @@ class _MerchandPriceComponentWidgetState
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(100.0),
                               border: Border.all(
-                                color: valueOrDefault<Color>(
-                                  functions.isValid(
-                                              FFAppState().balance,
-                                              double.parse(_model
-                                                  .payAmountTextController
-                                                  .text)) ==
-                                          true
-                                      ? FlutterFlowTheme.of(context).alternate
-                                      : FlutterFlowTheme.of(context).error,
-                                  FlutterFlowTheme.of(context).alternate,
-                                ),
+                                color: FlutterFlowTheme.of(context).alternate,
                                 width: 2.0,
                               ),
                             ),
@@ -251,13 +246,37 @@ class _MerchandPriceComponentWidgetState
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.payAmountTextController',
                                           const Duration(milliseconds: 0),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         textCapitalization:
                                             TextCapitalization.none,
                                         obscureText: false,
-                                        decoration: const InputDecoration(
+                                        decoration: InputDecoration(
+                                          hintText: FFLocalizations.of(context)
+                                              .getText(
+                                            '1q4rj314' /* 0 */,
+                                          ),
+                                          hintStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 24.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMediumFamily),
+                                              ),
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
@@ -280,7 +299,7 @@ class _MerchandPriceComponentWidgetState
                                                           .bodyMediumFamily),
                                             ),
                                         textAlign: TextAlign.end,
-                                        maxLength: 9,
+                                        maxLength: 7,
                                         maxLengthEnforcement:
                                             MaxLengthEnforcement.enforced,
                                         buildCounter: (context,
@@ -292,6 +311,10 @@ class _MerchandPriceComponentWidgetState
                                         validator: _model
                                             .payAmountTextControllerValidator
                                             .asValidator(context),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp('[0-9]'))
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -325,34 +348,6 @@ class _MerchandPriceComponentWidgetState
                       ),
                     ],
                   ),
-                  if (functions.isValid(FFAppState().balance,
-                          double.parse(_model.payAmountTextController.text)) ==
-                      true)
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Solde NokiPay ${formatNumber(
-                            FFAppState().balance,
-                            formatType: FormatType.decimal,
-                            decimalType: DecimalType.automatic,
-                          )} ${FFAppState().currency}',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
-                                color: const Color(0xFF1A00FF),
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
-                              ),
-                        ),
-                      ].divide(const SizedBox(width: 5.0)),
-                    ),
                 ].divide(const SizedBox(height: 20.0)),
               ),
             ),
@@ -367,18 +362,33 @@ class _MerchandPriceComponentWidgetState
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                   child: FFButtonWidget(
-                    onPressed: ((functions.isValid(
-                                    FFAppState().balance,
-                                    double.parse(
-                                        _model.payAmountTextController.text)) ==
-                                false) ||
-                            (_model.payAmountTextController.text == ''))
+                    onPressed: (_model.payAmountTextController.text == '')
                         ? null
-                        : () {
-                            print('Button pressed ...');
+                        : () async {
+                            Navigator.pop(context);
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return WebViewAware(
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: SizedBox(
+                                      height: 500.0,
+                                      child: MerchandPinComponentWidget(
+                                        marchand: widget.marchand!,
+                                        amount:
+                                            _model.payAmountTextController.text,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
                           },
-                    text:
-                        'Payer ${_model.payAmountTextController.text} ${FFAppState().currency}',
+                    text: 'Payer ',
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 52.0,

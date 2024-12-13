@@ -6,10 +6,6 @@ import 'plus_widget.dart' show PlusWidget;
 import 'package:flutter/material.dart';
 
 class PlusModel extends FlutterFlowModel<PlusWidget> {
-  ///  State fields for stateful widgets in this page.
-
-  final unfocusNode = FocusNode();
-
   /// Query cache managers for this widget.
 
   final _soldeManager = FutureRequestManager<ApiCallResponse>();
@@ -32,8 +28,6 @@ class PlusModel extends FlutterFlowModel<PlusWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
-
     /// Dispose query cache managers for this widget.
 
     clearSoldeCache();

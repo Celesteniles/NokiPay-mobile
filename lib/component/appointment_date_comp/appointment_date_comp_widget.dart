@@ -114,7 +114,9 @@ class _AppointmentDateCompWidgetState extends State<AppointmentDateCompWidget> {
                             getJsonField(
                               hourItemItem,
                               r'''$.starts_at''',
-                            ).toString().maybeHandleOverflow(maxChars: 5),
+                            ).toString().maybeHandleOverflow(
+                                  maxChars: 5,
+                                ),
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: FlutterFlowTheme.of(context)

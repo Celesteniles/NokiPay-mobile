@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class PayModel extends FlutterFlowModel<PayWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for amountField widget.
   FocusNode? amountFieldFocusNode;
   TextEditingController? amountFieldTextController;
@@ -23,7 +22,6 @@ class PayModel extends FlutterFlowModel<PayWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     amountFieldFocusNode?.dispose();
     amountFieldTextController?.dispose();
 

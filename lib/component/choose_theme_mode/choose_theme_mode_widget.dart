@@ -123,7 +123,7 @@ class _ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
                           )
                         ].toList(),
                         onChanged: (val) async {
-                          setState(() {});
+                          safeSetState(() {});
                           setDarkModeSetting(context, ThemeMode.system);
                         },
                         controller: _model.radioButtonValueController ??=

@@ -54,23 +54,24 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).noire,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
-              color: Colors.white,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
@@ -83,7 +84,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
             ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 16.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
@@ -93,7 +94,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
           ),
           actions: const [],
           centerTitle: true,
-          elevation: 2.0,
+          elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
@@ -184,7 +185,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.amountFieldTextController',
                                       const Duration(milliseconds: 0),
-                                      () => setState(() {}),
+                                      () => safeSetState(() {}),
                                     ),
                                     autofocus: true,
                                     autofillHints: const [
@@ -212,7 +213,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Colors.black,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -221,7 +222,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -230,7 +231,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .error,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -239,7 +240,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
                                               .error,
-                                          width: 1.0,
+                                          width: 0.5,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(100.0),
@@ -291,7 +292,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                           shape: BoxShape.rectangle,
                           border: Border.all(
                             color: Colors.black,
-                            width: 1.0,
+                            width: 0.5,
                           ),
                         ),
                         child: Padding(
@@ -314,13 +315,11 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -362,13 +361,11 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                     builder: (context) {
                                       return WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(context).unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -409,7 +406,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.phoneFieldTextController',
                                     const Duration(milliseconds: 10),
-                                    () => setState(() {}),
+                                    () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
                                   obscureText: false,
@@ -492,7 +489,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.codePinTextController',
                                   const Duration(milliseconds: 10),
-                                  () => setState(() {}),
+                                  () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
                                 autofillHints: const [AutofillHints.telephoneNumber],
@@ -517,7 +514,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: Colors.black,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
@@ -525,21 +522,21 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                     borderSide: BorderSide(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 0.5,
                                     ),
                                     borderRadius: BorderRadius.circular(100.0),
                                   ),
@@ -548,7 +545,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                       .tertiareBackground,
                                   contentPadding: const EdgeInsets.all(24.0),
                                   suffixIcon: InkWell(
-                                    onTap: () => setState(
+                                    onTap: () => safeSetState(
                                       () => _model.codePinVisibility =
                                           !_model.codePinVisibility,
                                     ),
@@ -668,7 +665,7 @@ class _WithdrawWidgetState extends State<WithdrawWidget> {
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                               text: FFLocalizations.of(context).getText(
                                 'rwgfpzq5' /* Envoyer */,

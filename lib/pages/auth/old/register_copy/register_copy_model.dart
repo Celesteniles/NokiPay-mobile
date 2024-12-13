@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class RegisterCopyModel extends FlutterFlowModel<RegisterCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for nom widget.
   FocusNode? nomFocusNode;
   TextEditingController? nomTextController;
@@ -51,7 +50,6 @@ class RegisterCopyModel extends FlutterFlowModel<RegisterCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nomFocusNode?.dispose();
     nomTextController?.dispose();
 

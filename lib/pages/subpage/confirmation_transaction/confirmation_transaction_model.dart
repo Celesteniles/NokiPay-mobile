@@ -8,7 +8,6 @@ class ConfirmationTransactionModel
     extends FlutterFlowModel<ConfirmationTransactionWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (Transfert NokiPay)] action in Button widget.
   ApiCallResponse? apiResultTransfert;
 
@@ -16,7 +15,5 @@ class ConfirmationTransactionModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

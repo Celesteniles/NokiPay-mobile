@@ -10,7 +10,6 @@ class RechargePageModel extends FlutterFlowModel<RechargePageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for amountField widget.
   FocusNode? amountFieldFocusNode;
   TextEditingController? amountFieldTextController;
@@ -23,7 +22,7 @@ class RechargePageModel extends FlutterFlowModel<RechargePageWidget> {
   List<String>? contact;
   // Stores action output result for [Backend Call - API (Depot)] action in Button widget.
   ApiCallResponse? apiResultRecharge;
-  // Stores action output result for [Backend Call - API (Depot Bank)] action in Button widget.
+  // Stores action output result for [Backend Call - API (Depot Bank v)] action in Button widget.
   ApiCallResponse? apiResultRechargeBank;
 
   @override
@@ -31,7 +30,6 @@ class RechargePageModel extends FlutterFlowModel<RechargePageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     amountFieldFocusNode?.dispose();
     amountFieldTextController?.dispose();
 

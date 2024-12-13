@@ -384,6 +384,7 @@ class _ConfirmationComponentWidgetState
                             ),
                             icon: const FaIcon(
                               FontAwesomeIcons.windowClose,
+                              size: 15.0,
                             ),
                             options: FFButtonOptions(
                               height: 50.0,
@@ -488,7 +489,7 @@ class _ConfirmationComponentWidgetState
                                     );
                                   }
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   '7bgfvpsc' /* Confirmer */,

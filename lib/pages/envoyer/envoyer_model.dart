@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class EnvoyerModel extends FlutterFlowModel<EnvoyerWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for amountField widget.
   FocusNode? amountFieldFocusNode;
   TextEditingController? amountFieldTextController;
@@ -32,7 +31,6 @@ class EnvoyerModel extends FlutterFlowModel<EnvoyerWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     amountFieldFocusNode?.dispose();
     amountFieldTextController?.dispose();
 

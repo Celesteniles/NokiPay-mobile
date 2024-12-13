@@ -117,9 +117,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundColor,
@@ -348,10 +349,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       inactiveColor: const Color(0xFF2B2B2B),
                                       selectedColor:
                                           FlutterFlowTheme.of(context).primary,
-                                      activeFillColor: Colors.black,
-                                      inactiveFillColor: const Color(0xFF2B2B2B),
-                                      selectedFillColor:
-                                          FlutterFlowTheme.of(context).primary,
                                     ),
                                     controller: _model.pinCodeController,
                                     onChanged: (_) {},
@@ -477,7 +474,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       )?.toString(),
                                       'XAF',
                                     );
-                                    setState(() {});
+                                    safeSetState(() {});
                                     GoRouter.of(context).prepareAuthEvent();
                                     await authManager.signIn(
                                       authenticationToken:
@@ -515,7 +512,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
 
                                   navigate();
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   'jco0uu4a' /* Se connecter */,

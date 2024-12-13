@@ -6,10 +6,6 @@ import 'home_page_old_widget.dart' show HomePageOldWidget;
 import 'package:flutter/material.dart';
 
 class HomePageOldModel extends FlutterFlowModel<HomePageOldWidget> {
-  ///  State fields for stateful widgets in this page.
-
-  final unfocusNode = FocusNode();
-
   /// Query cache managers for this widget.
 
   final _soldeCacheManager = FutureRequestManager<ApiCallResponse>();
@@ -32,8 +28,6 @@ class HomePageOldModel extends FlutterFlowModel<HomePageOldWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
-
     /// Dispose query cache managers for this widget.
 
     clearSoldeCacheCache();

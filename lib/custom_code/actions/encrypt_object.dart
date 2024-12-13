@@ -15,40 +15,41 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 // Clé AES-256 fixe
 final String aesKey = '4T7Pz9NhkK3Ls6Yy0D2Qe5W8vJ1BtX4Z'; // 32 caractères
 
-// Fonction pour générer des octets aléatoires sécurisés
-List<int> generateSecureRandomBytes(int length) {
-  final secureRandom = Random.secure();
-  return List<int>.generate(length, (i) => secureRandom.nextInt(256));
-}
-
-// Générer un IV unique (16 octets)
-String generateIV() {
-  final ivBytes = generateSecureRandomBytes(16); // 16 bytes for IV
-  return base64UrlEncode(ivBytes).substring(0, 16); // Ensure 16 characters
-}
-
 String encryptObject(
   String code,
   String? amount,
 ) {
-  final key = encrypt.Key.fromUtf8(aesKey);
-  final ivString = generateIV();
-  final iv = encrypt.IV.fromUtf8(ivString);
-  final encrypter = encrypt.Encrypter(encrypt.AES(key));
+  print(":::::::::::::::::::DEBUT ENCRYPTION:::::::::::::::::::");
+  try {
+    // Créer l'objet avec les paramètres
+    final Map<String, dynamic> data = {'code': code, 'amount': amount};
 
-  // Création de l'objet
-  Map<String, dynamic> data = {
-    'code': code,
-    'amount': amount,
-    'iv': ivString // Inclure l'IV utilisé dans l'objet chiffré
-  };
+    print("Données à encrypter: $data");
 
-  // Conversion de l'objet en chaîne JSON
-  String jsonString = jsonEncode(data);
+    // Convertir l'objet en JSON string
+    final String jsonString = jsonEncode(data);
 
-  // Chiffrement de la chaîne JSON
-  final encrypted = encrypter.encrypt(jsonString, iv: iv);
+    // Créer la clé et l'encrypter
+    final key = encrypt.Key.fromUtf8(aesKey);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
 
-  // Retourner la chaîne chiffrée
-  return encrypted.base64;
+    // Générer un IV aléatoire
+    final iv = encrypt.IV.fromSecureRandom(16);
+
+    // Encrypter les données
+    final encrypted = encrypter.encrypt(jsonString, iv: iv);
+
+    // Créer l'objet résultat avec IV et données encryptées
+    final result = {'iv': iv.base64, 'encrypted': encrypted.base64};
+
+    // Convertir en JSON
+    final String encryptedJson = jsonEncode(result);
+    print("Données encryptées: $encryptedJson");
+    print(":::::::::::::::::::FIN ENCRYPTION:::::::::::::::::::");
+    return encryptedJson;
+  } catch (e) {
+    print(":::::::::::::::::::CATCH ENCRYPTION:::::::::::::::::::");
+    print("Erreur lors de l'encryption : $e");
+    return "Relancer";
+  }
 }
