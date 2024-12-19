@@ -401,19 +401,6 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                         _model.phoneMobileTextController?.text = _model
                                                                             .phoneTextController
                                                                             .text;
-                                                                        _model
-                                                                            .phoneMobileFocusNode
-                                                                            ?.requestFocus();
-                                                                        WidgetsBinding
-                                                                            .instance
-                                                                            .addPostFrameCallback((_) {
-                                                                          _model
-                                                                              .phoneMobileTextController
-                                                                              ?.selection = TextSelection.collapsed(
-                                                                            offset:
-                                                                                _model.phoneMobileTextController!.text.length,
-                                                                          );
-                                                                        });
                                                                       });
                                                                     },
                                                                   ),
@@ -527,23 +514,6 @@ class _ReceiverPageWidgetState extends State<ReceiverPageWidget> {
                                                                         functions.phoneFormatter((_model
                                                                             .contact!
                                                                             .elementAtOrNull(2))!);
-                                                                    _model
-                                                                        .phoneFocusNode
-                                                                        ?.requestFocus();
-                                                                    WidgetsBinding
-                                                                        .instance
-                                                                        .addPostFrameCallback(
-                                                                            (_) {
-                                                                      _model.phoneTextController
-                                                                              ?.selection =
-                                                                          TextSelection
-                                                                              .collapsed(
-                                                                        offset: _model
-                                                                            .phoneTextController!
-                                                                            .text
-                                                                            .length,
-                                                                      );
-                                                                    });
                                                                   });
 
                                                                   safeSetState(

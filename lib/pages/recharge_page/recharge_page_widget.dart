@@ -695,21 +695,6 @@ class _RechargePageWidgetState extends State<RechargePageWidget> {
                                                                 (_model.contact!
                                                                     .elementAtOrNull(
                                                                         2))!);
-                                                        _model.phoneFocusNode
-                                                            ?.requestFocus();
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                          _model.phoneTextController
-                                                                  ?.selection =
-                                                              TextSelection
-                                                                  .collapsed(
-                                                            offset: _model
-                                                                .phoneTextController!
-                                                                .text
-                                                                .length,
-                                                          );
-                                                        });
                                                       });
 
                                                       safeSetState(() {});

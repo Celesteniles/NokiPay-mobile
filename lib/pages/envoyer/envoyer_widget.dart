@@ -488,15 +488,6 @@ class _EnvoyerWidgetState extends State<EnvoyerWidget> {
                                         functions.phoneFormatter((_model
                                             .contact!
                                             .elementAtOrNull(2))!);
-                                    _model.phoneFieldFocusNode?.requestFocus();
-                                    WidgetsBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      _model.phoneFieldTextController
-                                          ?.selection = TextSelection.collapsed(
-                                        offset: _model.phoneFieldTextController!
-                                            .text.length,
-                                      );
-                                    });
                                   });
 
                                   safeSetState(() {});

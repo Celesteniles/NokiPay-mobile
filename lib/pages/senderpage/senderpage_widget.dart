@@ -252,22 +252,6 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                           _model
                                                               .senderAmountTextController
                                                               .text;
-                                                      _model
-                                                          .receiverAmountFocusNode
-                                                          ?.requestFocus();
-                                                      WidgetsBinding.instance
-                                                          .addPostFrameCallback(
-                                                              (_) {
-                                                        _model.receiverAmountTextController
-                                                                ?.selection =
-                                                            TextSelection
-                                                                .collapsed(
-                                                          offset: _model
-                                                              .receiverAmountTextController!
-                                                              .text
-                                                              .length,
-                                                        );
-                                                      });
                                                     });
                                                     _model.frais = 0.0;
                                                     _model.total =
@@ -321,22 +305,6 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                 ?.text =
                                                             _model.converted
                                                                 .toString();
-                                                        _model
-                                                            .receiverAmountFocusNode
-                                                            ?.requestFocus();
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                          _model.receiverAmountTextController
-                                                                  ?.selection =
-                                                              TextSelection
-                                                                  .collapsed(
-                                                            offset: _model
-                                                                .receiverAmountTextController!
-                                                                .text
-                                                                .length,
-                                                          );
-                                                        });
                                                       });
                                                     }
                                                   }
@@ -529,21 +497,6 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                         _model
                                                             .receiverAmountTextController
                                                             .text;
-                                                    _model.senderAmountFocusNode
-                                                        ?.requestFocus();
-                                                    WidgetsBinding.instance
-                                                        .addPostFrameCallback(
-                                                            (_) {
-                                                      _model.senderAmountTextController
-                                                              ?.selection =
-                                                          TextSelection
-                                                              .collapsed(
-                                                        offset: _model
-                                                            .senderAmountTextController!
-                                                            .text
-                                                            .length,
-                                                      );
-                                                    });
                                                   });
                                                   _model.frais = 0.0;
                                                   _model.total =
@@ -603,22 +556,6 @@ class _SenderpageWidgetState extends State<SenderpageWidget> {
                                                                     ''),
                                                               )!
                                                               .toString();
-                                                      _model
-                                                          .senderAmountFocusNode
-                                                          ?.requestFocus();
-                                                      WidgetsBinding.instance
-                                                          .addPostFrameCallback(
-                                                              (_) {
-                                                        _model.senderAmountTextController
-                                                                ?.selection =
-                                                            TextSelection
-                                                                .collapsed(
-                                                          offset: _model
-                                                              .senderAmountTextController!
-                                                              .text
-                                                              .length,
-                                                        );
-                                                      });
                                                     });
                                                   }
                                                 }

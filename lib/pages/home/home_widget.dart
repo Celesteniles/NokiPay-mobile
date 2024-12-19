@@ -98,55 +98,60 @@ class _HomeWidgetState extends State<HomeWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).backgroundAlt,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              enableDrag: false,
-              context: context,
-              builder: (context) {
-                return WebViewAware(
-                  child: GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
-                    child: Padding(
-                      padding: MediaQuery.viewInsetsOf(context),
-                      child: const SizedBox(
-                        height: 500.0,
-                        child: PayComponentWidget(),
+        floatingActionButton: Align(
+          alignment: const AlignmentDirectional(0.0, 1.0),
+          child: FloatingActionButton.extended(
+            onPressed: () async {
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                enableDrag: false,
+                context: context,
+                builder: (context) {
+                  return WebViewAware(
+                    child: GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: const SizedBox(
+                          height: 500.0,
+                          child: PayComponentWidget(),
+                        ),
                       ),
                     ),
+                  );
+                },
+              ).then((value) => safeSetState(() {}));
+            },
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            icon: const Icon(
+              Icons.qr_code_scanner_rounded,
+              color: Colors.black,
+            ),
+            elevation: 8.0,
+            label: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  FFLocalizations.of(context).getText(
+                    'i1ibaebe' /* Payer */,
                   ),
-                );
-              },
-            ).then((value) => safeSetState(() {}));
-          },
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          icon: const Icon(
-            Icons.qr_code_scanner_rounded,
-          ),
-          elevation: 8.0,
-          label: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                FFLocalizations.of(context).getText(
-                  'i1ibaebe' /* Payer */,
+                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).titleMediumFamily,
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).titleMediumFamily),
+                      ),
                 ),
-                style: FlutterFlowTheme.of(context).titleMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).titleMediumFamily,
-                      fontSize: 16.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.bold,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).titleMediumFamily),
-                    ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         body: NestedScrollView(

@@ -564,22 +564,6 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                           .contact!
                                                                           .elementAtOrNull(
                                                                               2))!);
-                                                                      _model
-                                                                          .phoneFocusNode
-                                                                          ?.requestFocus();
-                                                                      WidgetsBinding
-                                                                          .instance
-                                                                          .addPostFrameCallback(
-                                                                              (_) {
-                                                                        _model
-                                                                            .phoneTextController
-                                                                            ?.selection = TextSelection.collapsed(
-                                                                          offset: _model
-                                                                              .phoneTextController!
-                                                                              .text
-                                                                              .length,
-                                                                        );
-                                                                      });
                                                                     });
 
                                                                     safeSetState(
@@ -911,12 +895,6 @@ class _EnvoyerPageWidgetState extends State<EnvoyerPageWidget> {
                                                                               () {
                                                                             _model.phoneMobileTextController?.text =
                                                                                 (_model.phoneFocusNode?.hasFocus ?? false).toString();
-                                                                            _model.phoneMobileFocusNode?.requestFocus();
-                                                                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                                              _model.phoneMobileTextController?.selection = TextSelection.collapsed(
-                                                                                offset: _model.phoneMobileTextController!.text.length,
-                                                                              );
-                                                                            });
                                                                           });
                                                                           await _model
                                                                               .pageViewController
